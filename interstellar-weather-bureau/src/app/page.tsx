@@ -1,9 +1,22 @@
 import { BentoGrid, BentoGridItem } from "@/components/ui/bento-grid";
+import DrakePassageWeather from "@/components/weather/drake-passage-weather";
 
 const items = [
   {
     title: "",
     description: "",
+    header: <DrakePassageWeather />,
+    className: "md:col-span-1",
+  },
+  {
+    title: "",
+    description: "",
+    header: <div className="flex flex-1 w-full h-full min-h-[6rem] rounded-xl bg-neutral-100 dark:bg-neutral-800"></div>,
+    className: "md:col-span-2",
+  },
+  {
+    title: "",
+    description: "",
     header: <div className="flex flex-1 w-full h-full min-h-[6rem] rounded-xl bg-neutral-100 dark:bg-neutral-800"></div>,
     className: "md:col-span-2",
   },
@@ -12,18 +25,6 @@ const items = [
     description: "",
     header: <div className="flex flex-1 w-full h-full min-h-[6rem] rounded-xl bg-neutral-100 dark:bg-neutral-800"></div>,
     className: "md:col-span-1",
-  },
-  {
-    title: "",
-    description: "",
-    header: <div className="flex flex-1 w-full h-full min-h-[6rem] rounded-xl bg-neutral-100 dark:bg-neutral-800"></div>,
-    className: "md:col-span-1",
-  },
-  {
-    title: "",
-    description: "",
-    header: <div className="flex flex-1 w-full h-full min-h-[6rem] rounded-xl bg-neutral-100 dark:bg-neutral-800"></div>,
-    className: "md:col-span-2",
   },
 ];
 
