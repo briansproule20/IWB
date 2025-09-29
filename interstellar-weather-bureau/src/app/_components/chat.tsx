@@ -44,15 +44,15 @@ const models = [
     value: 'gpt-4o',
   },
   {
-    name: 'GPT 5',
-    value: 'gpt-5',
+    name: 'Claude Sonnet 4',
+    value: 'claude-sonnet-4-20250514',
   },
 ];
 
 const suggestions = [
-  'Can you explain how to play tennis?',
-  'Write me a code snippet of how to use the vercel ai sdk to create a chatbot',
-  'How do I make a really good fish taco?',
+  'What\'s the weather like near Sagittarius A* today?',
+  'Are there any solar storms forecasted in the Kuiper Belt?',
+  'Will it be safe to travel through the Oort cloud this week?',
 ];
 
 const ChatBotDemo = () => {
