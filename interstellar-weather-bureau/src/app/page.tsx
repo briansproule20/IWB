@@ -6,6 +6,9 @@ import SolarFlaresCard from "@/components/nasa/solar-flares-card";
 import APODCard from "@/components/nasa/apod-card";
 import CMECard from "@/components/nasa/cme-card";
 import GeomagneticStormsCard from "@/components/nasa/geomagnetic-storms-card";
+import LunarEquatorCard from "@/components/nasa/lunar-equator-card";
+import LunarCraterCard from "@/components/nasa/lunar-crater-card";
+import NeptuneOceanCard from "@/components/nasa/neptune-ocean-card";
 
 const apodItems = [
   {
@@ -64,12 +67,33 @@ const earthItems = [
   },
 ];
 
+const lunaItems = [
+  {
+    title: "",
+    description: "",
+    header: <LunarEquatorCard />,
+    className: "md:col-span-1",
+  },
+  {
+    title: "",
+    description: "",
+    header: <LunarCraterCard />,
+    className: "md:col-span-1",
+  },
+];
+
 const oceansItems = [
   {
     title: "",
     description: "",
     header: <DrakePassageWeather />,
     className: "md:col-span-1",
+  },
+  {
+    title: "",
+    description: "",
+    header: <NeptuneOceanCard />,
+    className: "md:col-span-2",
   },
 ];
 
@@ -113,6 +137,22 @@ export default function Home() {
         <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">Earth</h2>
         <BentoGrid className="max-w-7xl mx-auto md:auto-rows-[25rem]">
           {earthItems.map((item, i) => (
+            <BentoGridItem
+              key={i}
+              title={item.title}
+              description={item.description}
+              header={item.header}
+              className={item.className}
+            />
+          ))}
+        </BentoGrid>
+      </div>
+
+      {/* Luna Category */}
+      <div>
+        <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">Luna</h2>
+        <BentoGrid className="max-w-7xl mx-auto md:auto-rows-[25rem]">
+          {lunaItems.map((item, i) => (
             <BentoGridItem
               key={i}
               title={item.title}
