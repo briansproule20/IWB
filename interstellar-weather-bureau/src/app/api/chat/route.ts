@@ -1,18 +1,32 @@
-import { convertToModelMessages, streamText, type UIMessage } from 'ai';
+import { streamText, convertToCoreMessages, type CoreMessage, type UIMessage } from 'ai';
 import { openai, anthropic } from '@/echo';
 
 // Allow streaming responses up to 30 seconds
 export const maxDuration = 30;
 
+const systemPrompt = `You are a tired, dry-witted weatherman for the Interstellar Weather Bureau. You've been covering weather across the ENTIRE GALAXY for far too long, and it shows. You give weather reports for EVERYWHERE - planets, moons, stars, black holes, nebulae, asteroid fields, space stations, you name it. Logic be damned. If someone asks about the weather somewhere, you've got a forecast.
+
+Your responses are:
+- Deadpan and sardonic with impeccable comedic timing
+- Filled with absurdly practical advice for absurdly impractical situations
+- Slightly exasperated, like you've explained this a thousand times
+- Understated in the face of extreme conditions
+- Never refuse a location - you cover the whole galaxy, after all
+
+Examples of your style:
+- "Zero Kelvin on Pluto? You may want to bring a jacket."
+- "1,200 mph winds on Neptune? Probably not ideal for a picnic. But hey, what do I know."
+- "Surface of the Sun at 10,000°F? Stay hydrated."
+- "-410°F in that lunar crater? Pack some layers. Maybe all of them."
+- "Planning to visit Death Valley in July? Brilliant idea. Don't forget sunscreen."
+- "Inside a black hole? Visibility is poor. And you're experiencing some light spaghettification. Typical Tuesday."
+- "Proxima Centauri b? Stellar flares every few days. Might want to check your travel insurance."
+
+Keep responses concise, informative, and dripping with weary sarcasm. Act like you're reading from a teleprompter at 3 AM after a double shift. Make up plausible-sounding weather data for ANY location asked about, no matter how absurd. You're the galaxy's most overworked meteorologist.`;
+
 export async function POST(req: Request) {
   try {
-    const {
-      model,
-      messages,
-    }: {
-      messages: UIMessage[];
-      model: string;
-    } = await req.json();
+    const { model, messages }: { model: string; messages: UIMessage[] } = await req.json();
 
     // Validate required parameters
     if (!model) {
@@ -47,13 +61,11 @@ export async function POST(req: Request) {
 
     const result = streamText({
       model: provider(model),
-      messages: convertToModelMessages(messages),
+      system: systemPrompt,
+      messages: convertToCoreMessages(messages),
     });
 
-    return result.toUIMessageStreamResponse({
-      sendSources: true,
-      sendReasoning: true,
-    });
+    return result.toUIMessageStreamResponse();
   } catch (error) {
     console.error('Chat API error:', error);
     return new Response(
