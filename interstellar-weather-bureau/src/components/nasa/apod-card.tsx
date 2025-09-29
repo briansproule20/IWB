@@ -56,7 +56,7 @@ export default function APODCard() {
 
   return (
     <>
-      <div className="flex h-full flex-col space-y-3 overflow-hidden">
+      <div className="flex flex-col space-y-3">
         <div>
           <h3 className="text-xl font-bold text-gray-900 dark:text-white">
             Astronomy Picture of the Day
@@ -66,7 +66,7 @@ export default function APODCard() {
 
         {apod.media_type === 'image' && (
           <div
-            className="relative flex-1 overflow-hidden rounded-lg cursor-pointer hover:opacity-90 transition-opacity"
+            className="relative flex-1 overflow-hidden rounded-lg cursor-pointer hover:opacity-90 transition-opacity min-h-[200px]"
             onClick={() => setIsExpanded(true)}
           >
             <Image
@@ -79,7 +79,7 @@ export default function APODCard() {
           </div>
         )}
 
-        <div className="space-y-2">
+        <div className="space-y-2 pb-0">
           <h4 className="font-semibold text-gray-900 dark:text-white">{apod.title}</h4>
           <p className="line-clamp-3 text-xs text-gray-600 dark:text-gray-400">
             {apod.explanation}
@@ -93,25 +93,25 @@ export default function APODCard() {
       {/* Expanded Modal */}
       {isExpanded && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center p-8 bg-black/80 backdrop-blur-sm"
+          className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 md:p-8"
           onClick={() => setIsExpanded(false)}
         >
-          <div className="relative">
+          <div className="relative max-w-full max-h-full">
             <Image
               src={apod.hdurl || apod.url}
               alt={apod.title}
               width={1920}
               height={1080}
-              className="rounded-lg w-full h-auto max-h-[90vh] max-w-6xl object-contain"
+              className="rounded-lg max-w-full max-h-[90vh] w-auto h-auto object-contain"
               unoptimized
               onClick={(e) => e.stopPropagation()}
             />
             <button
-              className="absolute top-4 right-4 bg-black/50 hover:bg-black/70 text-white rounded-full p-2 transition-colors"
+              className="absolute top-2 right-2 sm:top-4 sm:right-4 bg-black/50 hover:bg-black/70 text-white rounded-full p-1 sm:p-2 transition-colors z-10"
               onClick={() => setIsExpanded(false)}
               aria-label="Close modal"
             >
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-4 h-4 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
               </svg>
             </button>
