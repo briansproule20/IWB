@@ -37,7 +37,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} flex h-screen flex-col antialiased`}
       >
         <Providers>
-          <Header title="Interstellar Weather Bureau" />
+          <Header title="The Interstellar Weather Bureau" />
           <div className="min-h-0 flex-1">{children}</div>
         </Providers>
       </body>
