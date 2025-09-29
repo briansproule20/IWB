@@ -93,18 +93,29 @@ export default function APODCard() {
       {/* Expanded Modal */}
       {isExpanded && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center p-8"
+          className="fixed inset-0 z-50 flex items-center justify-center p-8 bg-black/80 backdrop-blur-sm"
           onClick={() => setIsExpanded(false)}
         >
-          <Image
-            src={apod.hdurl || apod.url}
-            alt={apod.title}
-            width={1920}
-            height={1080}
-            className="rounded-lg w-full h-auto max-h-[90vh] max-w-6xl object-contain"
-            unoptimized
-            onClick={(e) => e.stopPropagation()}
-          />
+          <div className="relative">
+            <Image
+              src={apod.hdurl || apod.url}
+              alt={apod.title}
+              width={1920}
+              height={1080}
+              className="rounded-lg w-full h-auto max-h-[90vh] max-w-6xl object-contain"
+              unoptimized
+              onClick={(e) => e.stopPropagation()}
+            />
+            <button
+              className="absolute top-4 right-4 bg-black/50 hover:bg-black/70 text-white rounded-full p-2 transition-colors"
+              onClick={() => setIsExpanded(false)}
+              aria-label="Close modal"
+            >
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
         </div>
       )}
     </>
