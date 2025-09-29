@@ -1,7 +1,46 @@
+import { BentoGrid, BentoGridItem } from "@/components/ui/bento-grid";
+
+const items = [
+  {
+    title: "",
+    description: "",
+    header: <div className="flex flex-1 w-full h-full min-h-[6rem] rounded-xl bg-neutral-100 dark:bg-neutral-800"></div>,
+    className: "md:col-span-2",
+  },
+  {
+    title: "",
+    description: "",
+    header: <div className="flex flex-1 w-full h-full min-h-[6rem] rounded-xl bg-neutral-100 dark:bg-neutral-800"></div>,
+    className: "md:col-span-1",
+  },
+  {
+    title: "",
+    description: "",
+    header: <div className="flex flex-1 w-full h-full min-h-[6rem] rounded-xl bg-neutral-100 dark:bg-neutral-800"></div>,
+    className: "md:col-span-1",
+  },
+  {
+    title: "",
+    description: "",
+    header: <div className="flex flex-1 w-full h-full min-h-[6rem] rounded-xl bg-neutral-100 dark:bg-neutral-800"></div>,
+    className: "md:col-span-2",
+  },
+];
+
 export default function Home() {
   return (
-    <div className="flex h-full items-center justify-center">
-      <h1 className="text-4xl font-bold">Home Page</h1>
+    <div className="h-full w-full p-8">
+      <BentoGrid className="max-w-7xl mx-auto md:auto-rows-[25rem]">
+        {items.map((item, i) => (
+          <BentoGridItem
+            key={i}
+            title={item.title}
+            description={item.description}
+            header={item.header}
+            className={item.className}
+          />
+        ))}
+      </BentoGrid>
     </div>
   );
 }

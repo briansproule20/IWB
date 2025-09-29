@@ -29,7 +29,10 @@ const Header: FC<HeaderProps> = async ({
               height={32}
               className="h-8 w-8"
             />
-            <h1 className="font-semibold text-gray-900 text-xl">{title}</h1>
+            <h1 className="font-semibold text-gray-900 text-xl">
+              <span className="hidden md:inline">{title}</span>
+              <span className="md:hidden">The IWB</span>
+            </h1>
           </Link>
 
           <nav className="flex items-center space-x-6">
