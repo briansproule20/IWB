@@ -1,5 +1,7 @@
 import { BentoGrid, BentoGridItem } from "@/components/ui/bento-grid";
 import DrakePassageWeather from "@/components/weather/drake-passage-weather";
+import EverestWeather from "@/components/weather/everest-weather";
+import ExtremeLocationWeather from "@/components/weather/extreme-location-weather";
 
 const items = [
   {
@@ -11,14 +13,26 @@ const items = [
   {
     title: "",
     description: "",
-    header: <div className="flex flex-1 w-full h-full min-h-[6rem] rounded-xl bg-neutral-100 dark:bg-neutral-800"></div>,
-    className: "md:col-span-2",
+    header: <EverestWeather />,
+    className: "md:col-span-1",
   },
   {
     title: "",
     description: "",
-    header: <div className="flex flex-1 w-full h-full min-h-[6rem] rounded-xl bg-neutral-100 dark:bg-neutral-800"></div>,
-    className: "md:col-span-2",
+    header: <ExtremeLocationWeather endpoint="/api/weather/north-pole" colorScheme="blue" />,
+    className: "md:col-span-1",
+  },
+  {
+    title: "",
+    description: "",
+    header: <ExtremeLocationWeather endpoint="/api/weather/south-pole" colorScheme="purple" />,
+    className: "md:col-span-1",
+  },
+  {
+    title: "",
+    description: "",
+    header: <ExtremeLocationWeather endpoint="/api/weather/death-valley" colorScheme="red" />,
+    className: "md:col-span-1",
   },
   {
     title: "",
