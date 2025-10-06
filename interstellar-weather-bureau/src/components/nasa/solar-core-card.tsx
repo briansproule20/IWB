@@ -3,7 +3,6 @@
 export default function SolarCoreCard() {
   // Sun's core data
   const coreTempK = 15700000; // kelvin
-  const coreTempC = 15700000 - 273; // celsius (approx)
   const coreTempF = 28000000; // fahrenheit (approx)
   const hydrogenConverted = 600; // million tonnes per second
   const age = 4.57; // billion years
@@ -14,7 +13,7 @@ export default function SolarCoreCard() {
   const massConverted = 100; // Earth masses converted to helium so far
 
   return (
-    <div className="flex h-full flex-col space-y-2">
+    <div className="flex h-full flex-col space-y-3">
       <div>
         <h3 className="text-lg font-bold text-gray-900 dark:text-white">
           Solar Core
@@ -22,56 +21,49 @@ export default function SolarCoreCard() {
         <p className="text-xs text-gray-500">Nuclear Fusion • Main Sequence</p>
       </div>
 
-      <div className="flex-1 space-y-2">
+      <div className="flex-1 space-y-3">
         <div className="grid grid-cols-2 gap-3">
           <div>
-            <div className="text-xs text-gray-500">Core Temperature</div>
-            <div className="text-2xl font-bold text-orange-600 dark:text-orange-400">
+            <div className="text-xs text-gray-500">Temperature</div>
+            <div className="text-xl font-bold text-orange-600 dark:text-orange-400">
               {coreTempF.toLocaleString()}°F
             </div>
-            <div className="text-xs text-gray-600 dark:text-gray-400">
-              {coreTempK.toLocaleString()}K
-            </div>
+            <div className="text-xs text-gray-500">{coreTempK.toLocaleString()}K</div>
           </div>
           <div>
-            <div className="text-xs text-gray-500">Lifecycle Progress</div>
-            <div className="text-2xl font-bold text-yellow-600 dark:text-yellow-400">
+            <div className="text-xs text-gray-500">Lifecycle</div>
+            <div className="text-xl font-bold text-yellow-600 dark:text-yellow-400">
               {lifecycleProgress.toFixed(0)}%
             </div>
-            <div className="text-xs text-gray-600 dark:text-gray-400">
-              {age}B years old
-            </div>
+            <div className="text-xs text-gray-500">{age}B yrs old</div>
           </div>
         </div>
 
-        <div className="space-y-2">
-          <div className="rounded-lg bg-yellow-50 p-2 dark:bg-yellow-900/20">
-            <div className="text-xs text-yellow-600 dark:text-yellow-400">Core Composition</div>
-            <div className="text-lg font-bold text-yellow-900 dark:text-yellow-200">
-              {hydrogenPercent}% H • {heliumPercent}% He
-            </div>
-            <div className="text-xs text-yellow-600 dark:text-yellow-400">
-              At center (varies by depth)
+        <div className="rounded-lg bg-yellow-50 p-3 dark:bg-yellow-900/20">
+          <div className="text-xs text-yellow-600 dark:text-yellow-400">Composition</div>
+          <div className="text-base font-bold text-yellow-900 dark:text-yellow-200">
+            {hydrogenPercent}% H • {heliumPercent}% He
+          </div>
+        </div>
+
+        <div className="rounded-lg bg-orange-50 p-3 dark:bg-orange-900/20">
+          <div className="text-xs text-orange-600 dark:text-orange-400">Fusion Rate</div>
+          <div className="text-base font-bold text-orange-900 dark:text-orange-200">
+            {hydrogenConverted}M tonnes/sec
+          </div>
+        </div>
+
+        <div className="grid grid-cols-2 gap-2 text-xs">
+          <div className="rounded bg-gray-50 p-2 dark:bg-gray-800/50">
+            <div className="text-gray-500">Converted</div>
+            <div className="font-semibold text-gray-900 dark:text-white">
+              ~{massConverted} Earths
             </div>
           </div>
-
-          <div className="rounded-lg bg-orange-50 p-2 dark:bg-orange-900/20">
-            <div className="text-xs text-orange-600 dark:text-orange-400">Fusion Rate</div>
-            <div className="text-lg font-bold text-orange-900 dark:text-orange-200">
-              {hydrogenConverted}M tonnes/sec
-            </div>
-            <div className="text-xs text-orange-600 dark:text-orange-400">
-              Hydrogen → Helium conversion
-            </div>
-          </div>
-
-          <div className="rounded-lg bg-red-50 p-2 dark:bg-red-900/20">
-            <div className="text-xs text-red-600 dark:text-red-400">Total Converted</div>
-            <div className="text-sm font-semibold text-red-900 dark:text-red-200">
-              ~{massConverted} Earth masses
-            </div>
-            <div className="text-xs text-red-600 dark:text-red-400">
-              {lifeRemaining}B years remaining
+          <div className="rounded bg-gray-50 p-2 dark:bg-gray-800/50">
+            <div className="text-gray-500">Remaining</div>
+            <div className="font-semibold text-yellow-600 dark:text-yellow-400">
+              {lifeRemaining}B yrs
             </div>
           </div>
         </div>
