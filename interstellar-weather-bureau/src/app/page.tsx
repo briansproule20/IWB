@@ -307,6 +307,12 @@ const neptuneItems = [
     header: <NeptuneWindsCard />,
     className: "md:col-span-1",
   },
+  {
+    title: "",
+    description: "",
+    header: <NeptuneOceanCard />,
+    className: "md:col-span-2",
+  },
 ];
 
 const plutoItems = [
@@ -405,12 +411,6 @@ const oceansItems = [
     description: "",
     header: <DrakePassageWeather />,
     className: "md:col-span-1",
-  },
-  {
-    title: "",
-    description: "",
-    header: <NeptuneOceanCard />,
-    className: "md:col-span-2",
   },
 ];
 
