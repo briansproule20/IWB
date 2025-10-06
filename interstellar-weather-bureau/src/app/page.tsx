@@ -9,6 +9,7 @@ import GeomagneticStormsCard from "@/components/nasa/geomagnetic-storms-card";
 import LunarEquatorCard from "@/components/nasa/lunar-equator-card";
 import LunarCraterCard from "@/components/nasa/lunar-crater-card";
 import NeptuneOceanCard from "@/components/nasa/neptune-ocean-card";
+import ChallengerDeepCard from "@/components/ocean/challenger-deep-card";
 
 const apodItems = [
   {
@@ -83,6 +84,12 @@ const lunaItems = [
 ];
 
 const oceansItems = [
+  {
+    title: "",
+    description: "",
+    header: <ChallengerDeepCard />,
+    className: "md:col-span-1",
+  },
   {
     title: "",
     description: "",
