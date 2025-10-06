@@ -8,6 +8,7 @@ import CMECard from "@/components/nasa/cme-card";
 import GeomagneticStormsCard from "@/components/nasa/geomagnetic-storms-card";
 import LunarEquatorCard from "@/components/nasa/lunar-equator-card";
 import LunarCraterCard from "@/components/nasa/lunar-crater-card";
+import MareTranquillitatisfCard from "@/components/nasa/mare-tranquillitatis-card";
 import NeptuneOceanCard from "@/components/nasa/neptune-ocean-card";
 import ChallengerDeepCard from "@/components/ocean/challenger-deep-card";
 import NazareWavesCard from "@/components/ocean/nazare-waves-card";
@@ -84,6 +85,12 @@ const lunaItems = [
     title: "",
     description: "",
     header: <LunarCraterCard />,
+    className: "md:col-span-1",
+  },
+  {
+    title: "",
+    description: "",
+    header: <MareTranquillitatisfCard />,
     className: "md:col-span-1",
   },
 ];
