@@ -10,6 +10,10 @@ import LunarEquatorCard from "@/components/nasa/lunar-equator-card";
 import LunarCraterCard from "@/components/nasa/lunar-crater-card";
 import NeptuneOceanCard from "@/components/nasa/neptune-ocean-card";
 import ChallengerDeepCard from "@/components/ocean/challenger-deep-card";
+import OlympusMonsCard from "@/components/mars/olympus-mons-card";
+import PolarIceCapsCard from "@/components/mars/polar-ice-caps-card";
+import VallesMarinerisCard from "@/components/mars/valles-marineris-card";
+import TharsisSandstormCard from "@/components/mars/tharsis-sandstorm-card";
 
 const apodItems = [
   {
@@ -79,6 +83,33 @@ const lunaItems = [
     title: "",
     description: "",
     header: <LunarCraterCard />,
+    className: "md:col-span-1",
+  },
+];
+
+const marsItems = [
+  {
+    title: "",
+    description: "",
+    header: <OlympusMonsCard />,
+    className: "md:col-span-1",
+  },
+  {
+    title: "",
+    description: "",
+    header: <PolarIceCapsCard />,
+    className: "md:col-span-1",
+  },
+  {
+    title: "",
+    description: "",
+    header: <VallesMarinerisCard />,
+    className: "md:col-span-1",
+  },
+  {
+    title: "",
+    description: "",
+    header: <TharsisSandstormCard />,
     className: "md:col-span-1",
   },
 ];
@@ -160,6 +191,22 @@ export default function Home() {
         <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">Luna</h2>
         <BentoGrid className="max-w-7xl mx-auto md:auto-rows-[25rem]">
           {lunaItems.map((item, i) => (
+            <BentoGridItem
+              key={i}
+              title={item.title}
+              description={item.description}
+              header={item.header}
+              className={item.className}
+            />
+          ))}
+        </BentoGrid>
+      </div>
+
+      {/* Mars Category */}
+      <div>
+        <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">Mars</h2>
+        <BentoGrid className="max-w-7xl mx-auto md:auto-rows-[25rem]">
+          {marsItems.map((item, i) => (
             <BentoGridItem
               key={i}
               title={item.title}
