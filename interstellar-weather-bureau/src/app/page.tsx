@@ -10,6 +10,7 @@ import LunarEquatorCard from "@/components/nasa/lunar-equator-card";
 import LunarCraterCard from "@/components/nasa/lunar-crater-card";
 import NeptuneOceanCard from "@/components/nasa/neptune-ocean-card";
 import ChallengerDeepCard from "@/components/ocean/challenger-deep-card";
+import NazareWavesCard from "@/components/ocean/nazare-waves-card";
 import OlympusMonsCard from "@/components/mars/olympus-mons-card";
 import PolarIceCapsCard from "@/components/mars/polar-ice-caps-card";
 import VallesMarinerisCard from "@/components/mars/valles-marineris-card";
@@ -119,6 +120,12 @@ const oceansItems = [
     title: "",
     description: "",
     header: <ChallengerDeepCard />,
+    className: "md:col-span-1",
+  },
+  {
+    title: "",
+    description: "",
+    header: <NazareWavesCard />,
     className: "md:col-span-1",
   },
   {
