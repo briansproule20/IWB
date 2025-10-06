@@ -30,6 +30,25 @@ import VenusAtmosphereCard from "@/components/venus/venus-atmosphere-card";
 import VenusSurfaceCard from "@/components/venus/venus-surface-card";
 import MercuryTemperatureCard from "@/components/mercury/mercury-temperature-card";
 import MercuryOrbitalCard from "@/components/mercury/mercury-orbital-card";
+import GreatRedSpotCard from "@/components/jupiter/great-red-spot-card";
+import IoCard from "@/components/jupiter/io-card";
+import EuropaCard from "@/components/jupiter/europa-card";
+import GanymedeCard from "@/components/jupiter/ganymede-card";
+import CallistoCard from "@/components/jupiter/callisto-card";
+import TitanCard from "@/components/saturn/titan-card";
+import UranusTiltCard from "@/components/uranus/uranus-tilt-card";
+import NeptuneWindsCard from "@/components/neptune/neptune-winds-card";
+import PlutoHeartCard from "@/components/pluto/pluto-heart-card";
+import KuiperBeltCard from "@/components/kuiper-belt/kuiper-belt-card";
+import OortCloudCard from "@/components/oort-cloud/oort-cloud-card";
+import SagittariusACard from "@/components/extremities/sagittarius-a-card";
+import MagnetarCard from "@/components/extremities/magnetar-card";
+import QuasarCard from "@/components/extremities/quasar-card";
+import PulsarCard from "@/components/extremities/pulsar-card";
+import SupernovaCard from "@/components/extremities/supernova-card";
+import NeutronStarCard from "@/components/extremities/neutron-star-card";
+import GammaRayBurstCard from "@/components/extremities/gamma-ray-burst-card";
+import Voyager1Card from "@/components/extremities/voyager-1-card";
 
 const apodItems = [
   {
@@ -226,6 +245,144 @@ const venusItems = [
   },
 ];
 
+const jupiterItems = [
+  {
+    title: "",
+    description: "",
+    header: <GreatRedSpotCard />,
+    className: "md:col-span-1",
+  },
+  {
+    title: "",
+    description: "",
+    header: <IoCard />,
+    className: "md:col-span-1",
+  },
+  {
+    title: "",
+    description: "",
+    header: <EuropaCard />,
+    className: "md:col-span-1",
+  },
+  {
+    title: "",
+    description: "",
+    header: <GanymedeCard />,
+    className: "md:col-span-1",
+  },
+  {
+    title: "",
+    description: "",
+    header: <CallistoCard />,
+    className: "md:col-span-1",
+  },
+];
+
+const saturnItems = [
+  {
+    title: "",
+    description: "",
+    header: <TitanCard />,
+    className: "md:col-span-1",
+  },
+];
+
+const uranusItems = [
+  {
+    title: "",
+    description: "",
+    header: <UranusTiltCard />,
+    className: "md:col-span-1",
+  },
+];
+
+const neptuneItems = [
+  {
+    title: "",
+    description: "",
+    header: <NeptuneWindsCard />,
+    className: "md:col-span-1",
+  },
+];
+
+const plutoItems = [
+  {
+    title: "",
+    description: "",
+    header: <PlutoHeartCard />,
+    className: "md:col-span-1",
+  },
+];
+
+const kuiperBeltItems = [
+  {
+    title: "",
+    description: "",
+    header: <KuiperBeltCard />,
+    className: "md:col-span-1",
+  },
+];
+
+const oortCloudItems = [
+  {
+    title: "",
+    description: "",
+    header: <OortCloudCard />,
+    className: "md:col-span-1",
+  },
+];
+
+const extremitiesItems = [
+  {
+    title: "",
+    description: "",
+    header: <SagittariusACard />,
+    className: "md:col-span-1",
+  },
+  {
+    title: "",
+    description: "",
+    header: <MagnetarCard />,
+    className: "md:col-span-1",
+  },
+  {
+    title: "",
+    description: "",
+    header: <QuasarCard />,
+    className: "md:col-span-1",
+  },
+  {
+    title: "",
+    description: "",
+    header: <PulsarCard />,
+    className: "md:col-span-1",
+  },
+  {
+    title: "",
+    description: "",
+    header: <SupernovaCard />,
+    className: "md:col-span-1",
+  },
+  {
+    title: "",
+    description: "",
+    header: <NeutronStarCard />,
+    className: "md:col-span-1",
+  },
+  {
+    title: "",
+    description: "",
+    header: <GammaRayBurstCard />,
+    className: "md:col-span-1",
+  },
+  {
+    title: "",
+    description: "",
+    header: <Voyager1Card />,
+    className: "md:col-span-1",
+  },
+];
+
 const oceansItems = [
   {
     title: "",
@@ -336,6 +493,24 @@ export default function Home() {
         </BentoGrid>
       </div>
 
+      {/* Oceans Category */}
+      {oceansItems.length > 0 && (
+        <div>
+          <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">Oceans</h2>
+          <BentoGrid className="max-w-7xl mx-auto md:auto-rows-[25rem]">
+            {oceansItems.map((item, i) => (
+              <BentoGridItem
+                key={i}
+                title={item.title}
+                description={item.description}
+                header={item.header}
+                className={item.className}
+              />
+            ))}
+          </BentoGrid>
+        </div>
+      )}
+
       {/* Luna Category */}
       <div>
         <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">Luna</h2>
@@ -368,21 +543,149 @@ export default function Home() {
         </BentoGrid>
       </div>
 
-      {/* Oceans Category */}
-      <div>
-        <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">Oceans</h2>
-        <BentoGrid className="max-w-7xl mx-auto md:auto-rows-[25rem]">
-          {oceansItems.map((item, i) => (
-            <BentoGridItem
-              key={i}
-              title={item.title}
-              description={item.description}
-              header={item.header}
-              className={item.className}
-            />
-          ))}
-        </BentoGrid>
-      </div>
+      {/* Jupiter Category */}
+      {jupiterItems.length > 0 && (
+        <div>
+          <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">Jupiter</h2>
+          <BentoGrid className="max-w-7xl mx-auto md:auto-rows-[25rem]">
+            {jupiterItems.map((item, i) => (
+              <BentoGridItem
+                key={i}
+                title={item.title}
+                description={item.description}
+                header={item.header}
+                className={item.className}
+              />
+            ))}
+          </BentoGrid>
+        </div>
+      )}
+
+      {/* Saturn Category */}
+      {saturnItems.length > 0 && (
+        <div>
+          <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">Saturn</h2>
+          <BentoGrid className="max-w-7xl mx-auto md:auto-rows-[25rem]">
+            {saturnItems.map((item, i) => (
+              <BentoGridItem
+                key={i}
+                title={item.title}
+                description={item.description}
+                header={item.header}
+                className={item.className}
+              />
+            ))}
+          </BentoGrid>
+        </div>
+      )}
+
+      {/* Uranus Category */}
+      {uranusItems.length > 0 && (
+        <div>
+          <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">Uranus</h2>
+          <BentoGrid className="max-w-7xl mx-auto md:auto-rows-[25rem]">
+            {uranusItems.map((item, i) => (
+              <BentoGridItem
+                key={i}
+                title={item.title}
+                description={item.description}
+                header={item.header}
+                className={item.className}
+              />
+            ))}
+          </BentoGrid>
+        </div>
+      )}
+
+      {/* Neptune Category */}
+      {neptuneItems.length > 0 && (
+        <div>
+          <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">Neptune</h2>
+          <BentoGrid className="max-w-7xl mx-auto md:auto-rows-[25rem]">
+            {neptuneItems.map((item, i) => (
+              <BentoGridItem
+                key={i}
+                title={item.title}
+                description={item.description}
+                header={item.header}
+                className={item.className}
+              />
+            ))}
+          </BentoGrid>
+        </div>
+      )}
+
+      {/* Pluto Category */}
+      {plutoItems.length > 0 && (
+        <div>
+          <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">Pluto</h2>
+          <BentoGrid className="max-w-7xl mx-auto md:auto-rows-[25rem]">
+            {plutoItems.map((item, i) => (
+              <BentoGridItem
+                key={i}
+                title={item.title}
+                description={item.description}
+                header={item.header}
+                className={item.className}
+              />
+            ))}
+          </BentoGrid>
+        </div>
+      )}
+
+      {/* Kuiper Belt Category */}
+      {kuiperBeltItems.length > 0 && (
+        <div>
+          <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">Kuiper Belt</h2>
+          <BentoGrid className="max-w-7xl mx-auto md:auto-rows-[25rem]">
+            {kuiperBeltItems.map((item, i) => (
+              <BentoGridItem
+                key={i}
+                title={item.title}
+                description={item.description}
+                header={item.header}
+                className={item.className}
+              />
+            ))}
+          </BentoGrid>
+        </div>
+      )}
+
+      {/* Oort Cloud Category */}
+      {oortCloudItems.length > 0 && (
+        <div>
+          <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">Oort Cloud</h2>
+          <BentoGrid className="max-w-7xl mx-auto md:auto-rows-[25rem]">
+            {oortCloudItems.map((item, i) => (
+              <BentoGridItem
+                key={i}
+                title={item.title}
+                description={item.description}
+                header={item.header}
+                className={item.className}
+              />
+            ))}
+          </BentoGrid>
+        </div>
+      )}
+
+      {/* Extremities Category */}
+      {extremitiesItems.length > 0 && (
+        <div>
+          <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">Extremities</h2>
+          <BentoGrid className="max-w-7xl mx-auto md:auto-rows-[25rem]">
+            {extremitiesItems.map((item, i) => (
+              <BentoGridItem
+                key={i}
+                title={item.title}
+                description={item.description}
+                header={item.header}
+                className={item.className}
+              />
+            ))}
+          </BentoGrid>
+        </div>
+      )}
     </div>
   );
 }
