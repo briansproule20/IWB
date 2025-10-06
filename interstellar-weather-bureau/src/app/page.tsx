@@ -2,10 +2,20 @@ import { BentoGrid, BentoGridItem } from "@/components/ui/bento-grid";
 import DrakePassageWeather from "@/components/weather/drake-passage-weather";
 import EverestWeather from "@/components/weather/everest-weather";
 import ExtremeLocationWeather from "@/components/weather/extreme-location-weather";
+import AtacamaDesertWeather from "@/components/weather/atacama-desert-weather";
+import DanakilDepressionWeather from "@/components/weather/danakil-depression-weather";
+import VostokStationWeather from "@/components/weather/vostok-station-weather";
 import SolarFlaresCard from "@/components/nasa/solar-flares-card";
 import APODCard from "@/components/nasa/apod-card";
 import CMECard from "@/components/nasa/cme-card";
 import GeomagneticStormsCard from "@/components/nasa/geomagnetic-storms-card";
+import SolarCoreCard from "@/components/nasa/solar-core-card";
+import SolarCoronaCard from "@/components/nasa/solar-corona-card";
+import IPSCard from "@/components/nasa/ips-card";
+import SEPCard from "@/components/nasa/sep-card";
+import MPCCard from "@/components/nasa/mpc-card";
+import RBECard from "@/components/nasa/rbe-card";
+import HSSCard from "@/components/nasa/hss-card";
 import LunarEquatorCard from "@/components/nasa/lunar-equator-card";
 import LunarCraterCard from "@/components/nasa/lunar-crater-card";
 import MareTranquillitatisfCard from "@/components/nasa/mare-tranquillitatis-card";
@@ -30,6 +40,18 @@ const solItems = [
   {
     title: "",
     description: "",
+    header: <SolarCoreCard />,
+    className: "md:col-span-1",
+  },
+  {
+    title: "",
+    description: "",
+    header: <SolarCoronaCard />,
+    className: "md:col-span-1",
+  },
+  {
+    title: "",
+    description: "",
     header: <SolarFlaresCard />,
     className: "md:col-span-1",
   },
@@ -43,6 +65,36 @@ const solItems = [
     title: "",
     description: "",
     header: <GeomagneticStormsCard />,
+    className: "md:col-span-1",
+  },
+  {
+    title: "",
+    description: "",
+    header: <IPSCard />,
+    className: "md:col-span-1",
+  },
+  {
+    title: "",
+    description: "",
+    header: <SEPCard />,
+    className: "md:col-span-1",
+  },
+  {
+    title: "",
+    description: "",
+    header: <MPCCard />,
+    className: "md:col-span-1",
+  },
+  {
+    title: "",
+    description: "",
+    header: <RBECard />,
+    className: "md:col-span-1",
+  },
+  {
+    title: "",
+    description: "",
+    header: <HSSCard />,
     className: "md:col-span-1",
   },
 ];
@@ -70,6 +122,24 @@ const earthItems = [
     title: "",
     description: "",
     header: <ExtremeLocationWeather endpoint="/api/weather/death-valley" colorScheme="red" />,
+    className: "md:col-span-1",
+  },
+  {
+    title: "",
+    description: "",
+    header: <AtacamaDesertWeather />,
+    className: "md:col-span-1",
+  },
+  {
+    title: "",
+    description: "",
+    header: <DanakilDepressionWeather />,
+    className: "md:col-span-1",
+  },
+  {
+    title: "",
+    description: "",
+    header: <VostokStationWeather />,
     className: "md:col-span-1",
   },
 ];

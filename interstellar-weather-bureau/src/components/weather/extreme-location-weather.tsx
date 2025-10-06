@@ -109,17 +109,35 @@ export default function ExtremeLocationWeather({ endpoint, colorScheme }: Props)
   const precipMm = current.precipitation;
   const precipIn = precipMm * 0.0393701;
 
+  // Determine country/region based on location name
+  const getLocationInfo = (name: string) => {
+    if (name.includes('North Pole')) {
+      return { coords: '90.0°N 0.0°E', region: 'Arctic Ocean' };
+    } else if (name.includes('South Pole')) {
+      return { coords: '90.0°S 0.0°E', region: 'Antarctica' };
+    } else if (name.includes('Death Valley')) {
+      return { coords: `${Math.abs(location.latitude).toFixed(4)}°N ${Math.abs(location.longitude).toFixed(4)}°W`, region: 'California, USA' };
+    }
+    // Default fallback
+    const latDir = location.latitude >= 0 ? 'N' : 'S';
+    const lonDir = location.longitude >= 0 ? 'E' : 'W';
+    return {
+      coords: `${Math.abs(location.latitude).toFixed(4)}°${latDir} ${Math.abs(location.longitude).toFixed(4)}°${lonDir}`,
+      region: ''
+    };
+  };
+
+  const locationInfo = getLocationInfo(location.name);
+
   return (
     <div className="flex h-full flex-col space-y-3">
       <div>
         <h3 className="text-lg font-bold text-gray-900 dark:text-white">
           {location.name}
         </h3>
-        {location.elevation !== undefined && (
-          <p className="text-xs text-gray-500">
-            {location.elevation >= 0 ? '+' : ''}{location.elevation}m elevation
-          </p>
-        )}
+        <p className="text-xs text-gray-500">
+          {locationInfo.coords}{locationInfo.region ? ` • ${locationInfo.region}` : ''}
+        </p>
       </div>
 
       <div className="flex-1 space-y-3">

@@ -72,7 +72,10 @@ export default function SolarFlaresCard() {
         <h3 className="text-xl font-bold text-gray-900 dark:text-white">
           Solar Flares
         </h3>
-        <p className="text-xs text-gray-500">Last 30 days • NASA DONKI</p>
+        <p className="text-xs text-gray-500">FLR • DONKI</p>
+        <p className="text-xs text-gray-600 dark:text-gray-400 mt-1">
+          Intense bursts of electromagnetic radiation from sunspots, classified by X-ray intensity (C, M, X classes).
+        </p>
       </div>
 
       <div className="flex-1 space-y-2 overflow-y-auto pr-2">

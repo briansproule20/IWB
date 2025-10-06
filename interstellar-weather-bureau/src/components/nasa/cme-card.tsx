@@ -62,7 +62,10 @@ export default function CMECard() {
         <h3 className="text-xl font-bold text-gray-900 dark:text-white">
           Coronal Mass Ejections
         </h3>
-        <p className="text-xs text-gray-500">Last 30 days • NASA DONKI</p>
+        <p className="text-xs text-gray-500">CME • DONKI</p>
+        <p className="text-xs text-gray-600 dark:text-gray-400 mt-1">
+          Massive plasma and magnetic field eruptions from the Sun that can trigger geomagnetic storms on Earth.
+        </p>
       </div>
 
       <div className="flex-1 space-y-2 overflow-y-auto pr-2">

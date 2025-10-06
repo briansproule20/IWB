@@ -91,7 +91,7 @@ export default function EverestWeather() {
           {location.name}
         </h3>
         <p className="text-xs text-gray-500">
-          {elevationFt.toLocaleString()}ft / {elevationM.toLocaleString()}m
+          {location.latitude.toFixed(4)}°N {location.longitude.toFixed(4)}°E • Nepal/Tibet
         </p>
       </div>
 

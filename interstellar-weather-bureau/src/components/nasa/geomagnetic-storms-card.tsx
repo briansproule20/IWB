@@ -62,7 +62,10 @@ export default function GeomagneticStormsCard() {
         <h3 className="text-xl font-bold text-gray-900 dark:text-white">
           Geomagnetic Storms
         </h3>
-        <p className="text-xs text-gray-500">Last 30 days • NASA DONKI</p>
+        <p className="text-xs text-gray-500">GST • DONKI</p>
+        <p className="text-xs text-gray-600 dark:text-gray-400 mt-1">
+          Disturbances in Earth's magnetosphere from solar wind, causing auroras and potential power/comm disruptions.
+        </p>
       </div>
 
       <div className="flex-1 space-y-2 overflow-y-auto pr-2">
