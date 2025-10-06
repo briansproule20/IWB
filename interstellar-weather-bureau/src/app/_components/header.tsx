@@ -17,7 +17,7 @@ const Header: FC<HeaderProps> = async ({
 
   return (
     <header
-      className={`border-gray-200 border-b bg-white shadow-sm ${className}`}
+      className={`border-white/[0.2] border-b bg-black shadow-sm ${className}`}
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
@@ -29,17 +29,17 @@ const Header: FC<HeaderProps> = async ({
               height={32}
               className="h-8 w-8"
             />
-            <h1 className="font-semibold text-gray-900 text-xl">
+            <h1 className="font-semibold text-white text-xl">
               <span className="hidden md:inline">{title}</span>
               <span className="md:hidden">The IWB</span>
             </h1>
           </Link>
 
           <nav className="flex items-center space-x-6">
-            <Link href="/" className="text-gray-700 hover:text-gray-900 font-medium transition-colors">
+            <Link href="/" className="text-neutral-300 hover:text-white font-medium transition-colors">
               Home
             </Link>
-            <Link href="/chat" className="text-gray-700 hover:text-gray-900 font-medium transition-colors">
+            <Link href="/chat" className="text-neutral-300 hover:text-white font-medium transition-colors">
               Chat
             </Link>
             <EchoAccount />

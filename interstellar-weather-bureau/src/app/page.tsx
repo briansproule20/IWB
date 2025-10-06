@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { BentoGrid, BentoGridItem } from "@/components/ui/bento-grid";
+import DotBackground from "@/components/ui/dot-background";
 import DrakePassageWeather from "@/components/weather/drake-passage-weather";
 import EverestWeather from "@/components/weather/everest-weather";
 import ExtremeLocationWeather from "@/components/weather/extreme-location-weather";
@@ -421,11 +422,12 @@ export default function Home() {
   };
 
   return (
-    <div className="h-full w-full p-8 space-y-4">
-      {/* APOD Category */}
-      <div>
+    <DotBackground>
+      <div className="h-full w-full p-8 space-y-4">
+        {/* APOD Category */}
+        <div>
         <h2
-          className="text-3xl font-bold text-gray-900 dark:text-white mb-6 cursor-pointer hover:opacity-70 transition-opacity flex items-center gap-2"
+          className="text-3xl font-bold text-white mb-6 cursor-pointer hover:opacity-70 transition-opacity flex items-center gap-2"
           onClick={() => toggleSection("apod")}
         >
           <span>{expandedSection === "apod" ? "▼" : "▶"}</span>
@@ -449,7 +451,7 @@ export default function Home() {
       {/* Sol Category */}
       <div>
         <h2
-          className="text-3xl font-bold text-gray-900 dark:text-white mb-6 cursor-pointer hover:opacity-70 transition-opacity flex items-center gap-2"
+          className="text-3xl font-bold text-white mb-6 cursor-pointer hover:opacity-70 transition-opacity flex items-center gap-2"
           onClick={() => toggleSection("sol")}
         >
           <span>{expandedSection === "sol" ? "▼" : "▶"}</span>
@@ -473,7 +475,7 @@ export default function Home() {
       {/* Mercury Category */}
       <div>
         <h2
-          className="text-3xl font-bold text-gray-900 dark:text-white mb-6 cursor-pointer hover:opacity-70 transition-opacity flex items-center gap-2"
+          className="text-3xl font-bold text-white mb-6 cursor-pointer hover:opacity-70 transition-opacity flex items-center gap-2"
           onClick={() => toggleSection("mercury")}
         >
           <span>{expandedSection === "mercury" ? "▼" : "▶"}</span>
@@ -497,7 +499,7 @@ export default function Home() {
       {/* Venus Category */}
       <div>
         <h2
-          className="text-3xl font-bold text-gray-900 dark:text-white mb-6 cursor-pointer hover:opacity-70 transition-opacity flex items-center gap-2"
+          className="text-3xl font-bold text-white mb-6 cursor-pointer hover:opacity-70 transition-opacity flex items-center gap-2"
           onClick={() => toggleSection("venus")}
         >
           <span>{expandedSection === "venus" ? "▼" : "▶"}</span>
@@ -521,7 +523,7 @@ export default function Home() {
       {/* Earth Category */}
       <div>
         <h2
-          className="text-3xl font-bold text-gray-900 dark:text-white mb-6 cursor-pointer hover:opacity-70 transition-opacity flex items-center gap-2"
+          className="text-3xl font-bold text-white mb-6 cursor-pointer hover:opacity-70 transition-opacity flex items-center gap-2"
           onClick={() => toggleSection("earth")}
         >
           <span>{expandedSection === "earth" ? "▼" : "▶"}</span>
@@ -546,7 +548,7 @@ export default function Home() {
       {oceansItems.length > 0 && (
         <div>
           <h2
-            className="text-3xl font-bold text-gray-900 dark:text-white mb-6 cursor-pointer hover:opacity-70 transition-opacity flex items-center gap-2"
+            className="text-3xl font-bold text-white mb-6 cursor-pointer hover:opacity-70 transition-opacity flex items-center gap-2"
             onClick={() => toggleSection("oceans")}
           >
             <span>{expandedSection === "oceans" ? "▼" : "▶"}</span>
@@ -571,7 +573,7 @@ export default function Home() {
       {/* Luna Category */}
       <div>
         <h2
-          className="text-3xl font-bold text-gray-900 dark:text-white mb-6 cursor-pointer hover:opacity-70 transition-opacity flex items-center gap-2"
+          className="text-3xl font-bold text-white mb-6 cursor-pointer hover:opacity-70 transition-opacity flex items-center gap-2"
           onClick={() => toggleSection("luna")}
         >
           <span>{expandedSection === "luna" ? "▼" : "▶"}</span>
@@ -595,7 +597,7 @@ export default function Home() {
       {/* Mars Category */}
       <div>
         <h2
-          className="text-3xl font-bold text-gray-900 dark:text-white mb-6 cursor-pointer hover:opacity-70 transition-opacity flex items-center gap-2"
+          className="text-3xl font-bold text-white mb-6 cursor-pointer hover:opacity-70 transition-opacity flex items-center gap-2"
           onClick={() => toggleSection("mars")}
         >
           <span>{expandedSection === "mars" ? "▼" : "▶"}</span>
@@ -620,7 +622,7 @@ export default function Home() {
       {jupiterItems.length > 0 && (
         <div>
           <h2
-            className="text-3xl font-bold text-gray-900 dark:text-white mb-6 cursor-pointer hover:opacity-70 transition-opacity flex items-center gap-2"
+            className="text-3xl font-bold text-white mb-6 cursor-pointer hover:opacity-70 transition-opacity flex items-center gap-2"
             onClick={() => toggleSection("jupiter")}
           >
             <span>{expandedSection === "jupiter" ? "▼" : "▶"}</span>
@@ -646,7 +648,7 @@ export default function Home() {
       {saturnItems.length > 0 && (
         <div>
           <h2
-            className="text-3xl font-bold text-gray-900 dark:text-white mb-6 cursor-pointer hover:opacity-70 transition-opacity flex items-center gap-2"
+            className="text-3xl font-bold text-white mb-6 cursor-pointer hover:opacity-70 transition-opacity flex items-center gap-2"
             onClick={() => toggleSection("saturn")}
           >
             <span>{expandedSection === "saturn" ? "▼" : "▶"}</span>
@@ -672,7 +674,7 @@ export default function Home() {
       {uranusItems.length > 0 && (
         <div>
           <h2
-            className="text-3xl font-bold text-gray-900 dark:text-white mb-6 cursor-pointer hover:opacity-70 transition-opacity flex items-center gap-2"
+            className="text-3xl font-bold text-white mb-6 cursor-pointer hover:opacity-70 transition-opacity flex items-center gap-2"
             onClick={() => toggleSection("uranus")}
           >
             <span>{expandedSection === "uranus" ? "▼" : "▶"}</span>
@@ -698,7 +700,7 @@ export default function Home() {
       {neptuneItems.length > 0 && (
         <div>
           <h2
-            className="text-3xl font-bold text-gray-900 dark:text-white mb-6 cursor-pointer hover:opacity-70 transition-opacity flex items-center gap-2"
+            className="text-3xl font-bold text-white mb-6 cursor-pointer hover:opacity-70 transition-opacity flex items-center gap-2"
             onClick={() => toggleSection("neptune")}
           >
             <span>{expandedSection === "neptune" ? "▼" : "▶"}</span>
@@ -724,7 +726,7 @@ export default function Home() {
       {plutoItems.length > 0 && (
         <div>
           <h2
-            className="text-3xl font-bold text-gray-900 dark:text-white mb-6 cursor-pointer hover:opacity-70 transition-opacity flex items-center gap-2"
+            className="text-3xl font-bold text-white mb-6 cursor-pointer hover:opacity-70 transition-opacity flex items-center gap-2"
             onClick={() => toggleSection("pluto")}
           >
             <span>{expandedSection === "pluto" ? "▼" : "▶"}</span>
@@ -750,7 +752,7 @@ export default function Home() {
       {kuiperBeltItems.length > 0 && (
         <div>
           <h2
-            className="text-3xl font-bold text-gray-900 dark:text-white mb-6 cursor-pointer hover:opacity-70 transition-opacity flex items-center gap-2"
+            className="text-3xl font-bold text-white mb-6 cursor-pointer hover:opacity-70 transition-opacity flex items-center gap-2"
             onClick={() => toggleSection("kuiper")}
           >
             <span>{expandedSection === "kuiper" ? "▼" : "▶"}</span>
@@ -776,7 +778,7 @@ export default function Home() {
       {oortCloudItems.length > 0 && (
         <div>
           <h2
-            className="text-3xl font-bold text-gray-900 dark:text-white mb-6 cursor-pointer hover:opacity-70 transition-opacity flex items-center gap-2"
+            className="text-3xl font-bold text-white mb-6 cursor-pointer hover:opacity-70 transition-opacity flex items-center gap-2"
             onClick={() => toggleSection("oort")}
           >
             <span>{expandedSection === "oort" ? "▼" : "▶"}</span>
@@ -802,7 +804,7 @@ export default function Home() {
       {extremitiesItems.length > 0 && (
         <div>
           <h2
-            className="text-3xl font-bold text-gray-900 dark:text-white mb-6 cursor-pointer hover:opacity-70 transition-opacity flex items-center gap-2"
+            className="text-3xl font-bold text-white mb-6 cursor-pointer hover:opacity-70 transition-opacity flex items-center gap-2"
             onClick={() => toggleSection("extremities")}
           >
             <span>{expandedSection === "extremities" ? "▼" : "▶"}</span>
@@ -823,6 +825,7 @@ export default function Home() {
           )}
         </div>
       )}
-    </div>
+      </div>
+    </DotBackground>
   );
 }
