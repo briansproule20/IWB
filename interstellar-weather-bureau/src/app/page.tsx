@@ -26,6 +26,10 @@ import OlympusMonsCard from "@/components/mars/olympus-mons-card";
 import PolarIceCapsCard from "@/components/mars/polar-ice-caps-card";
 import VallesMarinerisCard from "@/components/mars/valles-marineris-card";
 import TharsisSandstormCard from "@/components/mars/tharsis-sandstorm-card";
+import VenusAtmosphereCard from "@/components/venus/venus-atmosphere-card";
+import VenusSurfaceCard from "@/components/venus/venus-surface-card";
+import MercuryTemperatureCard from "@/components/mercury/mercury-temperature-card";
+import MercuryOrbitalCard from "@/components/mercury/mercury-orbital-card";
 
 const apodItems = [
   {
@@ -192,6 +196,36 @@ const marsItems = [
   },
 ];
 
+const mercuryItems = [
+  {
+    title: "",
+    description: "",
+    header: <MercuryTemperatureCard />,
+    className: "md:col-span-1",
+  },
+  {
+    title: "",
+    description: "",
+    header: <MercuryOrbitalCard />,
+    className: "md:col-span-1",
+  },
+];
+
+const venusItems = [
+  {
+    title: "",
+    description: "",
+    header: <VenusAtmosphereCard />,
+    className: "md:col-span-1",
+  },
+  {
+    title: "",
+    description: "",
+    header: <VenusSurfaceCard />,
+    className: "md:col-span-1",
+  },
+];
+
 const oceansItems = [
   {
     title: "",
@@ -243,6 +277,38 @@ export default function Home() {
         <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">Sol</h2>
         <BentoGrid className="max-w-7xl mx-auto md:auto-rows-[25rem]">
           {solItems.map((item, i) => (
+            <BentoGridItem
+              key={i}
+              title={item.title}
+              description={item.description}
+              header={item.header}
+              className={item.className}
+            />
+          ))}
+        </BentoGrid>
+      </div>
+
+      {/* Mercury Category */}
+      <div>
+        <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">Mercury</h2>
+        <BentoGrid className="max-w-7xl mx-auto md:auto-rows-[25rem]">
+          {mercuryItems.map((item, i) => (
+            <BentoGridItem
+              key={i}
+              title={item.title}
+              description={item.description}
+              header={item.header}
+              className={item.className}
+            />
+          ))}
+        </BentoGrid>
+      </div>
+
+      {/* Venus Category */}
+      <div>
+        <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">Venus</h2>
+        <BentoGrid className="max-w-7xl mx-auto md:auto-rows-[25rem]">
+          {venusItems.map((item, i) => (
             <BentoGridItem
               key={i}
               title={item.title}
