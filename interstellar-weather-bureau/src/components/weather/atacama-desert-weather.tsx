@@ -120,6 +120,26 @@ export default function AtacamaDesertWeather() {
         </div>
 
         <div className="space-y-2">
+          <div className="rounded-lg bg-yellow-50 p-2 dark:bg-yellow-900/20">
+            <div className="text-xs text-yellow-600 dark:text-yellow-400">Current Precipitation</div>
+            <div className="text-lg font-bold text-yellow-900 dark:text-yellow-200">
+              {precipitation} in
+            </div>
+            <div className="text-xs text-yellow-600 dark:text-yellow-400">
+              Driest non-polar desert
+            </div>
+          </div>
+
+          <div className="rounded-lg bg-orange-50 p-2 dark:bg-orange-900/20">
+            <div className="text-xs text-orange-600 dark:text-orange-400">Today's Precipitation</div>
+            <div className="text-lg font-bold text-orange-900 dark:text-orange-200">
+              {todayPrecip} in
+            </div>
+            <div className="text-xs text-orange-600 dark:text-orange-400">
+              {todayPrecipHours} hours
+            </div>
+          </div>
+
           {recentYearData && (
             <div className="rounded-lg bg-purple-50 p-2 dark:bg-purple-900/20">
               <div className="text-xs text-purple-600 dark:text-purple-400">{recentYearData.year} Total</div>
