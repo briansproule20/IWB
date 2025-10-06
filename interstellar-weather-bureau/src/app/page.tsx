@@ -1,3 +1,6 @@
+"use client";
+
+import { useState } from "react";
 import { BentoGrid, BentoGridItem } from "@/components/ui/bento-grid";
 import DrakePassageWeather from "@/components/weather/drake-passage-weather";
 import EverestWeather from "@/components/weather/everest-weather";
@@ -411,144 +414,172 @@ const oceansItems = [
 ];
 
 export default function Home() {
+  const [expandedSection, setExpandedSection] = useState<string>("apod");
+
+  const toggleSection = (section: string) => {
+    setExpandedSection(expandedSection === section ? "" : section);
+  };
+
   return (
-    <div className="h-full w-full p-8 space-y-12">
+    <div className="h-full w-full p-8 space-y-4">
       {/* APOD Category */}
       <div>
-        <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">Astronomy Picture of the Day</h2>
-        <BentoGrid className="max-w-7xl mx-auto md:auto-rows-[25rem]">
-          {apodItems.map((item, i) => (
-            <BentoGridItem
-              key={i}
-              title={item.title}
-              description={item.description}
-              header={item.header}
-              className={item.className}
-            />
-          ))}
-        </BentoGrid>
+        <h2
+          className="text-3xl font-bold text-gray-900 dark:text-white mb-6 cursor-pointer hover:opacity-70 transition-opacity flex items-center gap-2"
+          onClick={() => toggleSection("apod")}
+        >
+          <span>{expandedSection === "apod" ? "▼" : "▶"}</span>
+          Astronomy Picture of the Day
+        </h2>
+        {expandedSection === "apod" && (
+          <BentoGrid className="max-w-7xl mx-auto md:auto-rows-[25rem]">
+            {apodItems.map((item, i) => (
+              <BentoGridItem
+                key={i}
+                title={item.title}
+                description={item.description}
+                header={item.header}
+                className={item.className}
+              />
+            ))}
+          </BentoGrid>
+        )}
       </div>
 
       {/* Sol Category */}
       <div>
-        <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">Sol</h2>
-        <BentoGrid className="max-w-7xl mx-auto md:auto-rows-[25rem]">
-          {solItems.map((item, i) => (
-            <BentoGridItem
-              key={i}
-              title={item.title}
-              description={item.description}
-              header={item.header}
-              className={item.className}
-            />
-          ))}
-        </BentoGrid>
+        <h2
+          className="text-3xl font-bold text-gray-900 dark:text-white mb-6 cursor-pointer hover:opacity-70 transition-opacity flex items-center gap-2"
+          onClick={() => toggleSection("sol")}
+        >
+          <span>{expandedSection === "sol" ? "▼" : "▶"}</span>
+          Sol
+        </h2>
+        {expandedSection === "sol" && (
+          <BentoGrid className="max-w-7xl mx-auto md:auto-rows-[25rem]">
+            {solItems.map((item, i) => (
+              <BentoGridItem
+                key={i}
+                title={item.title}
+                description={item.description}
+                header={item.header}
+                className={item.className}
+              />
+            ))}
+          </BentoGrid>
+        )}
       </div>
 
       {/* Mercury Category */}
       <div>
-        <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">Mercury</h2>
-        <BentoGrid className="max-w-7xl mx-auto md:auto-rows-[25rem]">
-          {mercuryItems.map((item, i) => (
-            <BentoGridItem
-              key={i}
-              title={item.title}
-              description={item.description}
-              header={item.header}
-              className={item.className}
-            />
-          ))}
-        </BentoGrid>
+        <h2
+          className="text-3xl font-bold text-gray-900 dark:text-white mb-6 cursor-pointer hover:opacity-70 transition-opacity flex items-center gap-2"
+          onClick={() => toggleSection("mercury")}
+        >
+          <span>{expandedSection === "mercury" ? "▼" : "▶"}</span>
+          Mercury
+        </h2>
+        {expandedSection === "mercury" && (
+          <BentoGrid className="max-w-7xl mx-auto md:auto-rows-[25rem]">
+            {mercuryItems.map((item, i) => (
+              <BentoGridItem
+                key={i}
+                title={item.title}
+                description={item.description}
+                header={item.header}
+                className={item.className}
+              />
+            ))}
+          </BentoGrid>
+        )}
       </div>
 
       {/* Venus Category */}
       <div>
-        <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">Venus</h2>
-        <BentoGrid className="max-w-7xl mx-auto md:auto-rows-[25rem]">
-          {venusItems.map((item, i) => (
-            <BentoGridItem
-              key={i}
-              title={item.title}
-              description={item.description}
-              header={item.header}
-              className={item.className}
-            />
-          ))}
-        </BentoGrid>
+        <h2
+          className="text-3xl font-bold text-gray-900 dark:text-white mb-6 cursor-pointer hover:opacity-70 transition-opacity flex items-center gap-2"
+          onClick={() => toggleSection("venus")}
+        >
+          <span>{expandedSection === "venus" ? "▼" : "▶"}</span>
+          Venus
+        </h2>
+        {expandedSection === "venus" && (
+          <BentoGrid className="max-w-7xl mx-auto md:auto-rows-[25rem]">
+            {venusItems.map((item, i) => (
+              <BentoGridItem
+                key={i}
+                title={item.title}
+                description={item.description}
+                header={item.header}
+                className={item.className}
+              />
+            ))}
+          </BentoGrid>
+        )}
       </div>
 
       {/* Earth Category */}
       <div>
-        <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">Earth</h2>
-        <BentoGrid className="max-w-7xl mx-auto md:auto-rows-[25rem]">
-          {earthItems.map((item, i) => (
-            <BentoGridItem
-              key={i}
-              title={item.title}
-              description={item.description}
-              header={item.header}
-              className={item.className}
-            />
-          ))}
-        </BentoGrid>
+        <h2
+          className="text-3xl font-bold text-gray-900 dark:text-white mb-6 cursor-pointer hover:opacity-70 transition-opacity flex items-center gap-2"
+          onClick={() => toggleSection("earth")}
+        >
+          <span>{expandedSection === "earth" ? "▼" : "▶"}</span>
+          Earth
+        </h2>
+        {expandedSection === "earth" && (
+          <BentoGrid className="max-w-7xl mx-auto md:auto-rows-[25rem]">
+            {earthItems.map((item, i) => (
+              <BentoGridItem
+                key={i}
+                title={item.title}
+                description={item.description}
+                header={item.header}
+                className={item.className}
+              />
+            ))}
+          </BentoGrid>
+        )}
       </div>
 
       {/* Oceans Category */}
       {oceansItems.length > 0 && (
         <div>
-          <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">Oceans</h2>
-          <BentoGrid className="max-w-7xl mx-auto md:auto-rows-[25rem]">
-            {oceansItems.map((item, i) => (
-              <BentoGridItem
-                key={i}
-                title={item.title}
-                description={item.description}
-                header={item.header}
-                className={item.className}
-              />
-            ))}
-          </BentoGrid>
+          <h2
+            className="text-3xl font-bold text-gray-900 dark:text-white mb-6 cursor-pointer hover:opacity-70 transition-opacity flex items-center gap-2"
+            onClick={() => toggleSection("oceans")}
+          >
+            <span>{expandedSection === "oceans" ? "▼" : "▶"}</span>
+            Oceans
+          </h2>
+          {expandedSection === "oceans" && (
+            <BentoGrid className="max-w-7xl mx-auto md:auto-rows-[25rem]">
+              {oceansItems.map((item, i) => (
+                <BentoGridItem
+                  key={i}
+                  title={item.title}
+                  description={item.description}
+                  header={item.header}
+                  className={item.className}
+                />
+              ))}
+            </BentoGrid>
+          )}
         </div>
       )}
 
       {/* Luna Category */}
       <div>
-        <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">Luna</h2>
-        <BentoGrid className="max-w-7xl mx-auto md:auto-rows-[25rem]">
-          {lunaItems.map((item, i) => (
-            <BentoGridItem
-              key={i}
-              title={item.title}
-              description={item.description}
-              header={item.header}
-              className={item.className}
-            />
-          ))}
-        </BentoGrid>
-      </div>
-
-      {/* Mars Category */}
-      <div>
-        <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">Mars</h2>
-        <BentoGrid className="max-w-7xl mx-auto md:auto-rows-[25rem]">
-          {marsItems.map((item, i) => (
-            <BentoGridItem
-              key={i}
-              title={item.title}
-              description={item.description}
-              header={item.header}
-              className={item.className}
-            />
-          ))}
-        </BentoGrid>
-      </div>
-
-      {/* Jupiter Category */}
-      {jupiterItems.length > 0 && (
-        <div>
-          <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">Jupiter</h2>
+        <h2
+          className="text-3xl font-bold text-gray-900 dark:text-white mb-6 cursor-pointer hover:opacity-70 transition-opacity flex items-center gap-2"
+          onClick={() => toggleSection("luna")}
+        >
+          <span>{expandedSection === "luna" ? "▼" : "▶"}</span>
+          Luna
+        </h2>
+        {expandedSection === "luna" && (
           <BentoGrid className="max-w-7xl mx-auto md:auto-rows-[25rem]">
-            {jupiterItems.map((item, i) => (
+            {lunaItems.map((item, i) => (
               <BentoGridItem
                 key={i}
                 title={item.title}
@@ -558,132 +589,238 @@ export default function Home() {
               />
             ))}
           </BentoGrid>
+        )}
+      </div>
+
+      {/* Mars Category */}
+      <div>
+        <h2
+          className="text-3xl font-bold text-gray-900 dark:text-white mb-6 cursor-pointer hover:opacity-70 transition-opacity flex items-center gap-2"
+          onClick={() => toggleSection("mars")}
+        >
+          <span>{expandedSection === "mars" ? "▼" : "▶"}</span>
+          Mars
+        </h2>
+        {expandedSection === "mars" && (
+          <BentoGrid className="max-w-7xl mx-auto md:auto-rows-[25rem]">
+            {marsItems.map((item, i) => (
+              <BentoGridItem
+                key={i}
+                title={item.title}
+                description={item.description}
+                header={item.header}
+                className={item.className}
+              />
+            ))}
+          </BentoGrid>
+        )}
+      </div>
+
+      {/* Jupiter Category */}
+      {jupiterItems.length > 0 && (
+        <div>
+          <h2
+            className="text-3xl font-bold text-gray-900 dark:text-white mb-6 cursor-pointer hover:opacity-70 transition-opacity flex items-center gap-2"
+            onClick={() => toggleSection("jupiter")}
+          >
+            <span>{expandedSection === "jupiter" ? "▼" : "▶"}</span>
+            Jupiter
+          </h2>
+          {expandedSection === "jupiter" && (
+            <BentoGrid className="max-w-7xl mx-auto md:auto-rows-[25rem]">
+              {jupiterItems.map((item, i) => (
+                <BentoGridItem
+                  key={i}
+                  title={item.title}
+                  description={item.description}
+                  header={item.header}
+                  className={item.className}
+                />
+              ))}
+            </BentoGrid>
+          )}
         </div>
       )}
 
       {/* Saturn Category */}
       {saturnItems.length > 0 && (
         <div>
-          <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">Saturn</h2>
-          <BentoGrid className="max-w-7xl mx-auto md:auto-rows-[25rem]">
-            {saturnItems.map((item, i) => (
-              <BentoGridItem
-                key={i}
-                title={item.title}
-                description={item.description}
-                header={item.header}
-                className={item.className}
-              />
-            ))}
-          </BentoGrid>
+          <h2
+            className="text-3xl font-bold text-gray-900 dark:text-white mb-6 cursor-pointer hover:opacity-70 transition-opacity flex items-center gap-2"
+            onClick={() => toggleSection("saturn")}
+          >
+            <span>{expandedSection === "saturn" ? "▼" : "▶"}</span>
+            Saturn
+          </h2>
+          {expandedSection === "saturn" && (
+            <BentoGrid className="max-w-7xl mx-auto md:auto-rows-[25rem]">
+              {saturnItems.map((item, i) => (
+                <BentoGridItem
+                  key={i}
+                  title={item.title}
+                  description={item.description}
+                  header={item.header}
+                  className={item.className}
+                />
+              ))}
+            </BentoGrid>
+          )}
         </div>
       )}
 
       {/* Uranus Category */}
       {uranusItems.length > 0 && (
         <div>
-          <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">Uranus</h2>
-          <BentoGrid className="max-w-7xl mx-auto md:auto-rows-[25rem]">
-            {uranusItems.map((item, i) => (
-              <BentoGridItem
-                key={i}
-                title={item.title}
-                description={item.description}
-                header={item.header}
-                className={item.className}
-              />
-            ))}
-          </BentoGrid>
+          <h2
+            className="text-3xl font-bold text-gray-900 dark:text-white mb-6 cursor-pointer hover:opacity-70 transition-opacity flex items-center gap-2"
+            onClick={() => toggleSection("uranus")}
+          >
+            <span>{expandedSection === "uranus" ? "▼" : "▶"}</span>
+            Uranus
+          </h2>
+          {expandedSection === "uranus" && (
+            <BentoGrid className="max-w-7xl mx-auto md:auto-rows-[25rem]">
+              {uranusItems.map((item, i) => (
+                <BentoGridItem
+                  key={i}
+                  title={item.title}
+                  description={item.description}
+                  header={item.header}
+                  className={item.className}
+                />
+              ))}
+            </BentoGrid>
+          )}
         </div>
       )}
 
       {/* Neptune Category */}
       {neptuneItems.length > 0 && (
         <div>
-          <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">Neptune</h2>
-          <BentoGrid className="max-w-7xl mx-auto md:auto-rows-[25rem]">
-            {neptuneItems.map((item, i) => (
-              <BentoGridItem
-                key={i}
-                title={item.title}
-                description={item.description}
-                header={item.header}
-                className={item.className}
-              />
-            ))}
-          </BentoGrid>
+          <h2
+            className="text-3xl font-bold text-gray-900 dark:text-white mb-6 cursor-pointer hover:opacity-70 transition-opacity flex items-center gap-2"
+            onClick={() => toggleSection("neptune")}
+          >
+            <span>{expandedSection === "neptune" ? "▼" : "▶"}</span>
+            Neptune
+          </h2>
+          {expandedSection === "neptune" && (
+            <BentoGrid className="max-w-7xl mx-auto md:auto-rows-[25rem]">
+              {neptuneItems.map((item, i) => (
+                <BentoGridItem
+                  key={i}
+                  title={item.title}
+                  description={item.description}
+                  header={item.header}
+                  className={item.className}
+                />
+              ))}
+            </BentoGrid>
+          )}
         </div>
       )}
 
       {/* Pluto Category */}
       {plutoItems.length > 0 && (
         <div>
-          <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">Pluto</h2>
-          <BentoGrid className="max-w-7xl mx-auto md:auto-rows-[25rem]">
-            {plutoItems.map((item, i) => (
-              <BentoGridItem
-                key={i}
-                title={item.title}
-                description={item.description}
-                header={item.header}
-                className={item.className}
-              />
-            ))}
-          </BentoGrid>
+          <h2
+            className="text-3xl font-bold text-gray-900 dark:text-white mb-6 cursor-pointer hover:opacity-70 transition-opacity flex items-center gap-2"
+            onClick={() => toggleSection("pluto")}
+          >
+            <span>{expandedSection === "pluto" ? "▼" : "▶"}</span>
+            Pluto
+          </h2>
+          {expandedSection === "pluto" && (
+            <BentoGrid className="max-w-7xl mx-auto md:auto-rows-[25rem]">
+              {plutoItems.map((item, i) => (
+                <BentoGridItem
+                  key={i}
+                  title={item.title}
+                  description={item.description}
+                  header={item.header}
+                  className={item.className}
+                />
+              ))}
+            </BentoGrid>
+          )}
         </div>
       )}
 
       {/* Kuiper Belt Category */}
       {kuiperBeltItems.length > 0 && (
         <div>
-          <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">Kuiper Belt</h2>
-          <BentoGrid className="max-w-7xl mx-auto md:auto-rows-[25rem]">
-            {kuiperBeltItems.map((item, i) => (
-              <BentoGridItem
-                key={i}
-                title={item.title}
-                description={item.description}
-                header={item.header}
-                className={item.className}
-              />
-            ))}
-          </BentoGrid>
+          <h2
+            className="text-3xl font-bold text-gray-900 dark:text-white mb-6 cursor-pointer hover:opacity-70 transition-opacity flex items-center gap-2"
+            onClick={() => toggleSection("kuiper")}
+          >
+            <span>{expandedSection === "kuiper" ? "▼" : "▶"}</span>
+            Kuiper Belt
+          </h2>
+          {expandedSection === "kuiper" && (
+            <BentoGrid className="max-w-7xl mx-auto md:auto-rows-[25rem]">
+              {kuiperBeltItems.map((item, i) => (
+                <BentoGridItem
+                  key={i}
+                  title={item.title}
+                  description={item.description}
+                  header={item.header}
+                  className={item.className}
+                />
+              ))}
+            </BentoGrid>
+          )}
         </div>
       )}
 
       {/* Oort Cloud Category */}
       {oortCloudItems.length > 0 && (
         <div>
-          <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">Oort Cloud</h2>
-          <BentoGrid className="max-w-7xl mx-auto md:auto-rows-[25rem]">
-            {oortCloudItems.map((item, i) => (
-              <BentoGridItem
-                key={i}
-                title={item.title}
-                description={item.description}
-                header={item.header}
-                className={item.className}
-              />
-            ))}
-          </BentoGrid>
+          <h2
+            className="text-3xl font-bold text-gray-900 dark:text-white mb-6 cursor-pointer hover:opacity-70 transition-opacity flex items-center gap-2"
+            onClick={() => toggleSection("oort")}
+          >
+            <span>{expandedSection === "oort" ? "▼" : "▶"}</span>
+            Oort Cloud
+          </h2>
+          {expandedSection === "oort" && (
+            <BentoGrid className="max-w-7xl mx-auto md:auto-rows-[25rem]">
+              {oortCloudItems.map((item, i) => (
+                <BentoGridItem
+                  key={i}
+                  title={item.title}
+                  description={item.description}
+                  header={item.header}
+                  className={item.className}
+                />
+              ))}
+            </BentoGrid>
+          )}
         </div>
       )}
 
       {/* Extremities Category */}
       {extremitiesItems.length > 0 && (
         <div>
-          <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">Extremities</h2>
-          <BentoGrid className="max-w-7xl mx-auto md:auto-rows-[25rem]">
-            {extremitiesItems.map((item, i) => (
-              <BentoGridItem
-                key={i}
-                title={item.title}
-                description={item.description}
-                header={item.header}
-                className={item.className}
-              />
-            ))}
-          </BentoGrid>
+          <h2
+            className="text-3xl font-bold text-gray-900 dark:text-white mb-6 cursor-pointer hover:opacity-70 transition-opacity flex items-center gap-2"
+            onClick={() => toggleSection("extremities")}
+          >
+            <span>{expandedSection === "extremities" ? "▼" : "▶"}</span>
+            Extremities
+          </h2>
+          {expandedSection === "extremities" && (
+            <BentoGrid className="max-w-7xl mx-auto md:auto-rows-[25rem]">
+              {extremitiesItems.map((item, i) => (
+                <BentoGridItem
+                  key={i}
+                  title={item.title}
+                  description={item.description}
+                  header={item.header}
+                  className={item.className}
+                />
+              ))}
+            </BentoGrid>
+          )}
         </div>
       )}
     </div>
