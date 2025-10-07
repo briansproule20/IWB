@@ -1,5 +1,6 @@
+'use client';
+
 import { EchoAccount } from '@/components/echo-account-next';
-import { isSignedIn } from '@/echo';
 import Image from 'next/image';
 import Link from 'next/link';
 import type { FC } from 'react';
@@ -8,13 +9,14 @@ import { MobileNav } from './mobile-nav';
 interface HeaderProps {
   title?: string;
   className?: string;
+  showEchoAccount?: boolean;
 }
 
-const Header: FC<HeaderProps> = async ({
+const Header: FC<HeaderProps> = ({
   title = 'My App',
   className = '',
+  showEchoAccount = false,
 }) => {
-  const signedIn = await isSignedIn();
 
   return (
     <header
@@ -36,31 +38,11 @@ const Header: FC<HeaderProps> = async ({
             </h1>
           </Link>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-6">
-            <Link href="/" className="text-neutral-300 hover:text-white font-medium transition-colors">
-              Home
-            </Link>
-            <Link href="/reports" className="text-neutral-300 hover:text-white font-medium transition-colors">
-              Reports
-            </Link>
-            <Link href="/vehicles" className="text-neutral-300 hover:text-white font-medium transition-colors">
-              Vehicles
-            </Link>
-            <Link href="/aetherscope" className="text-neutral-300 hover:text-white font-medium transition-colors">
-              AetherScope
-            </Link>
-            <Link href="/chat" className="text-neutral-300 hover:text-white font-medium transition-colors">
-              Chat
-            </Link>
-            <Link href="/gallery" className="text-neutral-300 hover:text-white font-medium transition-colors">
-              Gallery
-            </Link>
-            <EchoAccount />
-          </nav>
-
-          {/* Mobile Navigation */}
-          <MobileNav />
+          {/* Desktop and Mobile Navigation */}
+          <div className="flex items-center gap-4">
+            {showEchoAccount && <EchoAccount />}
+            <MobileNav />
+          </div>
         </div>
       </div>
     </header>
