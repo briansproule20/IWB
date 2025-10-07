@@ -2,6 +2,21 @@ import { NextResponse } from 'next/server';
 
 export const dynamic = 'force-dynamic';
 
+interface CometData {
+  spkid: string;
+  name: string;
+  eccentricity: number;
+  inclination: number;
+  perihelionDistance: number;
+  argumentPerihelion: number;
+  longitudeAscending: number;
+  period: number;
+  bestViewing: string;
+  nextPerihelion: string;
+  daysUntilPerihelion: number;
+  visibility: string;
+}
+
 export async function GET() {
   try {
     // Query JPL Small-Body Database for numbered periodic comets with orbital period data
@@ -25,7 +40,7 @@ export async function GET() {
     const currentJD = 2440587.5 + (today.getTime() / 86400000); // Convert to Julian Date
 
     // Transform data
-    const comets = data.data.map((comet: any[], index: number) => {
+    const comets: CometData[] = data.data.map((comet: any[], index: number): CometData => {
       const inclination = parseFloat(comet[2]) || 0;
       const perihelionDistance = parseFloat(comet[3]) || 0;
       const periodDays = parseFloat(comet[6]) || 0; // Period in days
