@@ -41,6 +41,9 @@ const Header: FC<HeaderProps> = async ({
             <Link href="/" className="text-neutral-300 hover:text-white font-medium transition-colors">
               Home
             </Link>
+            <Link href="/aetherscope" className="text-neutral-300 hover:text-white font-medium transition-colors">
+              AetherScope
+            </Link>
             <Link href="/chat" className="text-neutral-300 hover:text-white font-medium transition-colors">
               Chat
             </Link>
