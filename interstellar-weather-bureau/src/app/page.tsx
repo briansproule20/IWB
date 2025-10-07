@@ -76,6 +76,11 @@ import BlackHoleCard from "@/components/stellar-classifications/black-hole-card"
 import BlueDwarfCard from "@/components/stellar-classifications/blue-dwarf-card";
 import BlackDwarfCard from "@/components/stellar-classifications/black-dwarf-card";
 import AsteroidBeltCard from "@/components/asteroid-belt/asteroid-belt-card";
+import NEOClosestCard from "@/components/nasa/neo-closest-card";
+import NEOUpcomingCard from "@/components/nasa/neo-upcoming-card";
+import NEOInfoCard from "@/components/nasa/neo-info-card";
+import MeteorShowersCard from "@/components/nasa/meteor-showers-card";
+import ObservableCometsCard from "@/components/nasa/observable-comets-card";
 
 const apodItems = [
   {
@@ -83,6 +88,39 @@ const apodItems = [
     description: "",
     header: <APODCard />,
     className: "md:col-span-2",
+  },
+];
+
+const neoItems = [
+  {
+    title: "",
+    description: "",
+    header: <NEOClosestCard />,
+    className: "md:col-span-1",
+  },
+  {
+    title: "",
+    description: "",
+    header: <NEOUpcomingCard />,
+    className: "md:col-span-1",
+  },
+  {
+    title: "",
+    description: "",
+    header: <NEOInfoCard />,
+    className: "md:col-span-1",
+  },
+  {
+    title: "",
+    description: "",
+    header: <MeteorShowersCard />,
+    className: "md:col-span-1",
+  },
+  {
+    title: "",
+    description: "",
+    header: <ObservableCometsCard />,
+    className: "md:col-span-1",
   },
 ];
 
@@ -749,6 +787,30 @@ export default function Home() {
         {expandedSection === "luna" && (
           <BentoGrid className="max-w-7xl mx-auto md:auto-rows-[25rem]">
             {lunaItems.map((item, i) => (
+              <BentoGridItem
+                key={i}
+                title={item.title}
+                description={item.description}
+                header={item.header}
+                className={item.className}
+              />
+            ))}
+          </BentoGrid>
+        )}
+      </div>
+
+      {/* Near-Earth Objects Category */}
+      <div>
+        <h2
+          className="text-3xl font-bold text-white mb-6 cursor-pointer hover:opacity-70 transition-opacity flex items-center gap-2"
+          onClick={() => toggleSection("neo")}
+        >
+          <span>{expandedSection === "neo" ? "▼" : "▶"}</span>
+          Near-Earth Objects
+        </h2>
+        {expandedSection === "neo" && (
+          <BentoGrid className="max-w-7xl mx-auto md:auto-rows-[25rem]">
+            {neoItems.map((item, i) => (
               <BentoGridItem
                 key={i}
                 title={item.title}
