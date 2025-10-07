@@ -27,6 +27,7 @@ import NeptuneOceanCard from "@/components/nasa/neptune-ocean-card";
 import ChallengerDeepCard from "@/components/ocean/challenger-deep-card";
 import NazareWavesCard from "@/components/ocean/nazare-waves-card";
 import MDRAtlanticCard from "@/components/ocean/mdr-atlantic-card";
+import TitanicSiteCard from "@/components/ocean/titanic-site-card";
 import OlympusMonsCard from "@/components/mars/olympus-mons-card";
 import PolarIceCapsCard from "@/components/mars/polar-ice-caps-card";
 import VallesMarinerisCard from "@/components/mars/valles-marineris-card";
@@ -564,6 +565,12 @@ const oceansItems = [
     title: "",
     description: "",
     header: <MDRAtlanticCard />,
+    className: "md:col-span-1",
+  },
+  {
+    title: "",
+    description: "",
+    header: <TitanicSiteCard />,
     className: "md:col-span-1",
   },
   {
