@@ -53,6 +53,27 @@ import SupernovaCard from "@/components/extremities/supernova-card";
 import NeutronStarCard from "@/components/extremities/neutron-star-card";
 import GammaRayBurstCard from "@/components/extremities/gamma-ray-burst-card";
 import Voyager1Card from "@/components/extremities/voyager-1-card";
+import OTypeCard from "@/components/stellar-classifications/o-type-card";
+import BTypeCard from "@/components/stellar-classifications/b-type-card";
+import ATypeCard from "@/components/stellar-classifications/a-type-card";
+import FTypeCard from "@/components/stellar-classifications/f-type-card";
+import GTypeCard from "@/components/stellar-classifications/g-type-card";
+import KTypeCard from "@/components/stellar-classifications/k-type-card";
+import MTypeCard from "@/components/stellar-classifications/m-type-card";
+import LDwarfCard from "@/components/stellar-classifications/l-dwarf-card";
+import TDwarfCard from "@/components/stellar-classifications/t-dwarf-card";
+import YDwarfCard from "@/components/stellar-classifications/y-dwarf-card";
+import WolfRayetCard from "@/components/stellar-classifications/wolf-rayet-card";
+import CarbonStarCard from "@/components/stellar-classifications/carbon-star-card";
+import STypeCard from "@/components/stellar-classifications/s-type-card";
+import TTauriCard from "@/components/stellar-classifications/t-tauri-card";
+import HerbigAeBeCard from "@/components/stellar-classifications/herbig-ae-be-card";
+import WhiteDwarfCard from "@/components/stellar-classifications/white-dwarf-card";
+import NeutronStarClassCard from "@/components/stellar-classifications/neutron-star-card";
+import BlackHoleCard from "@/components/stellar-classifications/black-hole-card";
+import BlueDwarfCard from "@/components/stellar-classifications/blue-dwarf-card";
+import BlackDwarfCard from "@/components/stellar-classifications/black-dwarf-card";
+import AsteroidBeltCard from "@/components/asteroid-belt/asteroid-belt-card";
 
 const apodItems = [
   {
@@ -215,6 +236,15 @@ const marsItems = [
     title: "",
     description: "",
     header: <TharsisSandstormCard />,
+    className: "md:col-span-1",
+  },
+];
+
+const asteroidBeltItems = [
+  {
+    title: "",
+    description: "",
+    header: <AsteroidBeltCard />,
     className: "md:col-span-1",
   },
 ];
@@ -389,6 +419,129 @@ const extremitiesItems = [
     title: "",
     description: "",
     header: <Voyager1Card />,
+    className: "md:col-span-1",
+  },
+];
+
+const stellarClassificationsItems = [
+  {
+    title: "",
+    description: "",
+    header: <OTypeCard />,
+    className: "md:col-span-1",
+  },
+  {
+    title: "",
+    description: "",
+    header: <BTypeCard />,
+    className: "md:col-span-1",
+  },
+  {
+    title: "",
+    description: "",
+    header: <ATypeCard />,
+    className: "md:col-span-1",
+  },
+  {
+    title: "",
+    description: "",
+    header: <FTypeCard />,
+    className: "md:col-span-1",
+  },
+  {
+    title: "",
+    description: "",
+    header: <GTypeCard />,
+    className: "md:col-span-1",
+  },
+  {
+    title: "",
+    description: "",
+    header: <KTypeCard />,
+    className: "md:col-span-1",
+  },
+  {
+    title: "",
+    description: "",
+    header: <MTypeCard />,
+    className: "md:col-span-1",
+  },
+  {
+    title: "",
+    description: "",
+    header: <LDwarfCard />,
+    className: "md:col-span-1",
+  },
+  {
+    title: "",
+    description: "",
+    header: <TDwarfCard />,
+    className: "md:col-span-1",
+  },
+  {
+    title: "",
+    description: "",
+    header: <YDwarfCard />,
+    className: "md:col-span-1",
+  },
+  {
+    title: "",
+    description: "",
+    header: <BlueDwarfCard />,
+    className: "md:col-span-1",
+  },
+  {
+    title: "",
+    description: "",
+    header: <BlackDwarfCard />,
+    className: "md:col-span-1",
+  },
+  {
+    title: "",
+    description: "",
+    header: <WolfRayetCard />,
+    className: "md:col-span-1",
+  },
+  {
+    title: "",
+    description: "",
+    header: <CarbonStarCard />,
+    className: "md:col-span-1",
+  },
+  {
+    title: "",
+    description: "",
+    header: <STypeCard />,
+    className: "md:col-span-1",
+  },
+  {
+    title: "",
+    description: "",
+    header: <TTauriCard />,
+    className: "md:col-span-1",
+  },
+  {
+    title: "",
+    description: "",
+    header: <HerbigAeBeCard />,
+    className: "md:col-span-1",
+  },
+  {
+    title: "",
+    description: "",
+    header: <WhiteDwarfCard />,
+    className: "md:col-span-1",
+  },
+  {
+    title: "",
+    description: "",
+    header: <NeutronStarClassCard />,
+    className: "md:col-span-1",
+  },
+  {
+    title: "",
+    description: "",
+    header: <BlackHoleCard />,
     className: "md:col-span-1",
   },
 ];
@@ -618,6 +771,32 @@ export default function Home() {
         )}
       </div>
 
+      {/* Asteroid Belt Category */}
+      {asteroidBeltItems.length > 0 && (
+        <div>
+          <h2
+            className="text-3xl font-bold text-white mb-6 cursor-pointer hover:opacity-70 transition-opacity flex items-center gap-2"
+            onClick={() => toggleSection("asteroidBelt")}
+          >
+            <span>{expandedSection === "asteroidBelt" ? "▼" : "▶"}</span>
+            Asteroid Belt
+          </h2>
+          {expandedSection === "asteroidBelt" && (
+            <BentoGrid className="max-w-7xl mx-auto md:auto-rows-[25rem]">
+              {asteroidBeltItems.map((item, i) => (
+                <BentoGridItem
+                  key={i}
+                  title={item.title}
+                  description={item.description}
+                  header={item.header}
+                  className={item.className}
+                />
+              ))}
+            </BentoGrid>
+          )}
+        </div>
+      )}
+
       {/* Jupiter Category */}
       {jupiterItems.length > 0 && (
         <div>
@@ -813,6 +992,32 @@ export default function Home() {
           {expandedSection === "extremities" && (
             <BentoGrid className="max-w-7xl mx-auto md:auto-rows-[25rem]">
               {extremitiesItems.map((item, i) => (
+                <BentoGridItem
+                  key={i}
+                  title={item.title}
+                  description={item.description}
+                  header={item.header}
+                  className={item.className}
+                />
+              ))}
+            </BentoGrid>
+          )}
+        </div>
+      )}
+
+      {/* Stellar Classifications Category */}
+      {stellarClassificationsItems.length > 0 && (
+        <div>
+          <h2
+            className="text-3xl font-bold text-white mb-6 cursor-pointer hover:opacity-70 transition-opacity flex items-center gap-2"
+            onClick={() => toggleSection("stellarClassifications")}
+          >
+            <span>{expandedSection === "stellarClassifications" ? "▼" : "▶"}</span>
+            Stellar Classifications
+          </h2>
+          {expandedSection === "stellarClassifications" && (
+            <BentoGrid className="max-w-7xl mx-auto md:auto-rows-[25rem]">
+              {stellarClassificationsItems.map((item, i) => (
                 <BentoGridItem
                   key={i}
                   title={item.title}
