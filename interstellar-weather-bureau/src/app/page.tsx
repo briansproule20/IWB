@@ -81,6 +81,13 @@ import NEOUpcomingCard from "@/components/nasa/neo-upcoming-card";
 import NEOInfoCard from "@/components/nasa/neo-info-card";
 import MeteorShowersCard from "@/components/nasa/meteor-showers-card";
 import ObservableCometsCard from "@/components/nasa/observable-comets-card";
+import ExoplanetSystemOfWeekCard from "@/components/exoplanets/exoplanet-system-of-week-card";
+import ExoplanetNewsCard from "@/components/exoplanets/exoplanet-news-card";
+import TOI700dCard from "@/components/exoplanets/toi-700d-card";
+import ProximaBCard from "@/components/exoplanets/proxima-b-card";
+import Trappist1eCard from "@/components/exoplanets/trappist-1e-card";
+import Kepler452bCard from "@/components/exoplanets/kepler-452b-card";
+import LHS1140bCard from "@/components/exoplanets/lhs-1140b-card";
 
 const apodItems = [
   {
@@ -619,6 +626,51 @@ const oceansItems = [
   },
 ];
 
+const exoplanetItems = [
+  {
+    title: "",
+    description: "",
+    header: <ExoplanetSystemOfWeekCard />,
+    className: "md:col-span-2 md:row-span-1",
+  },
+  {
+    title: "",
+    description: "",
+    header: <TOI700dCard />,
+    className: "md:col-span-1",
+  },
+  {
+    title: "",
+    description: "",
+    header: <ExoplanetNewsCard />,
+    className: "md:col-span-2 md:row-span-1",
+  },
+  {
+    title: "",
+    description: "",
+    header: <ProximaBCard />,
+    className: "md:col-span-1",
+  },
+  {
+    title: "",
+    description: "",
+    header: <Trappist1eCard />,
+    className: "md:col-span-1",
+  },
+  {
+    title: "",
+    description: "",
+    header: <Kepler452bCard />,
+    className: "md:col-span-1",
+  },
+  {
+    title: "",
+    description: "",
+    header: <LHS1140bCard />,
+    className: "md:col-span-1",
+  },
+];
+
 export default function Home() {
   const [expandedSection, setExpandedSection] = useState<string>("apod");
 
@@ -1080,6 +1132,30 @@ export default function Home() {
           )}
         </div>
       )}
+
+      {/* Exoplanets Category */}
+      <div>
+        <h2
+          className="text-3xl font-bold text-white mb-6 cursor-pointer hover:opacity-70 transition-opacity flex items-center gap-2"
+          onClick={() => toggleSection("exoplanets")}
+        >
+          <span>{expandedSection === "exoplanets" ? "▼" : "▶"}</span>
+          Exoplanets
+        </h2>
+        {expandedSection === "exoplanets" && (
+          <BentoGrid className="max-w-7xl mx-auto md:auto-rows-[25rem]">
+            {exoplanetItems.map((item, i) => (
+              <BentoGridItem
+                key={i}
+                title={item.title}
+                description={item.description}
+                header={item.header}
+                className={item.className}
+              />
+            ))}
+          </BentoGrid>
+        )}
+      </div>
 
       {/* Stellar Classifications Category */}
       {stellarClassificationsItems.length > 0 && (
