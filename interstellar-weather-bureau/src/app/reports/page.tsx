@@ -10,7 +10,6 @@ import AtacamaDesertWeather from "@/components/weather/atacama-desert-weather";
 import DanakilDepressionWeather from "@/components/weather/danakil-depression-weather";
 import VostokStationWeather from "@/components/weather/vostok-station-weather";
 import SolarFlaresCard from "@/components/nasa/solar-flares-card";
-import APODCard from "@/components/nasa/apod-card";
 import CMECard from "@/components/nasa/cme-card";
 import GeomagneticStormsCard from "@/components/nasa/geomagnetic-storms-card";
 import SolarCoreCard from "@/components/nasa/solar-core-card";
@@ -89,14 +88,6 @@ import Trappist1eCard from "@/components/exoplanets/trappist-1e-card";
 import Kepler452bCard from "@/components/exoplanets/kepler-452b-card";
 import LHS1140bCard from "@/components/exoplanets/lhs-1140b-card";
 
-const apodItems = [
-  {
-    title: "",
-    description: "",
-    header: <APODCard />,
-    className: "md:col-span-2",
-  },
-];
 
 const neoItems = [
   {
@@ -672,7 +663,7 @@ const exoplanetItems = [
 ];
 
 export default function Report() {
-  const [expandedSection, setExpandedSection] = useState<string>("apod");
+  const [expandedSection, setExpandedSection] = useState<string>("");
 
   const toggleSection = (section: string) => {
     setExpandedSection(expandedSection === section ? "" : section);
@@ -680,32 +671,23 @@ export default function Report() {
 
   return (
     <DotBackground>
-      <div className="h-full w-full p-8 space-y-4">
-        {/* APOD Category */}
-        <div>
-        <h2
-          className="text-3xl font-bold text-white mb-6 cursor-pointer hover:opacity-70 transition-opacity flex items-center gap-2"
-          onClick={() => toggleSection("apod")}
-        >
-          <span>{expandedSection === "apod" ? "▼" : "▶"}</span>
-          Astronomy Picture of the Day
-        </h2>
-        {expandedSection === "apod" && (
-          <BentoGrid className="max-w-7xl mx-auto md:auto-rows-[25rem]">
-            {apodItems.map((item, i) => (
-              <BentoGridItem
-                key={i}
-                title={item.title}
-                description={item.description}
-                header={item.header}
-                className={item.className}
-              />
-            ))}
-          </BentoGrid>
-        )}
-      </div>
+      <div className="h-full w-full p-8 space-y-8">
+        {/* Hero Section */}
+        <div className="text-center space-y-4 py-8">
+          <h1 className="text-4xl md:text-5xl font-bold text-white">
+            Weather Reports
+          </h1>
+          <div className="max-w-3xl mx-auto space-y-2">
+            <p className="text-lg md:text-xl text-neutral-300">
+              Current conditions across the cosmos
+            </p>
+            <p className="text-sm md:text-base text-neutral-400">
+              Sol System • Local Bubble • Perseus Arm • Milky Way Galaxy
+            </p>
+          </div>
+        </div>
 
-      {/* Sol Category */}
+        {/* Sol Category */}
       <div>
         <h2
           className="text-3xl font-bold text-white mb-6 cursor-pointer hover:opacity-70 transition-opacity flex items-center gap-2"
