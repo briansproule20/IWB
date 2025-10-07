@@ -3,6 +3,7 @@ import { isSignedIn } from '@/echo';
 import Image from 'next/image';
 import Link from 'next/link';
 import type { FC } from 'react';
+import { MobileNav } from './mobile-nav';
 
 interface HeaderProps {
   title?: string;
@@ -35,15 +36,22 @@ const Header: FC<HeaderProps> = async ({
             </h1>
           </Link>
 
-          <nav className="flex items-center space-x-6">
+          {/* Desktop Navigation */}
+          <nav className="hidden md:flex items-center space-x-6">
             <Link href="/" className="text-neutral-300 hover:text-white font-medium transition-colors">
               Home
             </Link>
             <Link href="/chat" className="text-neutral-300 hover:text-white font-medium transition-colors">
               Chat
             </Link>
+            <Link href="/gallery" className="text-neutral-300 hover:text-white font-medium transition-colors">
+              Gallery
+            </Link>
             <EchoAccount />
           </nav>
+
+          {/* Mobile Navigation */}
+          <MobileNav />
         </div>
       </div>
     </header>
