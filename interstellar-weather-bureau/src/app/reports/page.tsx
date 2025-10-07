@@ -673,17 +673,29 @@ export default function Report() {
     <DotBackground>
       <div className="h-full w-full p-8 space-y-8">
         {/* Hero Section */}
-        <div className="text-center space-y-4 py-8">
+        <div className="text-center space-y-6 py-8">
           <h1 className="text-4xl md:text-5xl font-bold text-white">
             Weather Reports
           </h1>
-          <div className="max-w-3xl mx-auto space-y-2">
+          <div className="max-w-4xl mx-auto space-y-3">
             <p className="text-lg md:text-xl text-neutral-300">
               Current conditions across the cosmos
             </p>
-            <p className="text-sm md:text-base text-neutral-400">
-              Sol System • Local Bubble • Perseus Arm • Milky Way Galaxy
-            </p>
+            <div className="space-y-1.5 text-xs md:text-sm font-mono">
+              <p className="text-neutral-400">
+                <span className="text-neutral-500">📍 </span>
+                Earth • Sol System
+              </p>
+              <p className="text-neutral-400">
+                Local Interstellar Cloud • Local Bubble
+              </p>
+              <p className="text-neutral-400">
+                Orion–Cygnus Arm
+              </p>
+              <p className="text-neutral-400">
+                Milky Way <span className="text-neutral-500">(R₀≈8.2 kpc, z≈+20 pc)</span> • Local Group • Virgo Supercluster
+              </p>
+            </div>
           </div>
         </div>
 
