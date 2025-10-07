@@ -36,6 +36,8 @@ export default function AetherScopeClient() {
   const [error, setError] = useState<string | null>(null);
   const [generationTime, setGenerationTime] = useState(0);
   const [expandedImage, setExpandedImage] = useState<GeneratedImageData | null>(null);
+  const [currentPlaceholder, setCurrentPlaceholder] = useState(0);
+  const [isRotating, setIsRotating] = useState(true);
 
   useEffect(() => {
     let interval: NodeJS.Timeout;
@@ -126,6 +128,34 @@ export default function AetherScopeClient() {
     "A gamma-ray burst tearing through interstellar space, the universe's most violent explosion",
   ];
 
+  // Rotate placeholder text every 5 seconds
+  useEffect(() => {
+    if (!isRotating) return;
+
+    const interval = setInterval(() => {
+      setCurrentPlaceholder((prev) => (prev + 1) % astronomicalPrompts.length);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, [isRotating]);
+
+  const handlePromptChange = (value: string) => {
+    setPrompt(value);
+    if (value.trim()) {
+      setIsRotating(false);
+    } else {
+      // If the value is empty, resume rotation
+      setIsRotating(true);
+    }
+  };
+
+  const handleTabKey = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (e.key === 'Tab' && isRotating) {
+      e.preventDefault();
+      setPrompt(astronomicalPrompts[currentPlaceholder]);
+      setIsRotating(false);
+    }
+  };
+
   return (
     <DotBackground>
       <div className="h-full w-full p-8">
@@ -164,20 +194,30 @@ export default function AetherScopeClient() {
                   ))}
                 </select>
               </div>
-              <textarea
-                id="prompt"
-                value={prompt}
-                onChange={(e) => setPrompt(e.target.value)}
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) {
-                    e.preventDefault();
-                    handleGenerate();
-                  }
-                }}
-                placeholder="e.g., A breathtaking view of the Crab Nebula with intricate filaments and a pulsar at its center..."
-                className="w-full h-32 px-4 py-3 bg-black/50 border border-white/20 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
-                disabled={isGenerating}
-              />
+              <div className="relative">
+                {!prompt && (
+                  <div
+                    key={currentPlaceholder}
+                    className="absolute inset-0 px-4 py-3 pointer-events-none text-gray-500 text-sm animate-fade-in"
+                  >
+                    {astronomicalPrompts[currentPlaceholder]}
+                  </div>
+                )}
+                <textarea
+                  id="prompt"
+                  value={prompt}
+                  onChange={(e) => handlePromptChange(e.target.value)}
+                  onKeyDown={(e) => {
+                    handleTabKey(e);
+                    if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) {
+                      e.preventDefault();
+                      handleGenerate();
+                    }
+                  }}
+                  className="w-full h-32 px-4 py-3 bg-black/50 border border-white/20 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none transition-all relative"
+                  disabled={isGenerating}
+                />
+              </div>
 
               {/* Quick Prompts */}
               <div className="mt-4">
@@ -188,9 +228,10 @@ export default function AetherScopeClient() {
                       key={index}
                       onClick={() => setPrompt(quickPrompt)}
                       disabled={isGenerating}
-                      className="text-xs px-3 py-1.5 bg-white/10 hover:bg-white/20 border border-white/20 rounded-full text-gray-300 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                      className="text-xs px-3 py-1.5 bg-white/10 hover:bg-white/20 border border-white/20 rounded-full text-gray-300 transition-all disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap overflow-hidden text-ellipsis max-w-full"
                     >
-                      {quickPrompt.slice(0, 40)}...
+                      <span className="hidden sm:inline">{quickPrompt.slice(0, 40)}...</span>
+                      <span className="sm:hidden">{quickPrompt.slice(0, 25)}...</span>
                     </button>
                   ))}
                 </div>
