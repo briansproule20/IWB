@@ -3,8 +3,10 @@
 import { useState, useEffect } from 'react';
 import DotBackground from "@/components/ui/dot-background";
 import Image from 'next/image';
+import { imageDB, type StoredImage } from '@/lib/indexeddb';
 
 interface GeneratedImageData {
+  id: string;
   imageUrl: string;
   prompt: string;
   generationTime: number;
@@ -30,24 +32,30 @@ export default function AetherScopeClient() {
     return () => clearInterval(interval);
   }, [isGenerating]);
 
-  // Load saved images from localStorage on mount
+  // Load saved images from IndexedDB on mount
   useEffect(() => {
-    const savedImages = localStorage.getItem('aetherscope-images');
-    if (savedImages) {
+    const loadImages = async () => {
       try {
-        setImages(JSON.parse(savedImages));
+        const savedImages = await imageDB.getAllImages();
+        setImages(savedImages);
       } catch (err) {
         console.error('Failed to load saved images:', err);
       }
-    }
+    };
+    loadImages();
   }, []);
 
-  // Save images to localStorage whenever they change
-  useEffect(() => {
-    if (images.length > 0) {
-      localStorage.setItem('aetherscope-images', JSON.stringify(images));
+  const handleDelete = async (id: string) => {
+    try {
+      await imageDB.deleteImage(id);
+      setImages(prev => prev.filter(img => img.id !== id));
+      if (expandedImage?.id === id) {
+        setExpandedImage(null);
+      }
+    } catch (err) {
+      console.error('Failed to delete image:', err);
     }
-  }, [images]);
+  };
 
   const handleGenerate = async () => {
     if (!prompt.trim()) {
@@ -75,12 +83,16 @@ export default function AetherScopeClient() {
       }
 
       const newImage: GeneratedImageData = {
+        id: Date.now().toString(),
         imageUrl: data.imageUrl,
         prompt,
         generationTime: data.generationTime,
         timestamp: Date.now(),
       };
 
+      // Save to IndexedDB
+      await imageDB.addImage(newImage);
+      
       setImages(prev => [newImage, ...prev]);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to generate image');
@@ -205,10 +217,12 @@ export default function AetherScopeClient() {
                   {images.map((img, index) => (
                     <div
                       key={index}
-                      onClick={() => setExpandedImage(img)}
-                      className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg p-3 hover:bg-white/10 transition-all cursor-pointer group"
+                      className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg p-3 hover:bg-white/10 transition-all group relative"
                     >
-                      <div className="relative w-full aspect-square bg-black/50 rounded-lg overflow-hidden mb-2">
+                      <div 
+                        onClick={() => setExpandedImage(img)}
+                        className="relative w-full aspect-square bg-black/50 rounded-lg overflow-hidden mb-2 cursor-pointer"
+                      >
                         <Image
                           src={img.imageUrl}
                           alt={img.prompt}
@@ -217,7 +231,21 @@ export default function AetherScopeClient() {
                         />
                       </div>
                       <p className="text-xs text-gray-400 line-clamp-2">{img.prompt}</p>
-                      <p className="text-xs text-gray-500 mt-1">{img.generationTime.toFixed(1)}s</p>
+                      <div className="flex items-center justify-between mt-1">
+                        <p className="text-xs text-gray-500">{img.generationTime.toFixed(1)}s</p>
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleDelete(img.id);
+                          }}
+                          className="p-1 hover:bg-red-500/20 rounded text-red-400 hover:text-red-300 transition-colors"
+                          title="Delete image"
+                        >
+                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                          </svg>
+                        </button>
+                      </div>
                     </div>
                   ))}
                 </div>
