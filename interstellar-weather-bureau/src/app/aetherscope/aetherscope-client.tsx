@@ -13,8 +13,24 @@ interface GeneratedImageData {
   timestamp: number;
 }
 
+const IMAGE_MODELS = [
+  {
+    id: 'gemini-2.5-flash-image-preview',
+    name: 'Gemini 2.5 Flash',
+    provider: 'Google',
+    speed: 'Fast'
+  },
+  {
+    id: 'gpt-image-1',
+    name: 'GPT Image 1',
+    provider: 'OpenAI',
+    speed: 'Slow'
+  },
+];
+
 export default function AetherScopeClient() {
   const [prompt, setPrompt] = useState('');
+  const [selectedModel, setSelectedModel] = useState('gemini-2.5-flash-image-preview');
   const [images, setImages] = useState<GeneratedImageData[]>([]);
   const [isGenerating, setIsGenerating] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -73,7 +89,7 @@ export default function AetherScopeClient() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ prompt }),
+        body: JSON.stringify({ prompt, model: selectedModel }),
       });
 
       const data = await response.json();
@@ -128,13 +144,36 @@ export default function AetherScopeClient() {
           <div className="max-w-4xl mx-auto space-y-6">
             {/* Input Area */}
             <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-6">
-              <label htmlFor="prompt" className="block text-sm font-semibold text-gray-300 mb-3">
-                Describe the astronomical scene you want to visualize
-              </label>
+              <div className="flex items-center justify-between mb-3">
+                <label htmlFor="prompt" className="block text-sm font-semibold text-neutral-300">
+                  Prompt
+                </label>
+
+                {/* Model Selector */}
+                <select
+                  id="model"
+                  value={selectedModel}
+                  onChange={(e) => setSelectedModel(e.target.value)}
+                  disabled={isGenerating}
+                  className="px-3 py-1.5 bg-white/[0.05] border border-white/20 rounded-lg text-xs text-neutral-300 focus:outline-none focus:border-white/40 disabled:opacity-50 transition-colors"
+                >
+                  {IMAGE_MODELS.map((model) => (
+                    <option key={model.id} value={model.id} className="bg-black">
+                      {model.name} ({model.speed})
+                    </option>
+                  ))}
+                </select>
+              </div>
               <textarea
                 id="prompt"
                 value={prompt}
                 onChange={(e) => setPrompt(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) {
+                    e.preventDefault();
+                    handleGenerate();
+                  }
+                }}
                 placeholder="e.g., A breathtaking view of the Crab Nebula with intricate filaments and a pulsar at its center..."
                 className="w-full h-32 px-4 py-3 bg-black/50 border border-white/20 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
                 disabled={isGenerating}
@@ -258,10 +297,10 @@ export default function AetherScopeClient() {
                 className="fixed inset-0 z-50 bg-black/90 backdrop-blur-sm flex items-center justify-center p-4"
                 onClick={() => setExpandedImage(null)}
               >
-                <div className="max-w-5xl w-full bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-6 space-y-4">
+                <div className="max-w-3xl w-full bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-4 md:p-6 space-y-3 md:space-y-4">
                   <div className="flex items-center justify-between">
                     <div>
-                      <h3 className="text-lg font-semibold text-white">Generated Image</h3>
+                      <h3 className="text-base md:text-lg font-semibold text-white">Generated Image</h3>
                       <p className="text-xs text-gray-400">
                         Generated in {expandedImage.generationTime.toFixed(1)}s
                       </p>
@@ -270,23 +309,23 @@ export default function AetherScopeClient() {
                       <a
                         href={expandedImage.imageUrl}
                         download="aetherscope-generated.png"
-                        className="px-4 py-2 bg-white/10 hover:bg-white/20 border border-white/20 rounded-lg text-sm text-gray-300 transition-all flex items-center gap-2"
+                        className="px-3 py-1.5 md:px-4 md:py-2 bg-white/10 hover:bg-white/20 border border-white/20 rounded-lg text-xs md:text-sm text-gray-300 transition-all flex items-center gap-2"
                         onClick={(e) => e.stopPropagation()}
                       >
-                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg className="w-3 h-3 md:w-4 md:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
                         </svg>
                         Download
                       </a>
                       <button
                         onClick={() => setExpandedImage(null)}
-                        className="px-4 py-2 bg-white/10 hover:bg-white/20 border border-white/20 rounded-lg text-sm text-gray-300 transition-all"
+                        className="px-3 py-1.5 md:px-4 md:py-2 bg-white/10 hover:bg-white/20 border border-white/20 rounded-lg text-xs md:text-sm text-gray-300 transition-all"
                       >
                         Close
                       </button>
                     </div>
                   </div>
-                  <div className="relative w-full aspect-square bg-black/50 rounded-lg overflow-hidden">
+                  <div className="relative w-full aspect-square bg-black/50 rounded-lg overflow-hidden max-h-[70vh]">
                     <Image
                       src={expandedImage.imageUrl}
                       alt={expandedImage.prompt}
@@ -294,7 +333,7 @@ export default function AetherScopeClient() {
                       className="object-contain"
                     />
                   </div>
-                  <p className="text-sm text-gray-400 italic text-center">"{expandedImage.prompt}"</p>
+                  <p className="text-xs md:text-sm text-gray-400 italic text-center line-clamp-2">"{expandedImage.prompt}"</p>
                 </div>
               </div>
             )}
