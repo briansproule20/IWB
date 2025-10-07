@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Menu, Home, MessageSquare, Image as ImageIcon, Telescope, X } from 'lucide-react';
+import { Menu, Home, MessageSquare, Image as ImageIcon, Telescope, FileText, Rocket, X } from 'lucide-react';
 import {
   Sheet,
   SheetContent,
@@ -15,6 +15,8 @@ import { EchoAccount } from '@/components/echo-account-next';
 
 const navigation = [
   { name: 'Home', href: '/', icon: Home },
+  { name: 'Reports', href: '/reports', icon: FileText },
+  { name: 'Vehicles', href: '/vehicles', icon: Rocket },
   { name: 'AetherScope', href: '/aetherscope', icon: Telescope },
   { name: 'Chat', href: '/chat', icon: MessageSquare },
   { name: 'Gallery', href: '/gallery', icon: ImageIcon },
