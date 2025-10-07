@@ -664,6 +664,7 @@ const exoplanetItems = [
 
 export default function Report() {
   const [expandedSection, setExpandedSection] = useState<string>("");
+  const [showLocationModal, setShowLocationModal] = useState(false);
 
   const toggleSection = (section: string) => {
     setExpandedSection(expandedSection === section ? "" : section);
@@ -681,7 +682,11 @@ export default function Report() {
             <p className="text-lg md:text-xl text-neutral-300">
               Current conditions across the cosmos
             </p>
-            <div className="space-y-1.5 text-xs md:text-sm font-mono">
+            <div 
+              className="space-y-1.5 text-xs md:text-sm font-mono cursor-pointer hover:bg-white/5 rounded-lg p-3 transition-colors"
+              onClick={() => setShowLocationModal(true)}
+              title="Click to learn about our galactic position"
+            >
               <p className="text-neutral-400">
                 <span className="text-neutral-500">📍 </span>
                 Earth • Sol System
@@ -693,11 +698,171 @@ export default function Report() {
                 Orion–Cygnus Arm
               </p>
               <p className="text-neutral-400">
-                Milky Way <span className="text-neutral-500">(R₀≈8.2 kpc, z≈+20 pc)</span> • Local Group • Virgo Supercluster
+                Milky Way <span className="text-neutral-500">(R≈8.2 kpc, φ=0°, z≈+20 pc)</span> • Local Group • Virgo Supercluster
               </p>
             </div>
           </div>
         </div>
+
+        {/* Location Explanation Modal */}
+        {showLocationModal && (
+          <div 
+            className="fixed inset-0 z-50 bg-black/85 backdrop-blur-sm flex items-end md:items-center justify-center p-0 md:p-4 animate-in fade-in duration-200"
+            onClick={() => setShowLocationModal(false)}
+          >
+            <div 
+              className="w-full md:w-auto md:min-w-[600px] md:max-w-xl bg-black/98 md:bg-neutral-900/95 border-t md:border border-white/20 rounded-t-3xl md:rounded-xl overflow-hidden flex flex-col shadow-2xl"
+              style={{ maxHeight: '85vh' }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Drag Handle (Mobile Only) */}
+              <div className="md:hidden flex-shrink-0 pt-3 pb-2">
+                <div className="w-10 h-1 bg-white/40 rounded-full mx-auto" />
+              </div>
+
+              {/* Header - Fixed */}
+              <div className="flex-shrink-0 px-5 md:px-6 py-3 md:py-4 border-b border-white/10">
+                <div className="flex items-center justify-between">
+                  <h2 className="text-lg md:text-xl font-bold text-white">Galactic Position</h2>
+                  <button
+                    onClick={() => setShowLocationModal(false)}
+                    className="p-1.5 -mr-1.5 text-neutral-500 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
+                    aria-label="Close"
+                  >
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+
+              {/* Content - Scrollable */}
+              <div className="flex-1 overflow-y-auto px-5 md:px-6 py-4 md:py-5 space-y-4 md:space-y-5 text-neutral-300 overscroll-contain">
+                {/* Nested Structure */}
+                <div>
+                  <h3 className="text-sm md:text-base font-semibold text-white mb-1.5">Nested Structure</h3>
+                  <p className="text-xs md:text-sm text-neutral-500 mb-2">Smallest to largest:</p>
+                  <div className="bg-white/5 rounded-lg p-3 space-y-1.5 text-xs md:text-sm">
+                    <div className="flex items-start gap-2">
+                      <span className="text-blue-400 font-mono">Earth</span>
+                      <span className="text-neutral-500">→</span>
+                      <span className="text-neutral-400">Our home planet</span>
+                    </div>
+                    <div className="flex items-start gap-2">
+                      <span className="text-blue-400 font-mono">Sol System</span>
+                      <span className="text-neutral-500">→</span>
+                      <span className="text-neutral-400">8 planets, asteroid belt, Kuiper belt</span>
+                    </div>
+                    <div className="flex items-start gap-2">
+                      <span className="text-blue-400 font-mono">Local Cloud</span>
+                      <span className="text-neutral-500">→</span>
+                      <span className="text-neutral-400">Gas cloud we're passing through</span>
+                    </div>
+                    <div className="flex items-start gap-2">
+                      <span className="text-blue-400 font-mono">Local Bubble</span>
+                      <span className="text-neutral-500">→</span>
+                      <span className="text-neutral-400">~300 light-years across</span>
+                    </div>
+                    <div className="flex items-start gap-2">
+                      <span className="text-blue-400 font-mono">Orion–Cygnus</span>
+                      <span className="text-neutral-500">→</span>
+                      <span className="text-neutral-400">Minor spiral arm</span>
+                    </div>
+                    <div className="flex items-start gap-2">
+                      <span className="text-blue-400 font-mono">Milky Way</span>
+                      <span className="text-neutral-500">→</span>
+                      <span className="text-neutral-400">~100,000 ly across</span>
+                    </div>
+                    <div className="flex items-start gap-2">
+                      <span className="text-blue-400 font-mono">Local Group</span>
+                      <span className="text-neutral-500">→</span>
+                      <span className="text-neutral-400">50+ galaxies</span>
+                    </div>
+                    <div className="flex items-start gap-2">
+                      <span className="text-blue-400 font-mono">Virgo SC</span>
+                      <span className="text-neutral-500">→</span>
+                      <span className="text-neutral-400">Part of Laniakea</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Coordinates */}
+                <div>
+                  <h3 className="text-sm md:text-base font-semibold text-white mb-1.5">3D Galactocentric Coordinates</h3>
+                  <p className="text-xs text-neutral-500 mb-2">Cylindrical system (R, φ, z):</p>
+                  <div className="space-y-2">
+                    <div className="bg-white/5 rounded-lg p-3">
+                      <p className="font-mono text-sm text-blue-400 mb-1">R ≈ 8.2 kpc</p>
+                      <p className="text-xs leading-relaxed text-neutral-400">
+                        <span className="font-medium text-white">Radial Distance</span> from galactic center<br />
+                        ≈ 26,700 light-years<br />
+                        ~60% from center to edge
+                      </p>
+                    </div>
+                    <div className="bg-white/5 rounded-lg p-3">
+                      <p className="font-mono text-sm text-blue-400 mb-1">φ = 0°</p>
+                      <p className="text-xs leading-relaxed text-neutral-400">
+                        <span className="font-medium text-white">Azimuthal Angle</span> in galactic plane<br />
+                        Sun defines φ=0° by convention
+                      </p>
+                    </div>
+                    <div className="bg-white/5 rounded-lg p-3">
+                      <p className="font-mono text-sm text-blue-400 mb-1">z ≈ +20 pc</p>
+                      <p className="text-xs leading-relaxed text-neutral-400">
+                        <span className="font-medium text-white">Height Above Plane</span><br />
+                        ≈ 65 light-years "north"<br />
+                        Slightly above galactic midplane
+                      </p>
+                    </div>
+                  </div>
+                  <p className="text-xs text-neutral-500 mt-2 italic">
+                    Also written as Cartesian: (X, Y, Z) ≈ (+8.2, 0, +0.02) kpc
+                  </p>
+                </div>
+
+                {/* Data Organization */}
+                <div>
+                  <h3 className="text-sm md:text-base font-semibold text-white mb-1.5">Data Coverage</h3>
+                  <div className="space-y-1.5 text-xs">
+                    <div className="flex items-start gap-1.5">
+                      <span className="text-blue-400 flex-shrink-0">•</span>
+                      <span className="text-neutral-400"><span className="font-medium text-white">Sol</span> — Solar weather</span>
+                    </div>
+                    <div className="flex items-start gap-1.5">
+                      <span className="text-blue-400 flex-shrink-0">•</span>
+                      <span className="text-neutral-400"><span className="font-medium text-white">Planets</span> — Solar system conditions</span>
+                    </div>
+                    <div className="flex items-start gap-1.5">
+                      <span className="text-blue-400 flex-shrink-0">•</span>
+                      <span className="text-neutral-400"><span className="font-medium text-white">Exoplanets</span> — Other star systems</span>
+                    </div>
+                    <div className="flex items-start gap-1.5">
+                      <span className="text-blue-400 flex-shrink-0">•</span>
+                      <span className="text-neutral-400"><span className="font-medium text-white">Extremities</span> — Cosmic phenomena</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Fun Fact */}
+                <div className="bg-blue-500/10 border border-blue-500/20 rounded-lg p-3">
+                  <p className="text-xs leading-relaxed text-blue-200">
+                    <span className="font-semibold">💡</span> Our position between the Perseus and Sagittarius arms gives us a clear view of the galaxy!
+                  </p>
+                </div>
+              </div>
+
+              {/* Footer - Fixed */}
+              <div className="flex-shrink-0 p-4 border-t border-white/10 bg-black/30">
+                <button
+                  onClick={() => setShowLocationModal(false)}
+                  className="w-full px-4 py-2.5 bg-white/10 hover:bg-white/15 active:bg-white/20 border border-white/20 rounded-lg text-sm text-white font-medium transition-colors"
+                >
+                  Got it
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* Sol Category */}
       <div>
