@@ -27,6 +27,9 @@ import ChallengerDeepCard from "@/components/ocean/challenger-deep-card";
 import NazareWavesCard from "@/components/ocean/nazare-waves-card";
 import MDRAtlanticCard from "@/components/ocean/mdr-atlantic-card";
 import TitanicSiteCard from "@/components/ocean/titanic-site-card";
+import AgulhasPassageCard from "@/components/ocean/agulhas-passage-card";
+import BeringStraitCard from "@/components/ocean/bering-strait-card";
+import LakeSuperiorCard from "@/components/ocean/lake-superior-card";
 import OlympusMonsCard from "@/components/mars/olympus-mons-card";
 import PolarIceCapsCard from "@/components/mars/polar-ice-caps-card";
 import VallesMarinerisCard from "@/components/mars/valles-marineris-card";
@@ -613,6 +616,24 @@ const oceansItems = [
     title: "",
     description: "",
     header: <DrakePassageWeather />,
+    className: "md:col-span-1",
+  },
+  {
+    title: "",
+    description: "",
+    header: <AgulhasPassageCard />,
+    className: "md:col-span-1",
+  },
+  {
+    title: "",
+    description: "",
+    header: <BeringStraitCard />,
+    className: "md:col-span-1",
+  },
+  {
+    title: "",
+    description: "",
+    header: <LakeSuperiorCard />,
     className: "md:col-span-1",
   },
 ];
