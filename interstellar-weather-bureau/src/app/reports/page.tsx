@@ -4,7 +4,6 @@ import { useState } from "react";
 import { BentoGrid, BentoGridItem } from "@/components/ui/bento-grid";
 import DotBackground from "@/components/ui/dot-background";
 import DrakePassageWeather from "@/components/weather/drake-passage-weather";
-import EverestWeather from "@/components/weather/everest-weather";
 import ExtremeLocationWeather from "@/components/weather/extreme-location-weather";
 import AtacamaDesertWeather from "@/components/weather/atacama-desert-weather";
 import DanakilDepressionWeather from "@/components/weather/danakil-depression-weather";
@@ -30,6 +29,27 @@ import TitanicSiteCard from "@/components/ocean/titanic-site-card";
 import AgulhasPassageCard from "@/components/ocean/agulhas-passage-card";
 import BeringStraitCard from "@/components/ocean/bering-strait-card";
 import LakeSuperiorCard from "@/components/ocean/lake-superior-card";
+import Everest8000mCard from "@/components/peaks/everest-8000m-card";
+import K28000mCard from "@/components/peaks/k2-8000m-card";
+import Kangchenjunga8000mCard from "@/components/peaks/kangchenjunga-8000m-card";
+import Lhotse8000mCard from "@/components/peaks/lhotse-8000m-card";
+import Makalu8000mCard from "@/components/peaks/makalu-8000m-card";
+import ChoOyu8000mCard from "@/components/peaks/cho-oyu-8000m-card";
+import Dhaulagiri8000mCard from "@/components/peaks/dhaulagiri-8000m-card";
+import Manaslu8000mCard from "@/components/peaks/manaslu-8000m-card";
+import NangaParbat8000mCard from "@/components/peaks/nanga-parbat-8000m-card";
+import Annapurna8000mCard from "@/components/peaks/annapurna-8000m-card";
+import Gasherbrum18000mCard from "@/components/peaks/gasherbrum1-8000m-card";
+import BroadPeak8000mCard from "@/components/peaks/broad-peak-8000m-card";
+import Gasherbrum28000mCard from "@/components/peaks/gasherbrum2-8000m-card";
+import Shishapangma8000mCard from "@/components/peaks/shishapangma-8000m-card";
+import Everest7SummitsCard from "@/components/peaks/everest-7summits-card";
+import Aconcagua7SummitsCard from "@/components/peaks/aconcagua-7summits-card";
+import Denali7SummitsCard from "@/components/peaks/denali-7summits-card";
+import Kilimanjaro7SummitsCard from "@/components/peaks/kilimanjaro-7summits-card";
+import Elbrus7SummitsCard from "@/components/peaks/elbrus-7summits-card";
+import Vinson7SummitsCard from "@/components/peaks/vinson-7summits-card";
+import Kosciuszko7SummitsCard from "@/components/peaks/kosciuszko-7summits-card";
 import OlympusMonsCard from "@/components/mars/olympus-mons-card";
 import PolarIceCapsCard from "@/components/mars/polar-ice-caps-card";
 import VallesMarinerisCard from "@/components/mars/valles-marineris-card";
@@ -189,12 +209,6 @@ const solItems = [
 ];
 
 const earthItems = [
-  {
-    title: "",
-    description: "",
-    header: <EverestWeather />,
-    className: "md:col-span-1",
-  },
   {
     title: "",
     description: "",
@@ -583,6 +597,138 @@ const stellarClassificationsItems = [
     title: "",
     description: "",
     header: <BlackHoleCard />,
+    className: "md:col-span-1",
+  },
+];
+
+const peaks8000mItems = [
+  {
+    title: "",
+    description: "",
+    header: <Everest8000mCard />,
+    className: "md:col-span-1",
+  },
+  {
+    title: "",
+    description: "",
+    header: <K28000mCard />,
+    className: "md:col-span-1",
+  },
+  {
+    title: "",
+    description: "",
+    header: <Kangchenjunga8000mCard />,
+    className: "md:col-span-1",
+  },
+  {
+    title: "",
+    description: "",
+    header: <Lhotse8000mCard />,
+    className: "md:col-span-1",
+  },
+  {
+    title: "",
+    description: "",
+    header: <Makalu8000mCard />,
+    className: "md:col-span-1",
+  },
+  {
+    title: "",
+    description: "",
+    header: <ChoOyu8000mCard />,
+    className: "md:col-span-1",
+  },
+  {
+    title: "",
+    description: "",
+    header: <Dhaulagiri8000mCard />,
+    className: "md:col-span-1",
+  },
+  {
+    title: "",
+    description: "",
+    header: <Manaslu8000mCard />,
+    className: "md:col-span-1",
+  },
+  {
+    title: "",
+    description: "",
+    header: <NangaParbat8000mCard />,
+    className: "md:col-span-1",
+  },
+  {
+    title: "",
+    description: "",
+    header: <Annapurna8000mCard />,
+    className: "md:col-span-1",
+  },
+  {
+    title: "",
+    description: "",
+    header: <Gasherbrum18000mCard />,
+    className: "md:col-span-1",
+  },
+  {
+    title: "",
+    description: "",
+    header: <BroadPeak8000mCard />,
+    className: "md:col-span-1",
+  },
+  {
+    title: "",
+    description: "",
+    header: <Gasherbrum28000mCard />,
+    className: "md:col-span-1",
+  },
+  {
+    title: "",
+    description: "",
+    header: <Shishapangma8000mCard />,
+    className: "md:col-span-1",
+  },
+];
+
+const peaks7SummitsItems = [
+  {
+    title: "",
+    description: "",
+    header: <Everest7SummitsCard />,
+    className: "md:col-span-1",
+  },
+  {
+    title: "",
+    description: "",
+    header: <Aconcagua7SummitsCard />,
+    className: "md:col-span-1",
+  },
+  {
+    title: "",
+    description: "",
+    header: <Denali7SummitsCard />,
+    className: "md:col-span-1",
+  },
+  {
+    title: "",
+    description: "",
+    header: <Kilimanjaro7SummitsCard />,
+    className: "md:col-span-1",
+  },
+  {
+    title: "",
+    description: "",
+    header: <Elbrus7SummitsCard />,
+    className: "md:col-span-1",
+  },
+  {
+    title: "",
+    description: "",
+    header: <Vinson7SummitsCard />,
+    className: "md:col-span-1",
+  },
+  {
+    title: "",
+    description: "",
+    header: <Kosciuszko7SummitsCard />,
     className: "md:col-span-1",
   },
 ];
@@ -978,6 +1124,56 @@ export default function Report() {
               />
             ))}
           </BentoGrid>
+        )}
+      </div>
+
+      {/* Peaks Category */}
+      <div>
+        <h2
+          className="text-3xl font-bold text-white mb-6 cursor-pointer hover:opacity-70 transition-opacity flex items-center gap-2"
+          onClick={() => toggleSection("peaks")}
+        >
+          <span>{expandedSection === "peaks" ? "▼" : "▶"}</span>
+          Peaks
+        </h2>
+        {expandedSection === "peaks" && (
+          <div className="space-y-8">
+            {/* 8,000 Meter Peaks Subsection */}
+            <div>
+              <h3 className="text-2xl font-semibold text-white mb-4 pl-4 border-l-4 border-blue-500">
+                8,000 Meter Peaks
+              </h3>
+              <BentoGrid className="max-w-7xl mx-auto md:auto-rows-[25rem]">
+                {peaks8000mItems.map((item, i) => (
+                  <BentoGridItem
+                    key={i}
+                    title={item.title}
+                    description={item.description}
+                    header={item.header}
+                    className={item.className}
+                  />
+                ))}
+              </BentoGrid>
+            </div>
+
+            {/* 7 Summits Subsection */}
+            <div>
+              <h3 className="text-2xl font-semibold text-white mb-4 pl-4 border-l-4 border-purple-500">
+                7 Summits
+              </h3>
+              <BentoGrid className="max-w-7xl mx-auto md:auto-rows-[25rem]">
+                {peaks7SummitsItems.map((item, i) => (
+                  <BentoGridItem
+                    key={i}
+                    title={item.title}
+                    description={item.description}
+                    header={item.header}
+                    className={item.className}
+                  />
+                ))}
+              </BentoGrid>
+            </div>
+          </div>
         )}
       </div>
 
