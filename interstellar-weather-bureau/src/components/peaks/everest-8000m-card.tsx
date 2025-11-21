@@ -15,9 +15,9 @@ export default function Everest8000mCard() {
       .catch(() => {});
   }, []);
 
-  const tempC = weather?.current?.temperature_2m;
+  const tempC = weather?.weather?.current?.temperature_2m;
   const tempF = tempC ? (tempC * 9/5) + 32 : null;
-  const windKmh = weather?.current?.wind_speed_10m;
+  const windKmh = weather?.weather?.current?.wind_speed_10m;
   const windMph = windKmh ? windKmh * 0.621371 : null;
 
   return (

@@ -53,7 +53,7 @@ export async function GET() {
         longitude: EVEREST_LON,
         elevation: 8849, // meters
       },
-      ...data,
+      weather: data,
     });
   } catch (error) {
     console.error('Everest weather API error:', error);
