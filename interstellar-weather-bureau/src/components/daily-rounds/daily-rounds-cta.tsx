@@ -1,10 +1,9 @@
 "use client";
 
-import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { LayoutTextFlip } from "@/components/ui/layout-text-flip";
-import { Mail, Sparkles, Sun, Telescope, Loader2, Check } from "lucide-react";
+import { Mail, Sparkles, Sun, Telescope } from "lucide-react";
 import Link from "next/link";
 
 const BULLETIN_NAMES = [
@@ -16,22 +15,6 @@ const BULLETIN_NAMES = [
 ];
 
 export function DailyRoundsCTA() {
-  const [email, setEmail] = useState("");
-  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!email) return;
-
-    setStatus("loading");
-
-    // TODO: Implement actual email signup
-    // For now, simulate a successful signup
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    setStatus("success");
-    setEmail("");
-  };
-
   return (
     <div className="relative overflow-hidden rounded-xl border border-white/[0.2] bg-black p-6 md:p-8">
       {/* Background decoration */}
@@ -51,7 +34,7 @@ export function DailyRoundsCTA() {
           </div>
 
           <p className="text-neutral-400 text-sm md:text-base max-w-xl">
-            Every morning, your weary weatherman drags himself out of cryosleep to deliver your personalized cosmic forecast. Solar flares, near-Earth objects, meteor showers, exoplanet discoveries—plus one completely absurd weather event that <span className="italic">technically</span> exists somewhere in the galaxy.
+            Every morning, your weary weatherman drags himself out of cryosleep to deliver your personalized cosmic forecast. Your local forecast, solar flares, near-Earth objects, meteor showers, exoplanet discoveries—plus one completely absurd weather event that <span className="italic">technically</span> exists somewhere in the galaxy.
           </p>
 
           {/* Feature list */}
@@ -80,45 +63,22 @@ export function DailyRoundsCTA() {
 
         {/* Signup form */}
         <div className="w-full md:w-auto">
-          {status === "success" ? (
-            <div className="flex items-center gap-3 p-4 rounded-lg bg-white/[0.05] border border-white/[0.1]">
-              <div className="p-2 rounded-full bg-green-500/20 text-green-400">
-                <Check className="h-4 w-4" />
-              </div>
-              <div>
-                <p className="text-sm font-medium text-white">You're on the list</p>
-                <p className="text-xs text-neutral-400">Check your cryopod for confirmation</p>
-              </div>
-            </div>
-          ) : (
-            <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3">
-              <Input
-                type="email"
-                placeholder="your@email.com"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="min-w-[240px] bg-white/[0.05] border-white/[0.1] focus:border-primary"
-                disabled={status === "loading"}
-                required
-              />
-              <Button
-                type="submit"
-                disabled={status === "loading"}
-                className="whitespace-nowrap"
-              >
-                {status === "loading" ? (
-                  <>
-                    <Loader2 className="h-4 w-4 animate-spin" />
-                    Subscribing...
-                  </>
-                ) : (
-                  "Get the Forecast"
-                )}
-              </Button>
-            </form>
-          )}
+          <div className="flex flex-col sm:flex-row gap-3">
+            <Input
+              type="tel"
+              placeholder="+1 (555) 000-0000"
+              disabled
+              className="min-w-[240px] bg-white/[0.03] border-white/[0.05] text-neutral-600 cursor-not-allowed"
+            />
+            <Button
+              disabled
+              className="whitespace-nowrap opacity-50 cursor-not-allowed"
+            >
+              Coming Soon
+            </Button>
+          </div>
           <p className="text-xs text-neutral-500 mt-2">
-            Delivered daily at 0600 galactic standard time. Unsubscribe anytime.
+            Delivered daily via iMessage at 0600 galactic standard time.
           </p>
         </div>
       </div>

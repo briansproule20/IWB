@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import DotBackground from "@/components/ui/dot-background";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -11,8 +10,6 @@ import {
   Sparkles,
   Telescope,
   Cloud,
-  Loader2,
-  Check,
   AlertTriangle,
   Zap,
   Globe,
@@ -30,21 +27,6 @@ const BULLETIN_NAMES = [
 ];
 
 export default function DailyRoundsPage() {
-  const [email, setEmail] = useState("");
-  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!email) return;
-
-    setStatus("loading");
-
-    // TODO: Implement actual email signup
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    setStatus("success");
-    setEmail("");
-  };
-
   const features = [
     {
       icon: Sun,
@@ -157,47 +139,20 @@ export default function DailyRoundsPage() {
                 </p>
               </div>
 
-              {status === "success" ? (
-                <div className="flex items-center gap-3 p-4 rounded-lg bg-white/[0.05] border border-white/[0.1]">
-                  <div className="p-2 rounded-full bg-green-500/20 text-green-400">
-                    <Check className="h-5 w-5" />
-                  </div>
-                  <div className="text-left">
-                    <p className="font-medium text-white">Welcome aboard, traveler</p>
-                    <p className="text-sm text-neutral-400">
-                      Your first forecast arrives tomorrow at 0600 GST
-                    </p>
-                  </div>
-                </div>
-              ) : (
-                <form
-                  onSubmit={handleSubmit}
-                  className="flex flex-col sm:flex-row gap-3 w-full max-w-md"
-                >
-                  <Input
-                    type="email"
-                    placeholder="your@email.com"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    className="flex-1 bg-white/[0.05] border-white/[0.1] focus:border-primary"
-                    disabled={status === "loading"}
-                    required
-                  />
-                  <Button type="submit" disabled={status === "loading"} size="lg">
-                    {status === "loading" ? (
-                      <>
-                        <Loader2 className="h-4 w-4 animate-spin" />
-                        Subscribing...
-                      </>
-                    ) : (
-                      "Subscribe"
-                    )}
-                  </Button>
-                </form>
-              )}
+              <div className="flex flex-col sm:flex-row gap-3 w-full max-w-md">
+                <Input
+                  type="tel"
+                  placeholder="+1 (555) 000-0000"
+                  disabled
+                  className="flex-1 bg-white/[0.03] border-white/[0.05] text-neutral-600 cursor-not-allowed"
+                />
+                <Button disabled size="lg" className="opacity-50 cursor-not-allowed">
+                  Coming Soon
+                </Button>
+              </div>
 
               <p className="text-xs text-neutral-500">
-                Unsubscribe anytime. I won't be offended. Much.
+                Delivered daily via iMessage. The weatherman is working on it.
               </p>
             </div>
           </div>
@@ -270,20 +225,13 @@ export default function DailyRoundsPage() {
             <h3 className="text-xl font-bold text-white">
               Ready for your first forecast?
             </h3>
-            {status !== "success" && (
-              <Button
-                size="lg"
-                onClick={() => {
-                  document.querySelector("input[type='email']")?.scrollIntoView({
-                    behavior: "smooth",
-                    block: "center",
-                  });
-                  (document.querySelector("input[type='email']") as HTMLInputElement)?.focus();
-                }}
-              >
-                Subscribe Now
-              </Button>
-            )}
+            <Button
+              size="lg"
+              disabled
+              className="opacity-50 cursor-not-allowed"
+            >
+              Coming Soon
+            </Button>
             <p className="text-sm text-neutral-400">
               Join fellow travelers who trust the Interstellar Weatherman with their
               cosmic commute.
