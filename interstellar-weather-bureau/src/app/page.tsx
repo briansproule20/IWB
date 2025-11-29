@@ -4,6 +4,7 @@ import Link from "next/link";
 import { BentoGrid, BentoGridItem } from "@/components/ui/bento-grid";
 import DotBackground from "@/components/ui/dot-background";
 import APODCard from "@/components/nasa/apod-card";
+import { DailyRoundsCTA } from "@/components/daily-rounds/daily-rounds-cta";
 import { ArrowRight, MessageSquare, Telescope, Rocket, FileText, Image as ImageIcon } from "lucide-react";
 
 export default function Home() {
@@ -147,6 +148,9 @@ export default function Home() {
               </div>
             </Link>
           </div>
+
+          {/* Daily Bulletin CTA */}
+          <DailyRoundsCTA />
         </div>
       </div>
     </DotBackground>
