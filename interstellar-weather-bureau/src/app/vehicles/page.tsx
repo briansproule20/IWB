@@ -2,6 +2,8 @@
 
 import { useState, useEffect } from "react";
 import DotBackground from "@/components/ui/dot-background";
+import { Separator } from "@/components/ui/separator";
+import { Rocket, Sparkles } from "lucide-react";
 
 interface Vehicle {
   name: string;
@@ -168,84 +170,163 @@ export default function Vehicles() {
             </div>
           </div>
 
-          {/* Vehicle Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {sortedVehicles.map((vehicle, index) => (
-              <div
-                key={index}
-                className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg p-4 hover:border-white/30 transition-all group cursor-pointer flex flex-col h-full"
-                onClick={() => setSelectedVehicle(vehicle)}
-              >
-                {/* Header - Fixed Height */}
-                <div className="mb-3 min-h-[60px]">
-                  <div className="flex items-start justify-between gap-2 mb-1.5">
-                    <h3 className="text-base font-bold text-white group-hover:text-blue-300 transition-colors line-clamp-1">
-                      {vehicle.name}
-                    </h3>
-                    <span className="text-xs text-neutral-500 font-mono flex-shrink-0">
-                      {typeof vehicle.first_flight_or_era === 'number' 
-                        ? vehicle.first_flight_or_era 
-                        : String(vehicle.first_flight_or_era).match(/\d+/)?.[0] || '—'}
-                    </span>
-                  </div>
-                  <div className="flex items-center gap-2 text-xs">
-                    <span className="text-neutral-400 line-clamp-1">{getManufacturer(vehicle)}</span>
-                  </div>
-                  <div className="flex items-center gap-2 text-xs mt-1">
-                    <span className={`${
+          {/* Real Vehicles Section */}
+          <div className="space-y-4">
+            <div className="flex items-center gap-3">
+              <div className="p-2 rounded-lg bg-white/[0.05]">
+                <Rocket className="h-5 w-5 text-white" />
+              </div>
+              <div>
+                <h2 className="text-xl font-semibold text-white">Terran Spacecraft</h2>
+                <p className="text-sm text-neutral-500">Real vehicles from Earth's space programs</p>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {sortedVehicles.filter(v => v.universe === "Real").map((vehicle, index) => (
+                <div
+                  key={index}
+                  className="bg-white/[0.03] border border-white/[0.08] rounded-xl p-4 hover:bg-white/[0.05] hover:border-white/[0.15] transition-all group cursor-pointer flex flex-col h-full"
+                  onClick={() => setSelectedVehicle(vehicle)}
+                >
+                  {/* Header */}
+                  <div className="mb-3 min-h-[60px]">
+                    <div className="flex items-start justify-between gap-2 mb-1.5">
+                      <h3 className="text-base font-semibold text-white group-hover:text-primary transition-colors line-clamp-1">
+                        {vehicle.name}
+                      </h3>
+                      <span className="text-xs text-neutral-500 font-mono flex-shrink-0">
+                        {typeof vehicle.first_flight_or_era === 'number'
+                          ? vehicle.first_flight_or_era
+                          : String(vehicle.first_flight_or_era).match(/\d+/)?.[0] || '—'}
+                      </span>
+                    </div>
+                    <p className="text-xs text-neutral-400 line-clamp-1">{getManufacturer(vehicle)}</p>
+                    <span className={`text-xs mt-1 inline-block ${
                       vehicle.status.includes("Active")
-                        ? "text-green-400"
+                        ? "text-emerald-400"
                         : vehicle.status.includes("Retired")
                         ? "text-neutral-500"
                         : "text-amber-400"
                     }`}>
                       {vehicle.status}
                     </span>
-                    {vehicle.universe === "Fiction" && (
+                  </div>
+
+                  {/* Stats */}
+                  <div className="flex-1 space-y-1.5 text-xs mb-3">
+                    <div className="flex justify-between items-center">
+                      <span className="text-neutral-500">Payload LEO</span>
+                      <span className="text-white font-mono font-medium">
+                        {formatMass(vehicle.payload_leo_kg)}
+                      </span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-neutral-500">Thrust</span>
+                      <span className="text-white font-mono">
+                        {vehicle.thrust_liftoff_kN ? `${formatNumber(vehicle.thrust_liftoff_kN)} kN` : '—'}
+                      </span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-neutral-500">T/W</span>
+                      <span className="text-white font-mono">
+                        {vehicle.tw_liftoff ? vehicle.tw_liftoff.toFixed(2) : '—'}
+                      </span>
+                    </div>
+                    <Separator className="my-2 bg-white/[0.06]" />
+                    <div className="flex justify-between items-start gap-2">
+                      <span className="text-neutral-500">Engine</span>
+                      <span className="text-neutral-300 text-right text-xs line-clamp-2 flex-1">
+                        {vehicle.engine_or_drive_model}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Destinations */}
+                  <div className="bg-primary/10 border border-primary/20 rounded-lg px-3 py-2 mt-auto">
+                    <p className="text-[10px] md:text-xs text-primary/90 text-center line-clamp-1">
+                      {formatDestinations(vehicle.destinations)}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Divider */}
+          <div className="relative py-8">
+            <Separator className="bg-white/[0.1]" />
+            <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-black px-4 py-2 rounded-full border border-white/[0.1]">
+              <span className="text-xs text-neutral-500 uppercase tracking-wider">Speculative</span>
+            </div>
+          </div>
+
+          {/* Fictional Vehicles Section */}
+          <div className="space-y-4">
+            <div className="flex items-center gap-3">
+              <div className="p-2 rounded-lg bg-purple-500/10">
+                <Sparkles className="h-5 w-5 text-purple-400" />
+              </div>
+              <div>
+                <h2 className="text-xl font-semibold text-white">Fictional Starships</h2>
+                <p className="text-sm text-neutral-500">Vessels from science fiction universes</p>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {sortedVehicles.filter(v => v.universe === "Fiction").map((vehicle, index) => (
+                <div
+                  key={index}
+                  className="bg-purple-500/[0.03] border border-purple-500/[0.1] rounded-xl p-4 hover:bg-purple-500/[0.06] hover:border-purple-500/[0.2] transition-all group cursor-pointer flex flex-col h-full"
+                  onClick={() => setSelectedVehicle(vehicle)}
+                >
+                  {/* Header */}
+                  <div className="mb-3 min-h-[60px]">
+                    <div className="flex items-start justify-between gap-2 mb-1.5">
+                      <h3 className="text-base font-semibold text-white group-hover:text-purple-300 transition-colors line-clamp-1">
+                        {vehicle.name}
+                      </h3>
+                    </div>
+                    <p className="text-xs text-purple-300/70 line-clamp-1">{vehicle.franchise}</p>
+                  </div>
+
+                  {/* Propulsion Info */}
+                  <div className="flex-1 space-y-1.5 text-xs mb-3">
+                    <div className="flex justify-between items-start gap-2">
+                      <span className="text-neutral-500">Propulsion</span>
+                      <span className="text-neutral-300 text-right line-clamp-2 flex-1">
+                        {vehicle.propulsion_or_drive}
+                      </span>
+                    </div>
+                    <Separator className="my-2 bg-purple-500/[0.1]" />
+                    <div className="flex justify-between items-start gap-2">
+                      <span className="text-neutral-500">Energy</span>
+                      <span className="text-neutral-300 text-right line-clamp-2 flex-1">
+                        {vehicle.energy_source}
+                      </span>
+                    </div>
+                    {vehicle.payload_other && (
                       <>
-                        <span className="text-neutral-600">•</span>
-                        <span className="text-purple-400">Fictional</span>
+                        <Separator className="my-2 bg-purple-500/[0.1]" />
+                        <div className="flex justify-between items-start gap-2">
+                          <span className="text-neutral-500">Payload</span>
+                          <span className="text-neutral-300 text-right line-clamp-2 flex-1">
+                            {vehicle.payload_other}
+                          </span>
+                        </div>
                       </>
                     )}
                   </div>
-                </div>
 
-                {/* Stats Section - Fixed Height */}
-                <div className="flex-1 space-y-2 text-xs mb-3">
-                  <div className="flex justify-between items-center h-5">
-                    <span className="text-neutral-500">Payload LEO</span>
-                    <span className="text-white font-mono font-semibold">
-                      {formatMass(vehicle.payload_leo_kg)}
-                    </span>
-                  </div>
-                  <div className="flex justify-between items-center h-5">
-                    <span className="text-neutral-500">Thrust</span>
-                    <span className="text-white font-mono">
-                      {vehicle.thrust_liftoff_kN ? `${formatNumber(vehicle.thrust_liftoff_kN)} kN` : '—'}
-                    </span>
-                  </div>
-                  <div className="flex justify-between items-center h-5">
-                    <span className="text-neutral-500">T/W</span>
-                    <span className="text-white font-mono">
-                      {vehicle.tw_liftoff ? vehicle.tw_liftoff.toFixed(2) : '—'}
-                    </span>
-                  </div>
-                  <div className="flex justify-between items-start gap-2 pt-1 border-t border-white/5">
-                    <span className="text-neutral-500">Engine</span>
-                    <span className="text-neutral-300 text-right text-xs line-clamp-2 flex-1">
-                      {vehicle.engine_or_drive_model}
-                    </span>
+                  {/* Destinations */}
+                  <div className="bg-purple-500/10 border border-purple-500/20 rounded-lg px-3 py-2 mt-auto">
+                    <p className="text-[10px] md:text-xs text-purple-300/80 text-center line-clamp-1">
+                      {vehicle.destinations}
+                    </p>
                   </div>
                 </div>
-
-                {/* Missions/Destinations - Fixed at Bottom */}
-                <div className="bg-blue-500/10 border border-blue-500/30 rounded px-2.5 py-2 mt-auto">
-                  <p className="text-[10px] md:text-xs text-blue-200 text-center line-clamp-1 leading-tight">
-                    {formatDestinations(vehicle.destinations)}
-                  </p>
-                </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
 
           {/* Detail Modal */}
