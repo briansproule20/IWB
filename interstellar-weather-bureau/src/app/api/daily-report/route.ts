@@ -279,8 +279,12 @@ async function compileReport(baseUrl: string): Promise<DailyReportPayload> {
       const tempF = Math.round(temp * 9/5 + 32);
       if (hottest === null) {
         hottest = { location: 'Death Valley', tempF };
-      } else if (tempF > hottest.tempF) {
-        hottest = { location: 'Death Valley', tempF };
+      } else {
+        // Store in const to help TypeScript with type narrowing
+        const existingHottest: { location: string; tempF: number } = hottest;
+        if (tempF > existingHottest.tempF) {
+          hottest = { location: 'Death Valley', tempF };
+        }
       }
     }
   }
@@ -293,8 +297,12 @@ async function compileReport(baseUrl: string): Promise<DailyReportPayload> {
       const tempF = Math.round(temp * 9/5 + 32);
       if (hottest === null) {
         hottest = { location: 'Danakil Depression', tempF };
-      } else if (tempF > hottest.tempF) {
-        hottest = { location: 'Danakil Depression', tempF };
+      } else {
+        // Store in const to help TypeScript with type narrowing
+        const existingHottest: { location: string; tempF: number } = hottest;
+        if (tempF > existingHottest.tempF) {
+          hottest = { location: 'Danakil Depression', tempF };
+        }
       }
     }
   }
