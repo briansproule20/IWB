@@ -8,11 +8,11 @@ export async function GET() {
     const latitude = 41.7325;
     const longitude = -49.9469;
 
-    // Open-Meteo Marine Weather API for wave data
+    // Open-Meteo Marine Weather API for wave data and sea surface temperature
     const marineParams = new URLSearchParams({
       latitude: latitude.toString(),
       longitude: longitude.toString(),
-      current: 'wave_height,swell_wave_height,wave_period,wave_direction',
+      current: 'wave_height,swell_wave_height,wave_period,wave_direction,sea_surface_temperature',
       timezone: 'auto',
     });
 
@@ -62,12 +62,9 @@ export async function GET() {
       icebergDetails = 'Moderate iceberg activity';
     }
 
-    // Estimate ocean temperature at surface (cold North Atlantic waters)
-    // Typical range: 32-50°F depending on season
-    const estimatedWaterTempF = currentMonth >= 6 && currentMonth <= 9
-      ? 45 + Math.random() * 5  // Summer: 45-50°F
-      : 32 + Math.random() * 8; // Winter/Spring: 32-40°F
-    const estimatedWaterTempC = ((estimatedWaterTempF - 32) * 5/9).toFixed(1);
+    // Sea surface temperature from marine API (in Celsius)
+    const waterTempC = marineData.current.sea_surface_temperature;
+    const waterTempF = waterTempC ? (waterTempC * 9/5) + 32 : null;
 
     return NextResponse.json({
       current: {
@@ -78,7 +75,8 @@ export async function GET() {
         wave_direction: marineData.current.wave_direction,
         air_temperature: weatherData?.current?.temperature_2m,
         surface_pressure: weatherData?.current?.surface_pressure,
-        water_temperature_estimate: parseFloat(estimatedWaterTempF.toFixed(1)),
+        water_temperature: waterTempF,
+        water_temperature_c: waterTempC,
       },
       iceberg_warning: {
         risk_level: icebergRisk,

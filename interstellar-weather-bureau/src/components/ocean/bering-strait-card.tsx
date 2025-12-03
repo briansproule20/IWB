@@ -54,7 +54,6 @@ export default function BeringStraitCard() {
     };
 
     fetchWeather();
-    // Refresh every 30 minutes
     const interval = setInterval(fetchWeather, 30 * 60 * 1000);
     return () => clearInterval(interval);
   }, []);
@@ -76,12 +75,10 @@ export default function BeringStraitCard() {
   }
 
   const { weather: weatherData, location, current_wave } = weather;
-  const { current, current_units } = weatherData;
+  const { current } = weatherData;
 
-  // Conversions
   const tempC = current.temperature_2m;
   const tempF = (tempC * 9/5) + 32;
-  const tempK = tempC + 273.15;
 
   const waveHeightM = current_wave.wave_height;
   const waveHeightFt = waveHeightM * 3.28084;
@@ -93,63 +90,67 @@ export default function BeringStraitCard() {
   const windMph = windKmh * 0.621371;
 
   return (
-    <div className="flex h-full flex-col space-y-3">
+    <div className="flex h-full flex-col space-y-2">
       <div>
         <h3 className="text-lg font-bold text-gray-900 dark:text-white">
           {location.name}
         </h3>
         <p className="text-xs text-gray-500">
-          {location.latitude.toFixed(1)}°, {location.longitude.toFixed(1)}°
+          Arctic Ocean • Gateway between continents
+        </p>
+        <p className="text-xs text-gray-500">
+          {location.latitude.toFixed(1)}°N {Math.abs(location.longitude).toFixed(1)}°W
         </p>
       </div>
 
-      <div className="flex-1 space-y-3">
-        <div>
-          <div className="text-2xl font-bold text-gray-900 dark:text-white">
-            {Math.round(tempF)}°F / {Math.round(tempC)}°C
+      <div className="flex-1 space-y-2">
+        <div className="grid grid-cols-2 gap-3">
+          <div>
+            <div className="text-xs text-gray-500">Temperature</div>
+            <div className="text-2xl font-bold text-gray-900 dark:text-white">
+              {Math.round(tempF)}°F
+            </div>
+            <div className="text-xs text-gray-600 dark:text-gray-400">
+              {Math.round(tempC)}°C
+            </div>
           </div>
-          <div className="text-xs text-gray-600 dark:text-gray-400">
-            {Math.round(tempK)}K
+          <div>
+            <div className="text-xs text-gray-500">Wave Height</div>
+            <div className="text-2xl font-bold text-gray-900 dark:text-white">
+              {waveHeightFt.toFixed(1)} ft
+            </div>
+            <div className="text-xs text-gray-600 dark:text-gray-400">
+              {waveHeightM.toFixed(1)} m
+            </div>
           </div>
         </div>
 
         <div className="space-y-2">
           <div className="rounded-lg bg-blue-50 p-2 dark:bg-blue-900/20">
-            <div className="text-xs text-blue-600 dark:text-blue-400">Wave Height</div>
+            <div className="text-xs text-blue-600 dark:text-blue-400">Swell Height</div>
             <div className="text-lg font-bold text-blue-900 dark:text-blue-200">
-              {waveHeightFt.toFixed(1)}ft / {waveHeightM.toFixed(1)}m
+              {swellHeightFt.toFixed(1)} ft / {swellHeightM.toFixed(1)} m
             </div>
           </div>
 
           <div className="rounded-lg bg-cyan-50 p-2 dark:bg-cyan-900/20">
-            <div className="text-xs text-cyan-600 dark:text-cyan-400">Swell Height</div>
+            <div className="text-xs text-cyan-600 dark:text-cyan-400">Wind Speed</div>
             <div className="text-lg font-bold text-cyan-900 dark:text-cyan-200">
-              {swellHeightFt.toFixed(1)}ft / {swellHeightM.toFixed(1)}m
+              {Math.round(windMph)} mph / {Math.round(windKmh)} km/h
             </div>
           </div>
-        </div>
 
-        <div className="grid grid-cols-2 gap-2 text-xs">
-          <div>
-            <div className="text-gray-500">Wind Speed</div>
-            <div className="font-semibold text-gray-900 dark:text-white">
-              {Math.round(windMph)} mph
-            </div>
-            <div className="text-gray-500">
-              {Math.round(windKmh)} km/h
-            </div>
-          </div>
-          <div>
-            <div className="text-gray-500">Wave Period</div>
-            <div className="font-semibold text-gray-900 dark:text-white">
-              {current_wave.wave_period.toFixed(1)}s
+          <div className="rounded-lg bg-indigo-50 p-2 dark:bg-indigo-900/20">
+            <div className="text-xs text-indigo-600 dark:text-indigo-400">Wave Period</div>
+            <div className="text-lg font-bold text-indigo-900 dark:text-indigo-200">
+              {current_wave.wave_period.toFixed(1)} seconds
             </div>
           </div>
         </div>
       </div>
 
       <div className="text-xs text-gray-400">
-        Updated: {new Date(current.time).toLocaleTimeString()}
+        Updated {new Date(current.time).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
       </div>
     </div>
   );

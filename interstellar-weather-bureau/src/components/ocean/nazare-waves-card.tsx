@@ -32,7 +32,7 @@ export default function NazareWavesCard() {
     };
 
     fetchWaveData();
-    const interval = setInterval(fetchWaveData, 300000); // Refresh every 5 minutes
+    const interval = setInterval(fetchWaveData, 300000);
     return () => clearInterval(interval);
   }, []);
 
@@ -53,22 +53,14 @@ export default function NazareWavesCard() {
   }
 
   const waveHeightM = waveData.current.wave_height || 0;
-  const waveHeightFt = (waveHeightM * 3.28084).toFixed(1);
+  const waveHeightFt = waveHeightM * 3.28084;
   const swellHeightM = waveData.current.swell_wave_height || 0;
-  const swellHeightFt = (swellHeightM * 3.28084).toFixed(1);
+  const swellHeightFt = swellHeightM * 3.28084;
   const wavePeriod = waveData.current.wave_period || 0;
   const swellPeriod = waveData.current.swell_wave_period || 0;
 
-  // Format last updated time
-  const lastUpdated = waveData.current.time ? new Date(waveData.current.time).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : '';
-
-  // World record for reference
   const recordWaveHeightM = 26.2;
   const recordWaveHeightFt = 86;
-
-  // Coordinates
-  const latitude = 39.6;
-  const longitude = -9.07;
 
   return (
     <div className="flex h-full flex-col space-y-2">
@@ -76,15 +68,20 @@ export default function NazareWavesCard() {
         <h3 className="text-lg font-bold text-gray-900 dark:text-white">
           Nazaré
         </h3>
-        <p className="text-xs text-gray-500">{latitude}°N {Math.abs(longitude)}°W • Atlantic Ocean</p>
+        <p className="text-xs text-gray-500">
+          Atlantic Ocean • World record big wave surfing
+        </p>
+        <p className="text-xs text-gray-500">
+          39.6°N 9.1°W
+        </p>
       </div>
 
       <div className="flex-1 space-y-2">
         <div className="grid grid-cols-2 gap-3">
           <div>
-            <div className="text-xs text-gray-500">Current Wave Height</div>
+            <div className="text-xs text-gray-500">Current Wave</div>
             <div className="text-2xl font-bold text-gray-900 dark:text-white">
-              {waveHeightFt} ft
+              {waveHeightFt.toFixed(1)} ft
             </div>
             <div className="text-xs text-gray-600 dark:text-gray-400">
               {waveHeightM.toFixed(1)} m
@@ -103,9 +100,9 @@ export default function NazareWavesCard() {
 
         <div className="space-y-2">
           <div className="rounded-lg bg-blue-50 p-2 dark:bg-blue-900/20">
-            <div className="text-xs text-blue-600 dark:text-blue-400">Swell Wave Height</div>
+            <div className="text-xs text-blue-600 dark:text-blue-400">Swell Height</div>
             <div className="text-lg font-bold text-blue-900 dark:text-blue-200">
-              {swellHeightFt} ft / {swellHeightM.toFixed(1)} m
+              {swellHeightFt.toFixed(1)} ft / {swellHeightM.toFixed(1)} m
             </div>
           </div>
 
@@ -118,7 +115,7 @@ export default function NazareWavesCard() {
 
           <div className="rounded-lg bg-indigo-50 p-2 dark:bg-indigo-900/20">
             <div className="text-xs text-indigo-600 dark:text-indigo-400">Swell Period</div>
-            <div className="text-sm font-semibold text-indigo-900 dark:text-indigo-200">
+            <div className="text-lg font-bold text-indigo-900 dark:text-indigo-200">
               {swellPeriod.toFixed(1)} seconds
             </div>
           </div>
@@ -126,7 +123,7 @@ export default function NazareWavesCard() {
       </div>
 
       <div className="text-xs text-gray-400">
-        Last updated: {lastUpdated}
+        Updated {waveData.current.time ? new Date(waveData.current.time).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : '—'}
       </div>
     </div>
   );

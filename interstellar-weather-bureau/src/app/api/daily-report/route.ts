@@ -623,11 +623,12 @@ function formatReportForMessage(report: DailyReportPayload): string {
   }
   lines.push('');
 
-  // 🔴 Mars Weather (if available)
+  // 🔴 Mars Weather (archive from InSight mission, ended Dec 2022)
   if (report.marsWeather.available) {
-    lines.push(`🔴 MARS WEATHER (Sol ${report.marsWeather.solDate})`);
+    lines.push(`🔴 MARS INSIGHT ARCHIVE (Sol ${report.marsWeather.solDate})`);
+    lines.push(`• Elysium Planitia • Mission ended Dec 2022`);
     if (report.marsWeather.tempHighC && report.marsWeather.tempLowC) {
-      lines.push(`• High: ${report.marsWeather.tempHighC}°C / Low: ${report.marsWeather.tempLowC}°C`);
+      lines.push(`• High: ${Math.round(report.marsWeather.tempHighC)}°C / Low: ${Math.round(report.marsWeather.tempLowC)}°C`);
     }
     lines.push('');
   }

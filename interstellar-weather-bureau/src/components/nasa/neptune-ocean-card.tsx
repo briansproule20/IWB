@@ -1,7 +1,8 @@
 'use client';
 
 export default function NeptuneOceanCard() {
-  // Mock weather data for Neptune
+  // Scientific data for Neptune based on NASA research and planetary models
+  // No live data available - last mission was Voyager 2 (1989)
   const tempC = -214;
   const tempF = -353;
   const tempK = 59;

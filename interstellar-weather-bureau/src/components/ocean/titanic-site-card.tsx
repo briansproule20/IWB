@@ -11,7 +11,8 @@ interface TitanicData {
     wave_direction: number;
     air_temperature: number;
     surface_pressure: number;
-    water_temperature_estimate: number;
+    water_temperature: number;
+    water_temperature_c: number;
   };
   iceberg_warning: {
     risk_level: string;
@@ -76,10 +77,8 @@ export default function TitanicSiteCard() {
   const airTempC = titanicData.current.air_temperature
     ? ((titanicData.current.air_temperature - 32) * 5/9).toFixed(1)
     : 'N/A';
-  const waterTempF = titanicData.current.water_temperature_estimate?.toFixed(1) || 'N/A';
-  const waterTempC = titanicData.current.water_temperature_estimate
-    ? ((titanicData.current.water_temperature_estimate - 32) * 5/9).toFixed(1)
-    : 'N/A';
+  const waterTempF = titanicData.current.water_temperature?.toFixed(1) || 'N/A';
+  const waterTempC = titanicData.current.water_temperature_c?.toFixed(1) || 'N/A';
   const wavePeriod = titanicData.current.wave_period?.toFixed(1) || 'N/A';
 
   // Format last updated time

@@ -54,6 +54,7 @@ import OlympusMonsCard from "@/components/mars/olympus-mons-card";
 import PolarIceCapsCard from "@/components/mars/polar-ice-caps-card";
 import VallesMarinerisCard from "@/components/mars/valles-marineris-card";
 import TharsisSandstormCard from "@/components/mars/tharsis-sandstorm-card";
+import MarsInSightCard from "@/components/mars/mars-insight-card";
 import VenusAtmosphereCard from "@/components/venus/venus-atmosphere-card";
 import VenusSurfaceCard from "@/components/venus/venus-surface-card";
 import MercuryTemperatureCard from "@/components/mercury/mercury-temperature-card";
@@ -269,6 +270,12 @@ const lunaItems = [
 ];
 
 const marsItems = [
+  {
+    title: "",
+    description: "",
+    header: <MarsInSightCard />,
+    className: "md:col-span-1",
+  },
   {
     title: "",
     description: "",

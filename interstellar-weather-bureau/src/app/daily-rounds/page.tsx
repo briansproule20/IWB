@@ -423,7 +423,7 @@ export default function DailyRoundsPage() {
                     { name: "Near-Earth Objects", desc: "Asteroid approaches" },
                     { name: "Meteor Showers", desc: "Active & upcoming" },
                     { name: "Exoplanet Spotlight", desc: "Featured worlds" },
-                    { name: "Mars Weather", desc: "Live from the red planet" },
+                    { name: "Mars Weather", desc: "InSight lander archive" },
                     { name: "Comets", desc: "Perihelion alerts" },
                     { name: "Absurd Forecast", desc: "Cosmic insanity" },
                   ].map((item) => (
