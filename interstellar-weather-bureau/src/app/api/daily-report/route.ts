@@ -105,6 +105,21 @@ interface DailyReportPayload {
     tempHighC: number | null;
     tempLowC: number | null;
   };
+
+  // ☄️ Comets
+  comets: {
+    upcoming: Array<{
+      name: string;
+      nextPerihelion: string;
+      daysUntilPerihelion: number;
+      visibility: string;
+    }>;
+    nearestApproach: {
+      name: string;
+      nextPerihelion: string;
+      daysUntilPerihelion: number;
+    } | null;
+  };
 }
 
 async function fetchWithTimeout(url: string, timeout = 8000): Promise<Response> {
@@ -215,6 +230,7 @@ async function compileReport(baseUrl: string): Promise<DailyReportPayload> {
     nazareRes,
     titanicRes,
     danakilRes,
+    cometsRes,
   ] = await Promise.allSettled([
     fetchWithTimeout(`${baseUrl}/api/nasa/apod`),
     fetchWithTimeout(`${baseUrl}/api/nasa/solar-flares`),
@@ -232,6 +248,7 @@ async function compileReport(baseUrl: string): Promise<DailyReportPayload> {
     fetchWithTimeout(`${baseUrl}/api/weather/nazare-waves`),
     fetchWithTimeout(`${baseUrl}/api/weather/titanic-site`),
     fetchWithTimeout(`${baseUrl}/api/weather/danakil-depression`),
+    fetchWithTimeout(`${baseUrl}/api/nasa/observable-comets`),
   ]);
 
   // Process Everest weather - structure is data.weather.current
@@ -447,6 +464,35 @@ async function compileReport(baseUrl: string): Promise<DailyReportPayload> {
     }
   }
 
+  // Process Comets
+  let comets: DailyReportPayload['comets'] = {
+    upcoming: [],
+    nearestApproach: null,
+  };
+  if (cometsRes.status === 'fulfilled' && cometsRes.value.ok) {
+    const data = await cometsRes.value.json();
+    const cometList = data.comets || [];
+    // Sort by days until perihelion and get top 3 with good/excellent visibility
+    const goodComets = cometList
+      .filter((c: any) => c.visibility === 'Good' || c.visibility === 'Excellent')
+      .sort((a: any, b: any) => a.daysUntilPerihelion - b.daysUntilPerihelion)
+      .slice(0, 3);
+
+    comets = {
+      upcoming: goodComets.map((c: any) => ({
+        name: c.name,
+        nextPerihelion: c.nextPerihelion,
+        daysUntilPerihelion: c.daysUntilPerihelion,
+        visibility: c.visibility,
+      })),
+      nearestApproach: cometList[0] ? {
+        name: cometList[0].name,
+        nextPerihelion: cometList[0].nextPerihelion,
+        daysUntilPerihelion: cometList[0].daysUntilPerihelion,
+      } : null,
+    };
+  }
+
   // Pick a random absurd forecast
   const absurdForecast = ABSURD_FORECASTS[Math.floor(Math.random() * ABSURD_FORECASTS.length)];
 
@@ -472,6 +518,7 @@ async function compileReport(baseUrl: string): Promise<DailyReportPayload> {
     exoplanets,
     absurdForecast,
     marsWeather,
+    comets,
   };
 }
 
@@ -570,6 +617,19 @@ function formatReportForMessage(report: DailyReportPayload): string {
     if (report.marsWeather.tempHighC && report.marsWeather.tempLowC) {
       lines.push(`• High: ${report.marsWeather.tempHighC}°C / Low: ${report.marsWeather.tempLowC}°C`);
     }
+    lines.push('');
+  }
+
+  // ☄️ Comets
+  if (report.comets.upcoming.length > 0 || report.comets.nearestApproach) {
+    lines.push(`☄️ COMETS`);
+    if (report.comets.nearestApproach && report.comets.nearestApproach.daysUntilPerihelion <= 30) {
+      const c = report.comets.nearestApproach;
+      lines.push(`• ${c.name} approaching! Perihelion in ${c.daysUntilPerihelion} days`);
+    }
+    report.comets.upcoming.slice(0, 2).forEach(c => {
+      lines.push(`• ${c.name}: ${c.nextPerihelion} (${c.visibility} visibility)`);
+    });
     lines.push('');
   }
 
