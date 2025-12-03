@@ -25,12 +25,15 @@ interface Vehicle {
   cost_estimate: string | null;
   destinations: string;
   notes: string | null;
+  image_url?: string;
 }
 
 export default function Vehicles() {
   const [vehicles, setVehicles] = useState<Vehicle[]>([]);
   const [sortOrder, setSortOrder] = useState<"newest" | "oldest">("newest");
   const [selectedVehicle, setSelectedVehicle] = useState<Vehicle | null>(null);
+  const [hoveredVehicle, setHoveredVehicle] = useState<string | null>(null);
+  const [lightboxImage, setLightboxImage] = useState<{ url: string; name: string } | null>(null);
 
   useEffect(() => {
     fetch('/data/spacecraft_and_launchers_unified.jsonl')
@@ -186,15 +189,46 @@ export default function Vehicles() {
               {sortedVehicles.filter(v => v.universe === "Real").map((vehicle, index) => (
                 <div
                   key={index}
-                  className="bg-white/10 border border-white/20 rounded-xl p-4 hover:bg-white/15 hover:border-white/30 transition-all group cursor-pointer flex flex-col h-full"
+                  className="bg-white/10 border border-white/20 rounded-xl p-4 hover:bg-white/15 hover:border-white/30 transition-all group cursor-pointer flex flex-col h-full relative overflow-hidden"
                   onClick={() => setSelectedVehicle(vehicle)}
+                  onMouseEnter={() => vehicle.image_url && setHoveredVehicle(vehicle.name)}
+                  onMouseLeave={() => setHoveredVehicle(null)}
                 >
+                  {/* Background image on hover */}
+                  {vehicle.image_url && (
+                    <div
+                      className={`absolute inset-0 transition-opacity duration-300 ${
+                        hoveredVehicle === vehicle.name ? 'opacity-20' : 'opacity-0'
+                      }`}
+                      style={{
+                        backgroundImage: `url(${vehicle.image_url})`,
+                        backgroundSize: 'cover',
+                        backgroundPosition: 'center',
+                      }}
+                    />
+                  )}
+
                   {/* Header */}
-                  <div className="mb-3 min-h-[60px]">
+                  <div className="mb-3 min-h-[60px] relative z-10">
                     <div className="flex items-start justify-between gap-2 mb-1.5">
-                      <h3 className="text-base font-semibold text-white group-hover:text-primary transition-colors line-clamp-1">
-                        {vehicle.name}
-                      </h3>
+                      <div className="flex items-center gap-2 flex-1 min-w-0">
+                        {/* Thumbnail */}
+                        {vehicle.image_url && (
+                          <div className={`flex-shrink-0 w-10 h-10 rounded-lg overflow-hidden border border-white/20 transition-all duration-300 ${
+                            hoveredVehicle === vehicle.name ? 'w-14 h-14 shadow-lg shadow-primary/20' : ''
+                          }`}>
+                            <img
+                              src={vehicle.image_url}
+                              alt={vehicle.name}
+                              className="w-full h-full object-cover"
+                              loading="lazy"
+                            />
+                          </div>
+                        )}
+                        <h3 className="text-base font-semibold text-white group-hover:text-primary transition-colors line-clamp-1">
+                          {vehicle.name}
+                        </h3>
+                      </div>
                       <span className="text-xs text-neutral-500 font-mono flex-shrink-0">
                         {typeof vehicle.first_flight_or_era === 'number'
                           ? vehicle.first_flight_or_era
@@ -214,7 +248,7 @@ export default function Vehicles() {
                   </div>
 
                   {/* Stats */}
-                  <div className="flex-1 space-y-1.5 text-xs mb-3">
+                  <div className="flex-1 space-y-1.5 text-xs mb-3 relative z-10">
                     <div className="flex justify-between items-center">
                       <span className="text-neutral-500">Payload LEO</span>
                       <span className="text-white font-mono font-medium">
@@ -243,7 +277,7 @@ export default function Vehicles() {
                   </div>
 
                   {/* Destinations */}
-                  <div className="bg-primary/20 border border-primary/30 rounded-lg px-3 py-2 mt-auto">
+                  <div className="bg-primary/20 border border-primary/30 rounded-lg px-3 py-2 mt-auto relative z-10">
                     <p className="text-[10px] md:text-xs text-primary text-center line-clamp-1">
                       {formatDestinations(vehicle.destinations)}
                     </p>
@@ -397,6 +431,22 @@ export default function Vehicles() {
 
                 {/* Content */}
                 <div className="flex-1 overflow-y-auto px-5 md:px-6 py-4 md:py-5 space-y-4 overscroll-contain">
+                  {/* View Image Button */}
+                  {selectedVehicle.image_url && (
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setLightboxImage({ url: selectedVehicle.image_url!, name: selectedVehicle.name });
+                      }}
+                      className="w-full flex items-center justify-center gap-2 px-4 py-2.5 bg-white/5 hover:bg-white/10 border border-white/10 rounded-lg text-sm text-neutral-300 hover:text-white transition-colors"
+                    >
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                      </svg>
+                      View Image
+                    </button>
+                  )}
+
                   {/* Status & Era */}
                   <div className="grid grid-cols-2 gap-3">
                     <div className="bg-white/5 rounded-lg p-3">
@@ -500,6 +550,40 @@ export default function Vehicles() {
                     Close
                   </button>
                 </div>
+              </div>
+            </div>
+          )}
+
+          {/* Image Lightbox */}
+          {lightboxImage && (
+            <div
+              className="fixed inset-0 z-[60] bg-black/95 backdrop-blur-sm flex items-center justify-center p-4"
+              onClick={() => setLightboxImage(null)}
+            >
+              <div className="relative max-w-4xl w-full">
+                {/* Close Button */}
+                <button
+                  onClick={() => setLightboxImage(null)}
+                  className="absolute -top-12 right-0 p-2 text-neutral-400 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
+                  aria-label="Close image"
+                >
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+
+                {/* Image */}
+                <div className="rounded-xl overflow-hidden border border-white/10 bg-black/50">
+                  <img
+                    src={lightboxImage.url}
+                    alt={lightboxImage.name}
+                    className="w-full h-auto max-h-[80vh] object-contain"
+                    onClick={(e) => e.stopPropagation()}
+                  />
+                </div>
+
+                {/* Caption */}
+                <p className="text-center text-sm text-neutral-400 mt-3">{lightboxImage.name}</p>
               </div>
             </div>
           )}
