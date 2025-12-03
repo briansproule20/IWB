@@ -192,7 +192,7 @@ async function compileReport(baseUrl: string): Promise<DailyReportPayload> {
   };
 }
 
-// GET: Compile and return the daily report
+// GET: Compile and return the daily report (for Whiskers to fetch and broadcast)
 export async function GET(request: Request) {
   try {
     const url = new URL(request.url);
@@ -200,7 +200,10 @@ export async function GET(request: Request) {
 
     const report = await compileReport(baseUrl);
 
-    return NextResponse.json(report);
+    return NextResponse.json({
+      ...report,
+      formattedMessage: formatReportForMessage(report),
+    });
   } catch (error) {
     console.error('Daily report compilation error:', error);
     return NextResponse.json(
