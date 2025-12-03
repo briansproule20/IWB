@@ -6,6 +6,7 @@ import DotBackground from "@/components/ui/dot-background";
 import APODCard from "@/components/nasa/apod-card";
 import { DailyRoundsCTA } from "@/components/daily-rounds/daily-rounds-cta";
 import { ArrowRight, MessageSquare, Telescope, Rocket, FileText, Image as ImageIcon } from "lucide-react";
+import { motion } from "motion/react";
 
 export default function Home() {
   return (
@@ -14,9 +15,23 @@ export default function Home() {
         <div className="max-w-7xl mx-auto p-4 md:p-8 space-y-8">
           {/* Hero Section */}
           <div className="text-center space-y-4 py-8 md:py-12">
-            <h1 className="text-4xl md:text-6xl font-bold text-white">
+            <motion.h1
+              className="text-4xl md:text-6xl font-bold bg-clip-text text-transparent"
+              style={{
+                backgroundImage: "linear-gradient(90deg, #7c2d12, #ea580c, #f97316, #fdba74, #ffffff, #fdba74, #f97316, #ea580c, #7c2d12)",
+                backgroundSize: "200% 100%",
+              }}
+              animate={{
+                backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
+              }}
+              transition={{
+                duration: 8,
+                ease: "linear",
+                repeat: Infinity,
+              }}
+            >
               The Interstellar Weather Bureau
-            </h1>
+            </motion.h1>
             <p className="text-lg md:text-xl text-neutral-400 max-w-2xl mx-auto">
               Your gateway to cosmic conditions across the solar system and beyond
             </p>
