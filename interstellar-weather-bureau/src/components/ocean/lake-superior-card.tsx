@@ -99,7 +99,7 @@ export default function LakeSuperiorCard() {
           {location.name}
         </h3>
         <p className="text-xs text-gray-500">
-          Edmund Fitzgerald Site • Not technically an ocean
+          Edmund Fitzgerald Site • Vast inland sea
         </p>
         <p className="text-xs text-gray-500">
           {location.latitude.toFixed(1)}°, {location.longitude.toFixed(1)}°
