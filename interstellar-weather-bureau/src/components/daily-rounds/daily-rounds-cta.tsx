@@ -1,9 +1,23 @@
 "use client";
 
+import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { LayoutTextFlip } from "@/components/ui/layout-text-flip";
-import { Mail, Sparkles, Sun, Telescope } from "lucide-react";
+import {
+  Mail,
+  Sparkles,
+  Sun,
+  Telescope,
+  Waves,
+  Mountain,
+  Orbit,
+  Flame,
+  Zap,
+  Loader2,
+  Check,
+  AlertCircle,
+} from "lucide-react";
 import Link from "next/link";
 
 const BULLETIN_NAMES = [
@@ -15,6 +29,49 @@ const BULLETIN_NAMES = [
 ];
 
 export function DailyRoundsCTA() {
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [message, setMessage] = useState("");
+
+  const handleSubscribe = async () => {
+    if (!phoneNumber.trim()) {
+      setStatus("error");
+      setMessage("Please enter a phone number");
+      return;
+    }
+
+    const cleanNumber = phoneNumber.replace(/[\s\-\(\)]/g, "");
+    if (!/^\+?[1-9]\d{6,14}$/.test(cleanNumber)) {
+      setStatus("error");
+      setMessage("Please enter a valid phone number");
+      return;
+    }
+
+    setStatus("loading");
+    setMessage("");
+
+    try {
+      const response = await fetch("/api/daily-report", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ phoneNumber: cleanNumber }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || "Failed to send");
+      }
+
+      setStatus("success");
+      setMessage("Your first bulletin is on its way!");
+      setPhoneNumber("");
+    } catch (error) {
+      setStatus("error");
+      setMessage(error instanceof Error ? error.message : "Something went wrong");
+    }
+  };
+
   return (
     <div className="relative overflow-hidden rounded-xl border border-white/[0.2] bg-black p-6 md:p-8">
       {/* Background decoration */}
@@ -34,22 +91,42 @@ export function DailyRoundsCTA() {
           </div>
 
           <p className="text-neutral-400 text-sm md:text-base max-w-xl">
-            Every morning, your weary weatherman drags himself out of cryosleep to deliver your personalized cosmic forecast. Your local forecast, solar flares, near-Earth objects, meteor showers, exoplanet discoveries—plus one completely absurd weather event that <span className="italic">technically</span> exists somewhere in the galaxy.
+            Every morning, your weary weatherman compiles a comprehensive cosmic briefing. Earth extremes, ocean conditions, solar flares, asteroid approaches, meteor showers, Mars weather, comets, exoplanets—plus one scientifically accurate but utterly absurd weather phenomenon from somewhere in the galaxy.
           </p>
 
           {/* Feature list */}
-          <div className="flex flex-wrap gap-4 text-xs md:text-sm text-neutral-500">
+          <div className="flex flex-wrap gap-x-4 gap-y-2 text-xs md:text-sm text-neutral-500">
+            <div className="flex items-center gap-1.5">
+              <Mountain className="h-3.5 w-3.5" />
+              <span>Earth Weather</span>
+            </div>
+            <div className="flex items-center gap-1.5">
+              <Waves className="h-3.5 w-3.5" />
+              <span>Ocean Conditions</span>
+            </div>
             <div className="flex items-center gap-1.5">
               <Sun className="h-3.5 w-3.5" />
               <span>Solar Activity</span>
             </div>
             <div className="flex items-center gap-1.5">
               <Sparkles className="h-3.5 w-3.5" />
-              <span>NEOs & Meteor Showers</span>
+              <span>Meteor Showers</span>
+            </div>
+            <div className="flex items-center gap-1.5">
+              <Orbit className="h-3.5 w-3.5" />
+              <span>Mars & NEOs</span>
+            </div>
+            <div className="flex items-center gap-1.5">
+              <Flame className="h-3.5 w-3.5" />
+              <span>Comets</span>
             </div>
             <div className="flex items-center gap-1.5">
               <Telescope className="h-3.5 w-3.5" />
-              <span>Exoplanet Discoveries</span>
+              <span>Exoplanets</span>
+            </div>
+            <div className="flex items-center gap-1.5">
+              <Zap className="h-3.5 w-3.5" />
+              <span>Absurd Forecast</span>
             </div>
           </div>
 
@@ -66,20 +143,46 @@ export function DailyRoundsCTA() {
           <div className="flex flex-col sm:flex-row gap-3">
             <Input
               type="tel"
-              placeholder="+1 (555) 000-0000"
-              disabled
-              className="min-w-[240px] bg-white/[0.03] border-white/[0.05] text-neutral-600 cursor-not-allowed"
+              placeholder="+1 555 123 4567"
+              value={phoneNumber}
+              onChange={(e) => {
+                setPhoneNumber(e.target.value);
+                if (status !== "idle") setStatus("idle");
+              }}
+              disabled={status === "loading"}
+              className="min-w-[200px] bg-white/[0.05] border-white/[0.1] text-white placeholder:text-neutral-500"
             />
             <Button
-              disabled
-              className="whitespace-nowrap opacity-50 cursor-not-allowed"
+              onClick={handleSubscribe}
+              disabled={status === "loading" || status === "success"}
+              className={`whitespace-nowrap ${status === "success" ? "bg-emerald-600 hover:bg-emerald-600" : ""}`}
             >
-              Coming Soon
+              {status === "loading" && <Loader2 className="h-4 w-4 mr-2 animate-spin" />}
+              {status === "success" && <Check className="h-4 w-4 mr-2" />}
+              {status === "loading" ? "Sending..." : status === "success" ? "Sent!" : "Send First Bulletin"}
             </Button>
           </div>
-          <p className="text-xs text-neutral-500 mt-2">
-            Delivered daily via iMessage at 0600 galactic standard time.
-          </p>
+          {message && (
+            <div className={`flex items-center gap-1.5 text-xs mt-2 ${status === "error" ? "text-red-400" : "text-emerald-400"}`}>
+              {status === "error" && <AlertCircle className="h-3 w-3" />}
+              {status === "success" && <Check className="h-3 w-3" />}
+              {message}
+            </div>
+          )}
+          {!message && (
+            <p className="text-xs text-neutral-500 mt-2">
+              Delivered via iMessage with{" "}
+              <a
+                href="https://mrwhiskers.chat/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-primary hover:underline"
+              >
+                Mr. Whiskers
+              </a>
+              .
+            </p>
+          )}
         </div>
       </div>
     </div>
