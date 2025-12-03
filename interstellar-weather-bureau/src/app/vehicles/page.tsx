@@ -26,7 +26,15 @@ interface Vehicle {
   destinations: string;
   notes: string | null;
   image_url?: string;
+  source_url?: string;
 }
+
+// Helper to check if vehicle is a launch vehicle (shows thrust/T:W)
+const isLaunchVehicle = (type: string) => {
+  return type.toLowerCase().includes('launch') ||
+         type.toLowerCase().includes('ballistic') ||
+         type.toLowerCase().includes('reusable');
+};
 
 export default function Vehicles() {
   const [vehicles, setVehicles] = useState<Vehicle[]>([]);
@@ -247,31 +255,56 @@ export default function Vehicles() {
                     </span>
                   </div>
 
-                  {/* Stats */}
+                  {/* Stats - type-appropriate */}
                   <div className="flex-1 space-y-1.5 text-xs mb-3 relative z-10">
-                    <div className="flex justify-between items-center">
-                      <span className="text-neutral-500">Payload LEO</span>
-                      <span className="text-white font-mono font-medium">
-                        {formatMass(vehicle.payload_leo_kg)}
-                      </span>
-                    </div>
-                    <div className="flex justify-between items-center">
-                      <span className="text-neutral-500">Thrust</span>
-                      <span className="text-white font-mono">
-                        {vehicle.thrust_liftoff_kN ? `${formatNumber(vehicle.thrust_liftoff_kN)} kN` : '—'}
-                      </span>
-                    </div>
-                    <div className="flex justify-between items-center">
-                      <span className="text-neutral-500">T/W</span>
-                      <span className="text-white font-mono">
-                        {vehicle.tw_liftoff ? vehicle.tw_liftoff.toFixed(2) : '—'}
-                      </span>
-                    </div>
+                    {isLaunchVehicle(vehicle.type) ? (
+                      <>
+                        <div className="flex justify-between items-center">
+                          <span className="text-neutral-500">Payload LEO</span>
+                          <span className="text-white font-mono font-medium">
+                            {formatMass(vehicle.payload_leo_kg)}
+                          </span>
+                        </div>
+                        <div className="flex justify-between items-center">
+                          <span className="text-neutral-500">Thrust</span>
+                          <span className="text-white font-mono">
+                            {vehicle.thrust_liftoff_kN ? `${formatNumber(vehicle.thrust_liftoff_kN)} kN` : '—'}
+                          </span>
+                        </div>
+                        <div className="flex justify-between items-center">
+                          <span className="text-neutral-500">T/W</span>
+                          <span className="text-white font-mono">
+                            {vehicle.tw_liftoff ? vehicle.tw_liftoff.toFixed(2) : '—'}
+                          </span>
+                        </div>
+                      </>
+                    ) : (
+                      <>
+                        <div className="flex justify-between items-center">
+                          <span className="text-neutral-500">Type</span>
+                          <span className="text-white font-medium">{vehicle.type}</span>
+                        </div>
+                        <div className="flex justify-between items-center">
+                          <span className="text-neutral-500">Mass</span>
+                          <span className="text-white font-mono">
+                            {formatMass(vehicle.mass_liftoff_kg)}
+                          </span>
+                        </div>
+                        {vehicle.payload_other && (
+                          <div className="flex justify-between items-start gap-2">
+                            <span className="text-neutral-500 flex-shrink-0">Payload</span>
+                            <span className="text-neutral-300 text-right line-clamp-2">
+                              {vehicle.payload_other}
+                            </span>
+                          </div>
+                        )}
+                      </>
+                    )}
                     <Separator className="my-2 bg-white/20" />
                     <div className="flex justify-between items-start gap-2">
-                      <span className="text-neutral-500">Engine</span>
+                      <span className="text-neutral-500">{isLaunchVehicle(vehicle.type) ? 'Engine' : 'Power'}</span>
                       <span className="text-neutral-300 text-right text-xs line-clamp-2 flex-1">
-                        {vehicle.engine_or_drive_model}
+                        {isLaunchVehicle(vehicle.type) ? vehicle.engine_or_drive_model : vehicle.energy_source}
                       </span>
                     </div>
                   </div>
@@ -517,7 +550,7 @@ export default function Vehicles() {
                         <p className="text-xs text-neutral-500 mb-1">Destinations</p>
                         <p className="text-sm text-neutral-300">{selectedVehicle.destinations}</p>
                       </div>
-                      {selectedVehicle.cost_estimate && (
+                      {selectedVehicle.cost_estimate && selectedVehicle.cost_estimate !== '—' && selectedVehicle.cost_estimate !== 'n/a' && (
                         <div className="bg-white/5 rounded-lg p-3">
                           <p className="text-xs text-neutral-500 mb-1">Cost Estimate</p>
                           <p className="text-sm text-neutral-300">{selectedVehicle.cost_estimate}</p>
@@ -531,6 +564,30 @@ export default function Vehicles() {
                       )}
                     </div>
                   </div>
+
+                  {/* Notes */}
+                  {selectedVehicle.notes && (
+                    <div className="bg-primary/10 border border-primary/20 rounded-lg p-3">
+                      <p className="text-xs text-primary/80 italic">{selectedVehicle.notes}</p>
+                    </div>
+                  )}
+
+                  {/* Source */}
+                  {selectedVehicle.source_url && (
+                    <div className="border-t border-white/10 pt-3">
+                      <a
+                        href={selectedVehicle.source_url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-2 text-xs text-neutral-500 hover:text-primary transition-colors"
+                      >
+                        <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                        </svg>
+                        <span>Source: {selectedVehicle.source_url.replace('https://en.wikipedia.org/wiki/', 'Wikipedia — ').replace(/_/g, ' ')}</span>
+                      </a>
+                    </div>
+                  )}
                 </div>
 
                 {/* Footer */}
