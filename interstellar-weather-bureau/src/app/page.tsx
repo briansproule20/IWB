@@ -24,13 +24,13 @@ export default function Home() {
 
           {/* Featured APOD */}
           <div className="space-y-4">
-            <div className="flex items-center justify-between">
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
               <h2 className="text-2xl md:text-3xl font-bold text-white">
                 NASA's Astronomy Picture of the Day
               </h2>
               <Link
                 href="/gallery"
-                className="flex items-center gap-2 text-neutral-300 hover:text-white transition-colors group"
+                className="inline-flex items-center gap-2 text-neutral-300 hover:text-white transition-colors group shrink-0"
               >
                 <span className="text-sm md:text-base">View Archive</span>
                 <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
