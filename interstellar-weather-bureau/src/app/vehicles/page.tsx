@@ -287,23 +287,15 @@ export default function Vehicles() {
             </div>
           </div>
 
-          {/* Divider */}
-          <div className="relative py-8">
-            <Separator className="bg-white/20" />
-            <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-black px-4 py-2 rounded-full border border-white/20">
-              <span className="text-sm text-neutral-300 uppercase tracking-wider font-medium">Speculative</span>
-            </div>
-          </div>
-
           {/* Fictional Vehicles Section */}
-          <div className="space-y-4">
-            <div className="flex items-center gap-3">
-              <div className="p-2 rounded-lg bg-purple-500/10">
-                <Sparkles className="h-5 w-5 text-purple-400" />
+          <div className="space-y-4 pt-12 border-t border-white/10">
+            <div className="flex items-center gap-4 mb-6">
+              <div className="p-3 rounded-xl bg-purple-500/10 border border-purple-500/20">
+                <Sparkles className="h-6 w-6 text-purple-400" />
               </div>
               <div>
-                <h2 className="text-xl font-semibold text-white">Fictional Starships</h2>
-                <p className="text-sm text-neutral-500">Vessels from science fiction universes</p>
+                <h2 className="text-2xl md:text-3xl font-bold text-white">Fictional Starships</h2>
+                <p className="text-sm md:text-base text-neutral-400">Vessels from science fiction universes</p>
               </div>
             </div>
 
