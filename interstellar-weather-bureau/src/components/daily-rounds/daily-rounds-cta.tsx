@@ -43,9 +43,12 @@ export function DailyRoundsCTA() {
     const cleanNumber = phoneNumber.replace(/[\s\-\(\)]/g, "");
     if (!/^\+?[1-9]\d{6,14}$/.test(cleanNumber)) {
       setStatus("error");
-      setMessage("Please enter a valid phone number");
+      setMessage("Please enter a valid phone number with country code");
       return;
     }
+
+    // Add + if not present
+    const fullNumber = cleanNumber.startsWith("+") ? cleanNumber : `+${cleanNumber}`;
 
     setStatus("loading");
     setMessage("");
@@ -54,7 +57,7 @@ export function DailyRoundsCTA() {
       const response = await fetch("/api/daily-report", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ phoneNumber: cleanNumber }),
+        body: JSON.stringify({ phoneNumber: fullNumber }),
       });
 
       const data = await response.json();
@@ -143,14 +146,14 @@ export function DailyRoundsCTA() {
           <div className="flex flex-col sm:flex-row gap-3">
             <Input
               type="tel"
-              placeholder="+1 555 123 4567"
+              placeholder="1 555 123 4567"
               value={phoneNumber}
               onChange={(e) => {
                 setPhoneNumber(e.target.value);
                 if (status !== "idle") setStatus("idle");
               }}
               disabled={status === "loading"}
-              className="min-w-[200px] bg-white/[0.05] border-white/[0.1] text-white placeholder:text-neutral-500"
+              className="min-w-[180px] bg-white/[0.05] border-white/[0.1] text-white placeholder:text-neutral-500"
             />
             <Button
               onClick={handleSubscribe}
