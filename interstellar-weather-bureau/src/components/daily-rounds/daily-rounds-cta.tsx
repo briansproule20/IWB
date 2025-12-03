@@ -86,7 +86,7 @@ export function DailyRoundsCTA() {
               <Mail className="h-6 w-6" />
             </div>
             <h3 className="text-xl md:text-2xl font-bold text-white">
-              <LayoutTextFlip words={BULLETIN_NAMES} duration={3000} />
+              <LayoutTextFlip words={BULLETIN_NAMES} duration={3000} wordClassName="text-primary" />
             </h3>
           </div>
 
