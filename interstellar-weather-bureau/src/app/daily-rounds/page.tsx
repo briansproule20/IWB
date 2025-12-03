@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import DotBackground from "@/components/ui/dot-background";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -19,6 +20,9 @@ import {
   Code,
   Terminal,
   Webhook,
+  Loader2,
+  Check,
+  AlertCircle,
 } from "lucide-react";
 import {
   Collapsible,
@@ -36,6 +40,50 @@ const BULLETIN_NAMES = [
 ];
 
 export default function DailyRoundsPage() {
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [message, setMessage] = useState("");
+
+  const handleSubscribe = async () => {
+    if (!phoneNumber.trim()) {
+      setStatus("error");
+      setMessage("Please enter a phone number");
+      return;
+    }
+
+    // Basic phone validation - should start with + and have digits
+    const cleanNumber = phoneNumber.replace(/[\s\-\(\)]/g, "");
+    if (!/^\+?[1-9]\d{6,14}$/.test(cleanNumber)) {
+      setStatus("error");
+      setMessage("Please enter a valid phone number (e.g. +1 555 123 4567)");
+      return;
+    }
+
+    setStatus("loading");
+    setMessage("");
+
+    try {
+      const response = await fetch("/api/daily-report", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ phoneNumber: cleanNumber }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || "Failed to subscribe");
+      }
+
+      setStatus("success");
+      setMessage("Your first bulletin is on its way!");
+      setPhoneNumber("");
+    } catch (error) {
+      setStatus("error");
+      setMessage(error instanceof Error ? error.message : "Something went wrong");
+    }
+  };
+
   const features = [
     {
       icon: Sun,
@@ -140,28 +188,48 @@ export default function DailyRoundsPage() {
 
               <div className="space-y-2">
                 <h2 className="text-2xl font-bold text-white">
-                  Subscribe to the Daily Rounds
+                  Get the Daily Bulletin
                 </h2>
                 <p className="text-neutral-400 max-w-md">
-                  Get your personalized cosmic weather report every morning. It's free,
-                  it's informative, and it might just save your life. No pressure.
+                  Your personalized cosmic weather report, delivered via iMessage.
+                  It's free, it's informative, and it might just save your life.
                 </p>
               </div>
 
               <div className="flex flex-col sm:flex-row gap-3 w-full max-w-md">
                 <Input
                   type="tel"
-                  placeholder="+1 (555) 000-0000"
-                  disabled
-                  className="flex-1 bg-white/[0.03] border-white/[0.05] text-neutral-600 cursor-not-allowed"
+                  placeholder="+1 555 123 4567"
+                  value={phoneNumber}
+                  onChange={(e) => {
+                    setPhoneNumber(e.target.value);
+                    if (status !== "idle") setStatus("idle");
+                  }}
+                  disabled={status === "loading"}
+                  className="flex-1 bg-white/[0.05] border-white/[0.1] text-white placeholder:text-neutral-500"
                 />
-                <Button disabled size="lg" className="opacity-50 cursor-not-allowed">
-                  Coming Soon
+                <Button
+                  size="lg"
+                  onClick={handleSubscribe}
+                  disabled={status === "loading" || status === "success"}
+                  className={status === "success" ? "bg-emerald-600 hover:bg-emerald-600" : ""}
+                >
+                  {status === "loading" && <Loader2 className="h-4 w-4 mr-2 animate-spin" />}
+                  {status === "success" && <Check className="h-4 w-4 mr-2" />}
+                  {status === "loading" ? "Sending..." : status === "success" ? "Sent!" : "Send My First Bulletin"}
                 </Button>
               </div>
 
+              {message && (
+                <div className={`flex items-center gap-2 text-sm ${status === "error" ? "text-red-400" : "text-emerald-400"}`}>
+                  {status === "error" && <AlertCircle className="h-4 w-4" />}
+                  {status === "success" && <Check className="h-4 w-4" />}
+                  {message}
+                </div>
+              )}
+
               <p className="text-xs text-neutral-500">
-                Delivered daily via iMessage. The weatherman is working on it.
+                Delivered daily via iMessage at 0600 galactic standard time.
               </p>
             </div>
           </div>
@@ -234,16 +302,9 @@ export default function DailyRoundsPage() {
             <h3 className="text-xl font-bold text-white">
               Ready for your first forecast?
             </h3>
-            <Button
-              size="lg"
-              disabled
-              className="opacity-50 cursor-not-allowed"
-            >
-              Coming Soon
-            </Button>
-            <p className="text-sm text-neutral-400">
-              Join fellow travelers who trust the Interstellar Weatherman with their
-              cosmic commute.
+            <p className="text-sm text-neutral-400 max-w-md mx-auto">
+              Enter your phone number above and we'll send you today's bulletin right now.
+              Join fellow travelers who trust the Interstellar Weatherman with their cosmic commute.
             </p>
           </div>
 
