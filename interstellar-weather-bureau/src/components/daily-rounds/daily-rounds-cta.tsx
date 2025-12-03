@@ -174,7 +174,7 @@ export function DailyRoundsCTA() {
           )}
           {!message && (
             <p className="text-xs text-neutral-500 mt-2">
-              Delivered via iMessage with{" "}
+              Include country code (e.g. 1 for US). Delivered via{" "}
               <a
                 href="https://mrwhiskers.chat/"
                 target="_blank"

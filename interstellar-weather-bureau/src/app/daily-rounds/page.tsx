@@ -253,7 +253,7 @@ export default function DailyRoundsPage() {
               )}
 
               <p className="text-xs text-neutral-500">
-                Delivered daily via iMessage at 0600 galactic standard time with the help of{" "}
+                Include country code (e.g. 1 for US). Delivered daily at 0600 via{" "}
                 <a
                   href="https://mrwhiskers.chat/"
                   target="_blank"
