@@ -23,6 +23,10 @@ import {
   Loader2,
   Check,
   AlertCircle,
+  Waves,
+  Mountain,
+  Orbit,
+  Flame,
 } from "lucide-react";
 import {
   Collapsible,
@@ -86,40 +90,58 @@ export default function DailyRoundsPage() {
 
   const features = [
     {
-      icon: Sun,
-      title: "Solar Activity Report",
+      icon: Mountain,
+      title: "Earth Weather",
       description:
-        "Daily updates on solar flares, coronal mass ejections, and sunspot activity. Know when to reschedule that EVA.",
+        "Conditions from Everest summit to the hottest and coldest spots on the planet. Death Valley, Vostok Station, and everywhere extreme.",
+    },
+    {
+      icon: Waves,
+      title: "Ocean Conditions",
+      description:
+        "Wave heights from Drake Passage and Nazare, plus iceberg risk at the Titanic site. For sailors and surfers with a death wish.",
+    },
+    {
+      icon: Sun,
+      title: "Solar Activity",
+      description:
+        "Solar flares, coronal mass ejections, and geomagnetic storms. Know when to reschedule that EVA or expect aurora.",
     },
     {
       icon: AlertTriangle,
       title: "Near-Earth Objects",
       description:
-        "Tracking asteroids and comets that swing by your neighborhood. Most are harmless. Probably.",
+        "Tracking asteroids that swing by your neighborhood. Distance in lunar units. Most are harmless. Probably.",
     },
     {
       icon: Sparkles,
-      title: "Meteor Shower Calendar",
+      title: "Meteor Showers",
       description:
-        "Never miss the Perseids, Geminids, or that obscure shower only visible from the dark side of Europa.",
+        "Active showers and what's coming next. Never miss the Perseids, Geminids, or that obscure shower only visible from Europa.",
     },
     {
       icon: Telescope,
-      title: "Exoplanet Discoveries",
+      title: "Exoplanet Spotlight",
       description:
-        "New worlds discovered by Terran telescopes. Some might even be habitable. Emphasis on 'might'.",
+        "Featured worlds from across the galaxy. New discoveries from Terran telescopes. Some might be habitable. Emphasis on 'might'.",
     },
     {
-      icon: Cloud,
-      title: "Your Local Forecast",
+      icon: Orbit,
+      title: "Mars Weather",
       description:
-        "Weather for your coordinates, delivered in the sardonic style of someone who's been forecasting for 300 years.",
+        "Live conditions from the red planet. Sol date, high and low temps. For future colonists and current dreamers.",
+    },
+    {
+      icon: Flame,
+      title: "Comets",
+      description:
+        "Upcoming perihelion approaches and visibility forecasts. Get alerts when icy visitors swing by the inner solar system.",
     },
     {
       icon: Zap,
-      title: "The Absurd Forecast",
+      title: "Absurd Forecast",
       description:
-        "One completely real but utterly ridiculous weather phenomenon from somewhere in the galaxy. Educational despair included.",
+        "One completely real but utterly ridiculous weather phenomenon from somewhere in the galaxy. Iron rain, diamond hail, and worse.",
     },
   ];
 
@@ -229,7 +251,16 @@ export default function DailyRoundsPage() {
               )}
 
               <p className="text-xs text-neutral-500">
-                Delivered daily via iMessage at 0600 galactic standard time.
+                Delivered daily via iMessage at 0600 galactic standard time with the help of{" "}
+                <a
+                  href="https://mrwhiskers.chat/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-primary hover:underline"
+                >
+                  Mr. Whiskers
+                </a>
+                .
               </p>
             </div>
           </div>
@@ -317,22 +348,99 @@ export default function DailyRoundsPage() {
                 </div>
                 <div className="text-left">
                   <h3 className="font-semibold text-white group-hover:text-primary transition-colors">
-                    Developer Integration
+                    How It Works
                   </h3>
                   <p className="text-sm text-neutral-500">
-                    API endpoints & message bus integration
+                    Setup daily delivery & API integration
                   </p>
                 </div>
               </div>
               <ChevronDown className="h-5 w-5 text-neutral-400 group-hover:text-white transition-all group-data-[state=open]:rotate-180" />
             </CollapsibleTrigger>
 
-            <CollapsibleContent className="mt-6 space-y-6">
+            <CollapsibleContent className="mt-6 space-y-8">
+              {/* How It Works */}
+              <div className="space-y-4">
+                <h4 className="font-medium text-white">Architecture</h4>
+                <div className="p-4 rounded-lg border border-white/[0.1] bg-white/[0.02] space-y-4">
+                  <p className="text-sm text-neutral-400">
+                    The Interstellar Weather Bureau provides the data layer. Mr. Whiskers handles message delivery and scheduling.
+                  </p>
+                  <div className="flex flex-col md:flex-row gap-3 text-sm">
+                    <div className="flex-1 p-3 rounded bg-black/30 border border-white/[0.05]">
+                      <p className="text-primary font-medium mb-1">1. IWB compiles report</p>
+                      <p className="text-xs text-neutral-500">
+                        Fetches live data from NASA, weather APIs, and space agencies
+                      </p>
+                    </div>
+                    <div className="flex-1 p-3 rounded bg-black/30 border border-white/[0.05]">
+                      <p className="text-primary font-medium mb-1">2. Whiskers delivers</p>
+                      <p className="text-xs text-neutral-500">
+                        Routes the formatted bulletin to your phone via iMessage
+                      </p>
+                    </div>
+                    <div className="flex-1 p-3 rounded bg-black/30 border border-white/[0.05]">
+                      <p className="text-primary font-medium mb-1">3. Daily at 0600 GST</p>
+                      <p className="text-xs text-neutral-500">
+                        Scheduled job triggers automatically every morning
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Setup Daily Delivery */}
+              <div className="space-y-4">
+                <h4 className="font-medium text-white">Setup Daily Delivery</h4>
+                <div className="p-4 rounded-lg border border-white/[0.1] bg-white/[0.02] space-y-4">
+                  <p className="text-sm text-neutral-400">
+                    To receive the bulletin every day at 0600, ask Mr. Whiskers to set up a scheduled job.
+                    Click below to start a conversation with a pre-configured message:
+                  </p>
+                  <a
+                    href="sms:+17243216167&body=Hey Whiskers! Please set up a daily scheduled job at 0600 to fetch the Interstellar Weather Bulletin from https://interstellar.computer/api/daily-report and send me the formattedMessage. Thanks!"
+                    className="inline-flex items-center gap-2 px-4 py-3 rounded-lg bg-primary/20 border border-primary/30 text-primary hover:bg-primary/30 transition-colors"
+                  >
+                    <Mail className="h-5 w-5" />
+                    <span className="font-medium">Text Mr. Whiskers to Setup Daily Delivery</span>
+                  </a>
+                  <p className="text-xs text-neutral-500">
+                    Opens your iMessage app with a pre-filled request. Whiskers will confirm once your daily bulletin is scheduled.
+                  </p>
+                </div>
+              </div>
+
+              {/* Report Contents */}
+              <div className="space-y-4">
+                <h4 className="font-medium text-white">What's Included</h4>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
+                  {[
+                    { name: "Earth Weather", desc: "Everest, extremes" },
+                    { name: "Ocean Conditions", desc: "Waves, icebergs" },
+                    { name: "Solar Activity", desc: "Flares, CMEs, storms" },
+                    { name: "Near-Earth Objects", desc: "Asteroid approaches" },
+                    { name: "Meteor Showers", desc: "Active & upcoming" },
+                    { name: "Exoplanet Spotlight", desc: "Featured worlds" },
+                    { name: "Mars Weather", desc: "Live from the red planet" },
+                    { name: "Comets", desc: "Perihelion alerts" },
+                    { name: "Absurd Forecast", desc: "Cosmic insanity" },
+                  ].map((item) => (
+                    <div
+                      key={item.name}
+                      className="p-2 rounded-lg border border-white/[0.1] bg-black"
+                    >
+                      <p className="text-sm font-medium text-white">{item.name}</p>
+                      <p className="text-xs text-neutral-500">{item.desc}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
               {/* API Endpoints */}
               <div className="space-y-4">
-                <div className="flex items-center gap-2 text-neutral-300">
+                <div className="flex items-center gap-2 text-white">
                   <Terminal className="h-4 w-4" />
-                  <h4 className="font-medium">API Endpoints</h4>
+                  <h4 className="font-medium">API Reference</h4>
                 </div>
 
                 <div className="space-y-3">
@@ -347,11 +455,11 @@ export default function DailyRoundsPage() {
                       </code>
                     </div>
                     <p className="text-sm text-neutral-400">
-                      Compile and retrieve the daily bulletin without sending. Returns JSON with APOD, solar activity, NEOs, and meteor showers.
+                      Returns the compiled bulletin as JSON. Whiskers fetches this endpoint and sends <code className="text-neutral-300 bg-white/[0.05] px-1 rounded text-xs">formattedMessage</code> to subscribers.
                     </p>
                     <div className="bg-black/50 rounded p-3 overflow-x-auto">
                       <pre className="text-xs text-neutral-400 font-mono">
-{`curl https://your-domain.com/api/daily-report`}
+{`curl https://interstellar.computer/api/daily-report`}
                       </pre>
                     </div>
                   </div>
@@ -367,93 +475,65 @@ export default function DailyRoundsPage() {
                       </code>
                     </div>
                     <p className="text-sm text-neutral-400">
-                      Compile the report and send via iMessage to the specified phone number.
+                      Compile and immediately send a bulletin to a specific phone number via Whiskers.
                     </p>
                     <div className="bg-black/50 rounded p-3 overflow-x-auto">
                       <pre className="text-xs text-neutral-400 font-mono whitespace-pre">
-{`curl -X POST https://your-domain.com/api/daily-report \\
+{`curl -X POST https://interstellar.computer/api/daily-report \\
   -H "Content-Type: application/json" \\
-  -d '{
-    "phoneNumber": "+15551234567"
-  }'`}
+  -d '{"phoneNumber": "+15551234567"}'`}
                       </pre>
-                    </div>
-                    <div className="mt-3 p-3 rounded bg-black/30 border border-white/[0.05]">
-                      <p className="text-xs text-neutral-500 mb-1">Required Parameter</p>
-                      <div className="flex items-center gap-2">
-                        <code className="text-sm text-primary font-mono">phoneNumber</code>
-                        <span className="text-xs text-neutral-400">— Recipient's phone number (e.g. +15551234567)</span>
-                      </div>
                     </div>
                   </div>
                 </div>
               </div>
 
-              {/* Message Bus Integration */}
+              {/* Message Bus */}
               <div className="space-y-4">
-                <div className="flex items-center gap-2 text-neutral-300">
+                <div className="flex items-center gap-2 text-white">
                   <Webhook className="h-4 w-4" />
-                  <h4 className="font-medium">Message Bus Integration</h4>
+                  <h4 className="font-medium">Message Bus</h4>
                 </div>
 
                 <div className="p-4 rounded-lg border border-white/[0.1] bg-white/[0.02] space-y-3">
                   <p className="text-sm text-neutral-400">
-                    Messages are delivered via Mr. Whiskers at{" "}
-                    <code className="text-neutral-300 bg-white/[0.05] px-1.5 py-0.5 rounded text-xs">
-                      mrwhiskers.chat/api/message
-                    </code>
+                    IWB posts to the Whiskers message bus. Whiskers prioritizes and delivers messages via iMessage.
                   </p>
-
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mt-4">
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mt-4">
+                    <div className="p-3 rounded bg-black/30 border border-white/[0.05]">
+                      <p className="text-xs text-neutral-500 mb-1">Endpoint</p>
+                      <code className="text-xs text-primary font-mono">mrwhiskers.chat/api/message</code>
+                    </div>
                     <div className="p-3 rounded bg-black/30 border border-white/[0.05]">
                       <p className="text-xs text-neutral-500 mb-1">Source</p>
-                      <code className="text-sm text-primary font-mono">IWB-daily-report</code>
+                      <code className="text-xs text-primary font-mono">IWB-daily-report</code>
                     </div>
                     <div className="p-3 rounded bg-black/30 border border-white/[0.05]">
                       <p className="text-xs text-neutral-500 mb-1">Payload Type</p>
-                      <code className="text-sm text-primary font-mono">daily-interstellar-bulletin</code>
+                      <code className="text-xs text-primary font-mono">daily-interstellar-bulletin</code>
                     </div>
                   </div>
                 </div>
               </div>
 
-              {/* Report Contents */}
-              <div className="space-y-4">
-                <h4 className="font-medium text-neutral-300">Report Contents</h4>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                  {[
-                    { icon: "🌤️", name: "Local Forecast", desc: "Weather for your coordinates" },
-                    { icon: "☀️", name: "Solar Flares", desc: "Solar activity & CMEs" },
-                    { icon: "🪨", name: "Near-Earth Objects", desc: "Asteroid close approaches" },
-                    { icon: "☄️", name: "Meteor Showers", desc: "Active & upcoming showers" },
-                    { icon: "🔭", name: "Exoplanet Discoveries", desc: "New worlds from Terran telescopes" },
-                    { icon: "🤯", name: "Absurd Forecast", desc: "Real weather that shouldn't exist" },
-                  ].map((item) => (
-                    <div
-                      key={item.name}
-                      className="flex items-center gap-3 p-3 rounded-lg border border-white/[0.1] bg-black"
-                    >
-                      <span className="text-lg">{item.icon}</span>
-                      <div>
-                        <p className="text-sm font-medium text-white">{item.name}</p>
-                        <p className="text-xs text-neutral-500">{item.desc}</p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              <p className="text-xs text-neutral-500 text-center pt-4 border-t border-white/[0.05]">
-                Scheduled jobs can be managed at{" "}
+              <div className="flex flex-col sm:flex-row gap-3 pt-4 border-t border-white/[0.05]">
                 <a
                   href="https://mrwhiskers.chat/scheduled-jobs"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-primary hover:underline"
+                  className="flex-1 text-center px-4 py-2 rounded-lg border border-white/[0.1] text-neutral-400 hover:text-white hover:border-white/[0.2] transition-colors text-sm"
                 >
-                  mrwhiskers.chat/scheduled-jobs
+                  View Scheduled Jobs
                 </a>
-              </p>
+                <a
+                  href="https://mrwhiskers.chat/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex-1 text-center px-4 py-2 rounded-lg border border-white/[0.1] text-neutral-400 hover:text-white hover:border-white/[0.2] transition-colors text-sm"
+                >
+                  Learn about Mr. Whiskers
+                </a>
+              </div>
             </CollapsibleContent>
           </Collapsible>
         </div>
