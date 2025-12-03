@@ -186,7 +186,7 @@ export default function Vehicles() {
               {sortedVehicles.filter(v => v.universe === "Real").map((vehicle, index) => (
                 <div
                   key={index}
-                  className="bg-white/[0.03] border border-white/[0.08] rounded-xl p-4 hover:bg-white/[0.05] hover:border-white/[0.15] transition-all group cursor-pointer flex flex-col h-full"
+                  className="bg-white/10 border border-white/20 rounded-xl p-4 hover:bg-white/15 hover:border-white/30 transition-all group cursor-pointer flex flex-col h-full"
                   onClick={() => setSelectedVehicle(vehicle)}
                 >
                   {/* Header */}
@@ -233,7 +233,7 @@ export default function Vehicles() {
                         {vehicle.tw_liftoff ? vehicle.tw_liftoff.toFixed(2) : '—'}
                       </span>
                     </div>
-                    <Separator className="my-2 bg-white/[0.06]" />
+                    <Separator className="my-2 bg-white/20" />
                     <div className="flex justify-between items-start gap-2">
                       <span className="text-neutral-500">Engine</span>
                       <span className="text-neutral-300 text-right text-xs line-clamp-2 flex-1">
@@ -243,8 +243,8 @@ export default function Vehicles() {
                   </div>
 
                   {/* Destinations */}
-                  <div className="bg-primary/10 border border-primary/20 rounded-lg px-3 py-2 mt-auto">
-                    <p className="text-[10px] md:text-xs text-primary/90 text-center line-clamp-1">
+                  <div className="bg-primary/20 border border-primary/30 rounded-lg px-3 py-2 mt-auto">
+                    <p className="text-[10px] md:text-xs text-primary text-center line-clamp-1">
                       {formatDestinations(vehicle.destinations)}
                     </p>
                   </div>
@@ -255,9 +255,9 @@ export default function Vehicles() {
 
           {/* Divider */}
           <div className="relative py-8">
-            <Separator className="bg-white/[0.1]" />
-            <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-black px-4 py-2 rounded-full border border-white/[0.1]">
-              <span className="text-xs text-neutral-500 uppercase tracking-wider">Speculative</span>
+            <Separator className="bg-white/20" />
+            <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-black px-4 py-2 rounded-full border border-white/20">
+              <span className="text-sm text-neutral-300 uppercase tracking-wider font-medium">Speculative</span>
             </div>
           </div>
 
@@ -273,60 +273,82 @@ export default function Vehicles() {
               </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {sortedVehicles.filter(v => v.universe === "Fiction").map((vehicle, index) => (
-                <div
-                  key={index}
-                  className="bg-purple-500/[0.03] border border-purple-500/[0.1] rounded-xl p-4 hover:bg-purple-500/[0.06] hover:border-purple-500/[0.2] transition-all group cursor-pointer flex flex-col h-full"
-                  onClick={() => setSelectedVehicle(vehicle)}
-                >
-                  {/* Header */}
-                  <div className="mb-3 min-h-[60px]">
-                    <div className="flex items-start justify-between gap-2 mb-1.5">
-                      <h3 className="text-base font-semibold text-white group-hover:text-purple-300 transition-colors line-clamp-1">
-                        {vehicle.name}
+            {/* Group fictional vehicles by franchise */}
+            {(() => {
+              const fictionalVehicles = sortedVehicles.filter(v => v.universe === "Fiction");
+              const franchises = [...new Set(fictionalVehicles.map(v => v.franchise))].sort();
+
+              return franchises.map((franchise, franchiseIndex) => (
+                <div key={franchise} className="space-y-4">
+                  {/* Franchise Header */}
+                  <div className={`${franchiseIndex > 0 ? 'pt-8 md:pt-10' : 'pt-4'}`}>
+                    <div className="flex items-center justify-between py-3 border-b border-white/20">
+                      <h3 className="text-lg md:text-xl font-bold text-white">
+                        {franchise}
                       </h3>
+                      <span className="text-sm text-neutral-400">
+                        {fictionalVehicles.filter(v => v.franchise === franchise).length} ships
+                      </span>
                     </div>
-                    <p className="text-xs text-purple-300/70 line-clamp-1">{vehicle.franchise}</p>
                   </div>
 
-                  {/* Propulsion Info */}
-                  <div className="flex-1 space-y-1.5 text-xs mb-3">
-                    <div className="flex justify-between items-start gap-2">
-                      <span className="text-neutral-500">Propulsion</span>
-                      <span className="text-neutral-300 text-right line-clamp-2 flex-1">
-                        {vehicle.propulsion_or_drive}
-                      </span>
-                    </div>
-                    <Separator className="my-2 bg-purple-500/[0.1]" />
-                    <div className="flex justify-between items-start gap-2">
-                      <span className="text-neutral-500">Energy</span>
-                      <span className="text-neutral-300 text-right line-clamp-2 flex-1">
-                        {vehicle.energy_source}
-                      </span>
-                    </div>
-                    {vehicle.payload_other && (
-                      <>
-                        <Separator className="my-2 bg-purple-500/[0.1]" />
-                        <div className="flex justify-between items-start gap-2">
-                          <span className="text-neutral-500">Payload</span>
-                          <span className="text-neutral-300 text-right line-clamp-2 flex-1">
-                            {vehicle.payload_other}
-                          </span>
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    {fictionalVehicles.filter(v => v.franchise === franchise).map((vehicle, index) => (
+                      <div
+                        key={index}
+                        className="bg-purple-500/10 border border-purple-500/20 rounded-xl p-4 hover:bg-purple-500/15 hover:border-purple-500/30 transition-all group cursor-pointer flex flex-col h-full"
+                        onClick={() => setSelectedVehicle(vehicle)}
+                      >
+                        {/* Header */}
+                        <div className="mb-3 min-h-[50px]">
+                          <h3 className="text-base font-semibold text-white group-hover:text-purple-300 transition-colors line-clamp-2">
+                            {vehicle.name}
+                          </h3>
+                          {vehicle.class_or_variant !== vehicle.name && (
+                            <p className="text-xs text-purple-300/80 mt-1">{vehicle.class_or_variant}</p>
+                          )}
                         </div>
-                      </>
-                    )}
-                  </div>
 
-                  {/* Destinations */}
-                  <div className="bg-purple-500/10 border border-purple-500/20 rounded-lg px-3 py-2 mt-auto">
-                    <p className="text-[10px] md:text-xs text-purple-300/80 text-center line-clamp-1">
-                      {vehicle.destinations}
-                    </p>
+                        {/* Propulsion Info */}
+                        <div className="flex-1 space-y-1.5 text-xs mb-3">
+                          <div className="flex justify-between items-start gap-2">
+                            <span className="text-neutral-500">Propulsion</span>
+                            <span className="text-neutral-300 text-right line-clamp-2 flex-1">
+                              {vehicle.propulsion_or_drive}
+                            </span>
+                          </div>
+                          <Separator className="my-2 bg-purple-500/20" />
+                          <div className="flex justify-between items-start gap-2">
+                            <span className="text-neutral-500">Energy</span>
+                            <span className="text-neutral-300 text-right line-clamp-2 flex-1">
+                              {vehicle.energy_source}
+                            </span>
+                          </div>
+                          {vehicle.payload_other && (
+                            <>
+                              <Separator className="my-2 bg-purple-500/20" />
+                              <div className="flex justify-between items-start gap-2">
+                                <span className="text-neutral-500">Payload</span>
+                                <span className="text-neutral-300 text-right line-clamp-2 flex-1">
+                                  {vehicle.payload_other}
+                                </span>
+                              </div>
+                            </>
+                          )}
+                        </div>
+
+                        {/* Destinations */}
+                        <div className="bg-purple-500/20 border border-purple-500/30 rounded-lg px-3 py-2 mt-auto">
+                          <p className="text-[10px] md:text-xs text-purple-200 text-center line-clamp-1">
+                            {vehicle.destinations}
+                          </p>
+                        </div>
+                      </div>
+                    ))}
                   </div>
                 </div>
-              ))}
-            </div>
+              ));
+            })()}
           </div>
 
           {/* Detail Modal */}
