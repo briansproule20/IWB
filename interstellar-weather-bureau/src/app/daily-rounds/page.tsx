@@ -15,7 +15,16 @@ import {
   Globe,
   Clock,
   ArrowLeft,
+  ChevronDown,
+  Code,
+  Terminal,
+  Webhook,
 } from "lucide-react";
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/ui/collapsible";
 import Link from "next/link";
 
 const BULLETIN_NAMES = [
@@ -237,6 +246,155 @@ export default function DailyRoundsPage() {
               cosmic commute.
             </p>
           </div>
+
+          {/* Developer Info Dropdown */}
+          <Collapsible className="border-t border-white/[0.1] pt-8">
+            <CollapsibleTrigger className="flex items-center justify-between w-full group">
+              <div className="flex items-center gap-3">
+                <div className="p-2 rounded-lg bg-white/[0.05] text-neutral-400 group-hover:text-white transition-colors">
+                  <Code className="h-5 w-5" />
+                </div>
+                <div className="text-left">
+                  <h3 className="font-semibold text-white group-hover:text-primary transition-colors">
+                    Developer Integration
+                  </h3>
+                  <p className="text-sm text-neutral-500">
+                    API endpoints & message bus integration
+                  </p>
+                </div>
+              </div>
+              <ChevronDown className="h-5 w-5 text-neutral-400 group-hover:text-white transition-all group-data-[state=open]:rotate-180" />
+            </CollapsibleTrigger>
+
+            <CollapsibleContent className="mt-6 space-y-6">
+              {/* API Endpoints */}
+              <div className="space-y-4">
+                <div className="flex items-center gap-2 text-neutral-300">
+                  <Terminal className="h-4 w-4" />
+                  <h4 className="font-medium">API Endpoints</h4>
+                </div>
+
+                <div className="space-y-3">
+                  {/* GET endpoint */}
+                  <div className="p-4 rounded-lg border border-white/[0.1] bg-white/[0.02] space-y-3">
+                    <div className="flex items-center gap-2">
+                      <span className="px-2 py-0.5 rounded text-xs font-mono bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
+                        GET
+                      </span>
+                      <code className="text-sm text-neutral-300 font-mono">
+                        /api/daily-report
+                      </code>
+                    </div>
+                    <p className="text-sm text-neutral-400">
+                      Compile and retrieve the daily bulletin without sending. Returns JSON with APOD, solar activity, NEOs, and meteor showers.
+                    </p>
+                    <div className="bg-black/50 rounded p-3 overflow-x-auto">
+                      <pre className="text-xs text-neutral-400 font-mono">
+{`curl https://your-domain.com/api/daily-report`}
+                      </pre>
+                    </div>
+                  </div>
+
+                  {/* POST endpoint */}
+                  <div className="p-4 rounded-lg border border-white/[0.1] bg-white/[0.02] space-y-3">
+                    <div className="flex items-center gap-2">
+                      <span className="px-2 py-0.5 rounded text-xs font-mono bg-blue-500/20 text-blue-400 border border-blue-500/30">
+                        POST
+                      </span>
+                      <code className="text-sm text-neutral-300 font-mono">
+                        /api/daily-report
+                      </code>
+                    </div>
+                    <p className="text-sm text-neutral-400">
+                      Compile the report and send via iMessage to the specified phone number.
+                    </p>
+                    <div className="bg-black/50 rounded p-3 overflow-x-auto">
+                      <pre className="text-xs text-neutral-400 font-mono whitespace-pre">
+{`curl -X POST https://your-domain.com/api/daily-report \\
+  -H "Content-Type: application/json" \\
+  -d '{
+    "phoneNumber": "+15551234567"
+  }'`}
+                      </pre>
+                    </div>
+                    <div className="mt-3 p-3 rounded bg-black/30 border border-white/[0.05]">
+                      <p className="text-xs text-neutral-500 mb-1">Required Parameter</p>
+                      <div className="flex items-center gap-2">
+                        <code className="text-sm text-primary font-mono">phoneNumber</code>
+                        <span className="text-xs text-neutral-400">— Recipient's phone number (e.g. +15551234567)</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Message Bus Integration */}
+              <div className="space-y-4">
+                <div className="flex items-center gap-2 text-neutral-300">
+                  <Webhook className="h-4 w-4" />
+                  <h4 className="font-medium">Message Bus Integration</h4>
+                </div>
+
+                <div className="p-4 rounded-lg border border-white/[0.1] bg-white/[0.02] space-y-3">
+                  <p className="text-sm text-neutral-400">
+                    Messages are delivered via Mr. Whiskers at{" "}
+                    <code className="text-neutral-300 bg-white/[0.05] px-1.5 py-0.5 rounded text-xs">
+                      mrwhiskers.chat/api/message
+                    </code>
+                  </p>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mt-4">
+                    <div className="p-3 rounded bg-black/30 border border-white/[0.05]">
+                      <p className="text-xs text-neutral-500 mb-1">Source</p>
+                      <code className="text-sm text-primary font-mono">IWB-daily-report</code>
+                    </div>
+                    <div className="p-3 rounded bg-black/30 border border-white/[0.05]">
+                      <p className="text-xs text-neutral-500 mb-1">Payload Type</p>
+                      <code className="text-sm text-primary font-mono">daily-interstellar-bulletin</code>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Report Contents */}
+              <div className="space-y-4">
+                <h4 className="font-medium text-neutral-300">Report Contents</h4>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                  {[
+                    { icon: "🌤️", name: "Local Forecast", desc: "Weather for your coordinates" },
+                    { icon: "☀️", name: "Solar Flares", desc: "Solar activity & CMEs" },
+                    { icon: "🪨", name: "Near-Earth Objects", desc: "Asteroid close approaches" },
+                    { icon: "☄️", name: "Meteor Showers", desc: "Active & upcoming showers" },
+                    { icon: "🔭", name: "Exoplanet Discoveries", desc: "New worlds from Terran telescopes" },
+                    { icon: "🤯", name: "Absurd Forecast", desc: "Real weather that shouldn't exist" },
+                  ].map((item) => (
+                    <div
+                      key={item.name}
+                      className="flex items-center gap-3 p-3 rounded-lg border border-white/[0.1] bg-black"
+                    >
+                      <span className="text-lg">{item.icon}</span>
+                      <div>
+                        <p className="text-sm font-medium text-white">{item.name}</p>
+                        <p className="text-xs text-neutral-500">{item.desc}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <p className="text-xs text-neutral-500 text-center pt-4 border-t border-white/[0.05]">
+                Scheduled jobs can be managed at{" "}
+                <a
+                  href="https://mrwhiskers.chat/scheduled-jobs"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-primary hover:underline"
+                >
+                  mrwhiskers.chat/scheduled-jobs
+                </a>
+              </p>
+            </CollapsibleContent>
+          </Collapsible>
         </div>
       </div>
     </DotBackground>
