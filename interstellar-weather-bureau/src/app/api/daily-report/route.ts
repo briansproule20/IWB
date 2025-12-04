@@ -277,14 +277,8 @@ async function compileReport(baseUrl: string): Promise<DailyReportPayload> {
     const temp = data.weather?.current?.temperature_2m;
     if (temp !== undefined) {
       const tempF = Math.round(temp * 9/5 + 32);
-      if (hottest === null) {
+      if (!hottest || tempF > hottest.tempF) {
         hottest = { location: 'Death Valley', tempF };
-      } else {
-        // Store in const to help TypeScript with type narrowing
-        const existingHottest: { location: string; tempF: number } = hottest;
-        if (tempF > existingHottest.tempF) {
-          hottest = { location: 'Death Valley', tempF };
-        }
       }
     }
   }
@@ -295,14 +289,8 @@ async function compileReport(baseUrl: string): Promise<DailyReportPayload> {
     const temp = data.weather?.current?.temperature_2m || data.current?.temperature_2m;
     if (temp !== undefined) {
       const tempF = Math.round(temp * 9/5 + 32);
-      if (hottest === null) {
+      if (!hottest || tempF > hottest.tempF) {
         hottest = { location: 'Danakil Depression', tempF };
-      } else {
-        // Store in const to help TypeScript with type narrowing
-        const existingHottest: { location: string; tempF: number } = hottest;
-        if (tempF > existingHottest.tempF) {
-          hottest = { location: 'Danakil Depression', tempF };
-        }
       }
     }
   }
@@ -623,12 +611,11 @@ function formatReportForMessage(report: DailyReportPayload): string {
   }
   lines.push('');
 
-  // 🔴 Mars Weather (archive from InSight mission, ended Dec 2022)
+  // 🔴 Mars Weather (if available)
   if (report.marsWeather.available) {
-    lines.push(`🔴 MARS INSIGHT ARCHIVE (Sol ${report.marsWeather.solDate})`);
-    lines.push(`• Elysium Planitia • Mission ended Dec 2022`);
+    lines.push(`🔴 MARS WEATHER (Sol ${report.marsWeather.solDate})`);
     if (report.marsWeather.tempHighC && report.marsWeather.tempLowC) {
-      lines.push(`• High: ${Math.round(report.marsWeather.tempHighC)}°C / Low: ${Math.round(report.marsWeather.tempLowC)}°C`);
+      lines.push(`• High: ${report.marsWeather.tempHighC}°C / Low: ${report.marsWeather.tempLowC}°C`);
     }
     lines.push('');
   }

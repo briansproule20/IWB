@@ -400,7 +400,7 @@ export default function DailyRoundsPage() {
                     Click below to start a conversation with a pre-configured message:
                   </p>
                   <a
-                    href="sms:+17243216167&body=Hey Whiskers! Please set up a daily scheduled job at 0600 to fetch the Interstellar Weather Bulletin from https://interstellar.computer/api/daily-report and send me the formattedMessage. Thanks!"
+                    href="sms:+17243216167&body=Hey Whiskers! Please set up a daily scheduled job at 0600 to fetch the Interstellar Weather Bulletin from https://iwb-one.vercel.app/api/daily-report and send me the formattedMessage. Thanks!"
                     className="inline-flex items-center gap-2 px-4 py-3 rounded-lg bg-primary/20 border border-primary/30 text-primary hover:bg-primary/30 transition-colors"
                   >
                     <Mail className="h-5 w-5" />
@@ -461,7 +461,7 @@ export default function DailyRoundsPage() {
                     </p>
                     <div className="bg-black/50 rounded p-3 overflow-x-auto">
                       <pre className="text-xs text-neutral-400 font-mono">
-{`curl https://interstellar.computer/api/daily-report`}
+{`curl https://iwb-one.vercel.app/api/daily-report`}
                       </pre>
                     </div>
                   </div>
@@ -481,7 +481,7 @@ export default function DailyRoundsPage() {
                     </p>
                     <div className="bg-black/50 rounded p-3 overflow-x-auto">
                       <pre className="text-xs text-neutral-400 font-mono whitespace-pre">
-{`curl -X POST https://interstellar.computer/api/daily-report \\
+{`curl -X POST https://iwb-one.vercel.app/api/daily-report \\
   -H "Content-Type: application/json" \\
   -d '{"phoneNumber": "+15551234567"}'`}
                       </pre>
