@@ -277,8 +277,13 @@ async function compileReport(baseUrl: string): Promise<DailyReportPayload> {
     const temp = data.weather?.current?.temperature_2m;
     if (temp !== undefined) {
       const tempF = Math.round(temp * 9/5 + 32);
-      if (hottest === null || tempF > hottest.tempF) {
+      if (hottest === null) {
         hottest = { location: 'Death Valley', tempF };
+      } else {
+        const currentHottest: { location: string; tempF: number } = hottest;
+        if (tempF > currentHottest.tempF) {
+          hottest = { location: 'Death Valley', tempF };
+        }
       }
     }
   }
@@ -289,8 +294,13 @@ async function compileReport(baseUrl: string): Promise<DailyReportPayload> {
     const temp = data.weather?.current?.temperature_2m || data.current?.temperature_2m;
     if (temp !== undefined) {
       const tempF = Math.round(temp * 9/5 + 32);
-      if (hottest === null || tempF > hottest.tempF) {
+      if (hottest === null) {
         hottest = { location: 'Danakil Depression', tempF };
+      } else {
+        const currentHottest: { location: string; tempF: number } = hottest;
+        if (tempF > currentHottest.tempF) {
+          hottest = { location: 'Danakil Depression', tempF };
+        }
       }
     }
   }
